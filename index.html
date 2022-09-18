@@ -4,7 +4,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>loading...</title>
+        <title>Study Tool</title>
 
         <style>
             body {
@@ -15,23 +15,20 @@
                 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             }
 
-            input {
+            select {
                 border: 2px solid #222;
-                border-radius: 8px;
-                padding: 10px;
-                position: absolute;
-                outline: none;
-                bottom: 60px;
-                transform: translate(-50%);
+                border-radius: 10px;
+                background-color: white;
+                padding: 5px;
+                font-size: 12pt;
+                margin-top: 10px;
+                width: 300px;
             }
-            input:hover, input:focus {
-                background-color: cadetblue;
-            }
-
             button {
                 border: 2px solid #222;
                 border-radius: 8px;
                 padding: 10px;
+                left: 50%;
                 transform: translate(-50%);
                 position: absolute;
                 bottom: 10px;
@@ -42,20 +39,8 @@
             button:hover {
                 background-color: cadetblue;
             }
-
-            p {
-                font-size: 18pt;
-                font-weight: 700;
-            }
-
-            .progress {
-                position: absolute;
-                top: 200px;
-                transform: translate(-50%);
-                margin-left: 50%;
-            }
-
-            #question {
+            
+            #main {
                 position: absolute;
                 text-align: center;
                 width: 400px;
@@ -66,14 +51,6 @@
                 margin-left: 50%;
                 top: 50%;
                 transform: translate(-50%, -50%);
-            }
-            #corrections {
-                position: absolute;
-                top: calc(50% + 200px);
-                left: 50%;
-                transform: translate(-50%);
-                font-size: 14pt;
-                color: #eb4034;
             }
             #description {
                 position: absolute;
@@ -90,143 +67,39 @@
                 transform: translate(-50%);
                 color: #222;
             }
-            #stillWorking {
-                margin-top: 50px;
-                color: #fcba03;
-            }
-            #mastered {
-                color: #32a852;
+            #errors {
+                position: absolute;
+                top: calc(50% + 200px);
+                left: 50%;
+                transform: translate(-50%);
+                font-size: 14pt;
+                color: #eb4034;
             }
         </style>
     </head>
 
     <body>
-        <h1 id="title"></h1>
-        <p id="description"></p>
-        <div id="question">
-            <p></p>
-            <input type="text">
-            <br>
-            <button onclick="submitQuestion();">Submit</button>
-        </div>
-        <p id="corrections"></p>
+        <h1 id="title">Study Tool</h1>
+        <p id="description">Select a list to start studying</p>
 
-        <p class="progress" id="mastered"></p>
-        <p class="progress" id="stillWorking"></p>
+        <div id="main">
+            <select>
+                <option selected disabled>lists</option>
+                <option value="classes/language/spanish/spanish-3-1.1.json">Spanish 3 - Stem changing verbs definitions</option>
+                <option value="classes/language/spanish/spanish-3-1.2.json">Spanish 3 - Stem changing verbs conjugations</option>
+            </select>
+            
+            <button onclick="loadStudySet();">Study</button>
+        </div>
+        <p id="errors"></p>
 
         <script>
-            const question = document.getElementById('question');
-            const corrections = document.getElementById('corrections');
-
-            let lastQuestion;
-            let questionBank;
-            let questionBankKeys;
-            let questions = [];
-            let questionsCount;
-
-            fetch('classes/language/spanish/spanish-3-1.1.json').then((response) => response.json()).then((data) => {
-                questionBank = data.questions;
-                questionBankKeys = Object.keys(questionBank);
-                questionsCount = questionBankKeys.length
-
-                document.getElementById('description').innerText = data.description;
-                document.getElementById('title').innerText = data.title;
-                document.title = data.title;
-
-                if (localStorage.getItem('questions')) {
-                    questions = JSON.parse(localStorage.getItem('questions'));
-                }
-
-                newQuestion();
-                updateProgress();
-            });
-
-            window.addEventListener('unload', () => {
-                localStorage.setItem('questions', JSON.stringify(questions));
-            });
-            window.addEventListener('keypress', (e) => {
-                if (e.key == 'Enter') submitQuestion();
-            });
-
-            function newQuestion() {
-                let correct = questions.filter(element => element.correct === true).length;
-
-                if (correct == questionsCount) {
-                    question.children[1].style.display = 'none';
-                    question.children[3].innerText = 'Restart'
-                    question.children[3].setAttribute('onclick', 'restart()');
-                    question.children[0].style.color = '#32a852';
-                    question.children[0].innerText = 'You have answered all questions correctly. Click below to restart and practice again';
-                    return;
-                }
-
-                let randIndex = Math.floor(Math.random() * questionBankKeys.length);
+            function loadStudySet() {
+                let set = document.getElementById('main').children[0].value;
                 
-                let questionText = questionBankKeys[randIndex];
-                let exists = questions.find(element => element.question == questionText);
-
-                if (exists && exists.correct == true) {
-                    return newQuestion();
-                } else if (exists && exists.correct == false) {
-                    questions.splice(questions.indexOf(exists), 1)
-                }
-
-                question.children[0].innerText = questionText;
-                lastQuestion = questionText;
-
-                // save question to list
-                questions.push({ question: questionText, answer: questionBank[questionBankKeys[randIndex]] });
-            }
-            function submitQuestion() {
-                let found = questions.find(element => element.question == lastQuestion);
-                let index = questions.indexOf(found);
-                let input = question.children[1].value;
-                console.log(lastQuestion)
-
-                if (input != '' && input == found.answer) {
-                    questions[index].correct = true;
-
-                    question.children[1].value = '';
-                    question.style.backgroundColor = '#32a852';
-
-                    newQuestion();
-
-                    setTimeout(() => {
-                        question.style.backgroundColor = '';
-                    }, 300);
-                } else {
-                    questions[index].correct = false;
-                    
-                    corrections.innerText = `The correct answer for ${found.question} was ${found.answer} `;
-                    question.children[1].value = '';
-                    question.style.backgroundColor = '#eb4034';
-
-                    newQuestion();
-
-                    setTimeout(() => {
-                        question.style.backgroundColor = '';
-                    }, 300);
-
-                    setTimeout(() => {
-                        corrections.innerText = '';
-                    }, 3000);
-                }
+                if (set == 'lists') return document.getElementById('errors').innerText = 'you must select a list to continue.';
                 
-                updateProgress();
-            }
-            function updateProgress() {
-                let mastered = document.getElementById('mastered');
-                let stillWorking = document.getElementById('stillWorking');
-
-                let correct = questions.filter(element => element.correct === true).length;
-                let incorrect = questionsCount - correct;
-
-                mastered.innerText = `Mastered: ${correct}`;
-                stillWorking.innerText = `Still working on: ${incorrect}`;
-            }
-            function restart() {
-                questions = [];
-                location.reload();
+                location.assign(`study.html?questions=${set}`);
             }
         </script>
     </body>

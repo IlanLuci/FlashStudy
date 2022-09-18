@@ -1,0 +1,250 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>loading...</title>
+
+        <style>
+            body {
+                background-color: whitesmoke;
+                color: #222;
+                margin: 0;
+                padding: 0;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+
+            input {
+                border: 2px solid #222;
+                border-radius: 8px;
+                padding: 10px;
+                position: absolute;
+                outline: none;
+                bottom: 60px;
+                transform: translate(-50%);
+            }
+            input:hover, input:focus {
+                background-color: cadetblue;
+            }
+
+            button {
+                border: 2px solid #222;
+                border-radius: 8px;
+                padding: 10px;
+                transform: translate(-50%);
+                position: absolute;
+                bottom: 10px;
+                cursor: pointer;
+                background-color: white;
+                outline: none;
+            }
+            button:hover {
+                background-color: cadetblue;
+            }
+
+            p {
+                font-size: 18pt;
+                font-weight: 700;
+            }
+
+            .progress {
+                position: absolute;
+                top: 200px;
+                transform: translate(-50%);
+                margin-left: 50%;
+            }
+
+            #question {
+                position: absolute;
+                text-align: center;
+                width: 400px;
+                transition: 0.3s;
+                height: 400px;
+                border: 3px solid #222;
+                border-radius: 8px;
+                margin-left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+            #corrections {
+                position: absolute;
+                top: calc(50% + 200px);
+                left: 50%;
+                transform: translate(-50%);
+                font-size: 14pt;
+                color: #eb4034;
+            }
+            #description {
+                position: absolute;
+                top: calc(50% - 280px);
+                left: 50%;
+                transform: translate(-50%);
+                font-size: 14pt;
+                color: #222;
+            }
+            #title {
+                position: absolute;
+                top: 30px;
+                left: 50%;
+                transform: translate(-50%);
+                color: #222;
+            }
+            #stillWorking {
+                margin-top: 50px;
+                color: #fcba03;
+            }
+            #mastered {
+                color: #32a852;
+            }
+            #back {
+                position: fixed;
+                left: 10px;
+                top: 10px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            #back:hover {
+                background-color: cadetblue;
+            }
+        </style>
+    </head>
+
+    <body>
+        <svg onclick="location.href = 'index.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+
+        <h1 id="title"></h1>
+        <p id="description"></p>
+        <div id="question">
+            <p></p>
+            <input type="text">
+            <br>
+            <button onclick="submitQuestion();">Submit</button>
+        </div>
+        <p id="corrections"></p>
+
+        <p class="progress" id="mastered"></p>
+        <p class="progress" id="stillWorking"></p>
+
+        <script>
+            const question = document.getElementById('question');
+            const corrections = document.getElementById('corrections');
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const questionsListUrl = urlParams.get('questions');
+
+            let lastQuestion;
+            let questionBank;
+            let questionBankKeys;
+            let questions = [];
+            let questionsCount;
+
+            fetch(questionsListUrl).then((response) => response.json()).then((data) => {
+                questionBank = data.questions;
+                questionBankKeys = Object.keys(questionBank);
+                questionsCount = questionBankKeys.length
+
+                document.getElementById('description').innerText = data.description;
+                document.getElementById('title').innerText = data.title;
+                document.title = data.title;
+
+                if (localStorage.getItem('questions')) {
+                    questions = JSON.parse(localStorage.getItem('questions'));
+                }
+
+                newQuestion();
+                updateProgress();
+            });
+
+            window.addEventListener('unload', () => {
+                localStorage.setItem('questions', JSON.stringify(questions));
+            });
+            window.addEventListener('keypress', (e) => {
+                if (e.key == 'Enter') submitQuestion();
+            });
+
+            function newQuestion() {
+                let correct = questions.filter(element => element.correct === true).length;
+
+                if (correct == questionsCount) {
+                    question.children[1].style.display = 'none';
+                    question.children[3].innerText = 'Restart'
+                    question.children[3].setAttribute('onclick', 'restart()');
+                    question.children[0].style.color = '#32a852';
+                    question.children[0].innerText = 'You have answered all questions correctly. Click below to restart and practice again';
+                    return;
+                }
+
+                let randIndex = Math.floor(Math.random() * questionBankKeys.length);
+                
+                let questionText = questionBankKeys[randIndex];
+                let exists = questions.find(element => element.question == questionText);
+
+                if (exists && exists.correct == true) {
+                    return newQuestion();
+                } else if (exists && exists.correct == false) {
+                    questions.splice(questions.indexOf(exists), 1)
+                }
+
+                question.children[0].innerText = questionText;
+                lastQuestion = questionText;
+
+                // save question to list
+                questions.push({ question: questionText, answer: questionBank[questionBankKeys[randIndex]] });
+            }
+            function submitQuestion() {
+                let found = questions.find(element => element.question == lastQuestion);
+                let index = questions.indexOf(found);
+                let input = question.children[1].value;
+                console.log(lastQuestion)
+
+                if (input != '' && input == found.answer) {
+                    questions[index].correct = true;
+
+                    question.children[1].value = '';
+                    question.style.backgroundColor = '#32a852';
+
+                    newQuestion();
+
+                    setTimeout(() => {
+                        question.style.backgroundColor = '';
+                    }, 300);
+                } else {
+                    questions[index].correct = false;
+                    
+                    corrections.innerText = `The correct answer for ${found.question} was ${found.answer} `;
+                    question.children[1].value = '';
+                    question.style.backgroundColor = '#eb4034';
+
+                    newQuestion();
+
+                    setTimeout(() => {
+                        question.style.backgroundColor = '';
+                    }, 300);
+
+                    setTimeout(() => {
+                        corrections.innerText = '';
+                    }, 3000);
+                }
+                
+                updateProgress();
+            }
+            function updateProgress() {
+                let mastered = document.getElementById('mastered');
+                let stillWorking = document.getElementById('stillWorking');
+
+                let correct = questions.filter(element => element.correct === true).length;
+                let incorrect = questionsCount - correct;
+
+                mastered.innerText = `Mastered: ${correct}`;
+                stillWorking.innerText = `Still working on: ${incorrect}`;
+            }
+            function restart() {
+                questions = [];
+                location.reload();
+            }
+        </script>
+    </body>
+</html>
