@@ -1,0 +1,183 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>loading...</title>
+
+        <style>
+            body {
+                background-color: whitesmoke;
+                color: #222;
+                margin: 0;
+                padding: 0;
+            }
+
+            input {
+                border: 2px solid #222;
+                border-radius: 8px;
+                padding: 10px;
+                position: absolute;
+                outline: none;
+                bottom: 60px;
+                transform: translate(-50%);
+            }
+            input:hover, input:focus {
+                background-color: cadetblue;
+            }
+
+            button {
+                border: 2px solid #222;
+                border-radius: 8px;
+                padding: 10px;
+                transform: translate(-50%);
+                position: absolute;
+                bottom: 10px;
+                cursor: pointer;
+                background-color: white;
+                outline: none;
+            }
+            button:hover {
+                background-color: cadetblue;
+            }
+
+            p {
+                font-size: 18pt;
+                font-weight: 700;
+            }
+
+            #question {
+                position: absolute;
+                text-align: center;
+                width: 20%;
+                transition: 0.3s;
+                height: 400px;
+                border: 3px solid #222;
+                border-radius: 8px;
+                margin-left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+            #corrections {
+                position: absolute;
+                top: calc(50% + 200px);
+                left: 50%;
+                transform: translate(-50%);
+                font-size: 14pt;
+                color: #eb4034;
+            }
+            #description {
+                position: absolute;
+                top: calc(50% - 280px);
+                left: 50%;
+                transform: translate(-50%);
+                font-size: 14pt;
+                color: #222;
+            }
+            #title {
+                position: absolute;
+                top: 30px;
+                left: 50%;
+                transform: translate(-50%);
+                color: #222;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1 id="title"></h1>
+        <p id="description"></p>
+        <div id="question">
+            <p></p>
+            <input type="text">
+            <br>
+            <button onclick="submitQuestion();">Submit</button>
+        </div>
+        <p id="corrections"></p>
+
+        <script>
+            const question = document.getElementById('question');
+            const corrections = document.getElementById('corrections')
+
+            let lastAnswer;
+            let questionBank;
+            let questionBankKeys;
+            let questions = [];
+
+            fetch('classes/language/spanish/spanish-3-1.1.json').then((response) => response.json()).then((data) => {
+                questionBank = data.questions;
+                questionBankKeys = Object.keys(questionBank);
+
+                document.getElementById('description').innerText = data.description;
+                document.getElementById('title').innerText = data.title;
+                document.title = data.title;
+
+                if (localStorage.getItem('questions')) {
+                    questions = JSON.parse(localStorage.getItem('questions'));
+                }
+
+                newQuestion();
+            });
+
+            window.addEventListener('unload', () => {
+                localStorage.setItem('questions', JSON.stringify(questions));
+            });
+            window.addEventListener('keypress', (e) => {
+                if (e.key == 'Enter') submitQuestion();
+            });
+
+            function newQuestion() {
+                let randIndex = Math.floor(Math.random() * questionBankKeys.length - 1);
+                let questionText = questionBankKeys[randIndex];
+                let exists = questions.find(element => element.question == questionText);
+
+                if (exists && exists.correct == true) {
+                    return newQuestion();
+                }
+
+                question.children[0].innerText = questionText;
+                lastAnswer = questionBank[questionBankKeys[randIndex]];
+
+                // save question to list
+                questions.push({ question: questionText, answer: questionBank[questionBankKeys[randIndex]] });
+            }
+            function submitQuestion() {
+                let input = question.children[1].value;
+
+                if (input != '' && input == lastAnswer) {
+                    let index = questions.indexOf(questions.find(element => element.answer == lastAnswer));
+                    
+                    questions[index].correct = true;
+
+                    question.children[1].value = '';
+                    question.style.backgroundColor = '#32a852';
+
+                    newQuestion();
+
+                    setTimeout(() => {
+                        question.style.backgroundColor = '';
+                    }, 300);
+                } else {
+                    let index = questions.indexOf(questions.find(element => element.answer == lastAnswer));
+
+                    questions[index].correct = false;
+                    
+                    corrections.innerText = `The correct answer for ${questions[index].question} was ${lastAnswer} `;
+                    question.children[1].value = '';
+                    question.style.backgroundColor = '#eb4034';
+
+                    newQuestion();
+
+                    setTimeout(() => {
+                        question.style.backgroundColor = '';
+                    }, 300);
+
+                    setTimeout(() => {
+                        corrections.innerText = '';
+                    }, 3000);
+                }
+            }
+        </script>
+    </body>
+</html>
