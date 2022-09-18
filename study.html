@@ -150,8 +150,8 @@
                 document.getElementById('title').innerText = data.title;
                 document.title = data.title;
 
-                if (localStorage.getItem('questions')) {
-                    questions = JSON.parse(localStorage.getItem('questions'));
+                if (localStorage.getItem(questionsListUrl)) {
+                    questions = JSON.parse(localStorage.getItem(questionsListUrl));
                 }
 
                 newQuestion();
@@ -159,7 +159,7 @@
             });
 
             window.addEventListener('unload', () => {
-                localStorage.setItem('questions', JSON.stringify(questions));
+                localStorage.setItem(questionsListUrl, JSON.stringify(questions));
             });
             window.addEventListener('keypress', (e) => {
                 if (e.key == 'Enter') submitQuestion();
