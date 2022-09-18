@@ -128,7 +128,8 @@
             });
 
             function newQuestion() {
-                let randIndex = Math.floor(Math.random() * questionBankKeys.length - 1);
+                let randIndex = Math.floor(Math.random() * (questionBankKeys.length - 1) + 1);
+                console.log(randIndex)
                 let questionText = questionBankKeys[randIndex];
                 let exists = questions.find(element => element.question == questionText);
 
