@@ -39,6 +39,9 @@
             button:hover {
                 background-color: cadetblue;
             }
+            a {
+                color: black;
+            }
             
             #main {
                 position: absolute;
@@ -75,6 +78,13 @@
                 font-size: 14pt;
                 color: #eb4034;
             }
+            #accents {
+                position: absolute;
+                top: calc(50% + 250px);
+                left: 50%;
+                transform: translate(-50%);
+                font-size: 14pt;
+            }
         </style>
     </head>
 
@@ -92,6 +102,7 @@
             <button onclick="loadStudySet();">Study</button>
         </div>
         <p id="errors"></p>
+        <p id="accents">click <a href="accents.html">here</a> for the accents copy-paste tool</p>
 
         <script>
             function loadStudySet() {
