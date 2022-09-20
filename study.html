@@ -141,6 +141,11 @@
             const urlParams = new URLSearchParams(queryString);
             const questionsListUrl = urlParams.get('questions');
 
+            if (!questionsListUrl) {
+                alert('invalid list');
+                location.href = 'index.html';
+            }
+
             let lastQuestion;
             let questionBank;
             let questionBankKeys;
