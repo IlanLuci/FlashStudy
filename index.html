@@ -29,6 +29,7 @@
                 border-radius: 8px;
                 padding: 10px;
                 left: 50%;
+                bottom: 10px;
                 transform: translate(-50%);
                 position: absolute;
                 bottom: 10px;
@@ -41,6 +42,10 @@
             }
             a {
                 color: black;
+            }
+
+            .button {
+                bottom: calc(100% - 100px);
             }
             
             #main {
@@ -90,22 +95,37 @@
 
     <body>
         <h1 id="title">Study Tool</h1>
-        <p id="description">Select a list to start studying.</p>
+        <p id="description">Select a set to start studying.</p>
 
         <div id="main">
             <select>
-                <option selected disabled>lists</option>
+                <option selected disabled>sets</option>
                 <option value="lists/spanish-3-1.1.json">Spanish 3 - Stem changing verbs definitions</option>
                 <option value="lists/spanish-3-1.2.json">Spanish 3 - Stem changing verbs conjugations</option>
                 <option value="lists/spanish-3-2.1.json">Spanish 3 - Present-Tense irregular verbs definitions</option>
             </select>
             
+            <button class="button" onclick="location.href = 'create.html'">Create a study set</button>
             <button onclick="loadStudySet();">Study</button>
         </div>
         <p id="errors"></p>
         <p id="accents">click <a href="accents.html">here</a> for the accents copy-paste tool</p>
 
         <script>
+            window.addEventListener('load', () => {
+                let main = document.getElementById('main')
+                let sets = JSON.parse(localStorage.getItem('sets'));
+
+                if (sets) {
+                    for (set in sets) {
+                        let ele = document.createElement('option');
+                        ele.value = sets[set];
+                        ele.innerText = sets[set].slice(41, sets[set].length - 5)
+                        main.children[0].insertBefore(ele, main.children[0].children[0]);
+                    }
+                }
+            });
+
             function loadStudySet() {
                 let set = document.getElementById('main').children[0].value;
                 
