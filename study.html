@@ -205,7 +205,7 @@
                 let index = questions.indexOf(found);
                 let input = question.children[1].value;
 
-                if (input != '' && input == found.answer) {
+                if (input != '' && input.trim() == found.answer) {
                     questions[index].correct = true;
 
                     question.children[1].value = '';
