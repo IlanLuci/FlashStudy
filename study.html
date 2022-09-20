@@ -50,7 +50,7 @@
 
             .progress {
                 position: absolute;
-                top: 200px;
+                top: 80px;
                 transform: translate(-50%);
                 margin-left: 50%;
             }
@@ -106,6 +106,12 @@
             }
             #back:hover {
                 background-color: cadetblue;
+            }
+
+            @media (max-height: 900px) {
+                .progress {
+                    top: calc(50% + 220px);
+                }
             }
         </style>
     </head>
@@ -198,7 +204,6 @@
                 let found = questions.find(element => element.question == lastQuestion);
                 let index = questions.indexOf(found);
                 let input = question.children[1].value;
-                console.log(lastQuestion)
 
                 if (input != '' && input == found.answer) {
                     questions[index].correct = true;
