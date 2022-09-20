@@ -141,7 +141,7 @@
             const urlParams = new URLSearchParams(queryString);
             const questionsListUrl = urlParams.get('questions');
 
-            if (!questionsListUrl) {
+            if (!questionsListUrl || questionsListUrl == 'sets') {
                 alert('invalid list');
                 location.href = 'index.html';
             }
