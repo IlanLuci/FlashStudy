@@ -1,0 +1,208 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>loading...</title>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1939117506678773" crossorigin="anonymous"></script>
+
+        <style>
+            body {
+                background-color: whitesmoke;
+                color: #222;
+                margin: 0;
+                padding: 0;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+
+            .fold-corner-card {
+                margin: 2em;
+                padding: 2em;
+            }
+
+            .fold-corner-card {
+                background: -webkit-linear-gradient(225deg, transparent 50%, #C9CCD4 50%), -webkit-linear-gradient(45deg, whitesmoke, whitesmoke), -webkit-linear-gradient(135deg, whitesmoke, whitesmoke), -webkit-linear-gradient(225deg, transparent 25px, whitesmoke 10px);
+                -webkit-background-size: 40px 40px, 0 0, 0 0, 100% 100%;
+                -moz-background-size: 40px 40px, 0 0, 0 0, 100% 100%;
+                background-size: 40px 40px, 0 0, 0 0, 100% 100%;
+                background-position: 100% 0, 0 0, 100% 100%, 100% 0;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: -32;
+                right: -32;
+            }
+
+            button {
+                border: 2px solid #222;
+                border-radius: 8px;
+                padding: 10px;
+                transform: translate(-50%);
+                position: absolute;
+                bottom: 10px;
+                cursor: pointer;
+                background-color: white;
+                outline: none;
+            }
+            button:hover {
+                background-color: cadetblue;
+            }
+
+            p {
+                font-size: 18pt;
+                font-weight: 700;
+                margin-top: 50%;
+                transform: translate(0, -50%);
+                -ms-user-select: none;
+                -moz-user-select: none;
+                -khtml-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+
+            #question {
+                position: absolute;
+                text-align: center;
+                width: 400px;
+                transition: 0.3s;
+                height: 400px;
+                border: 3px solid #222;
+                cursor: pointer;
+                border-radius: 8px;
+                margin-left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+            #title {
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                transform: translate(-50%);
+                color: #222;
+                -ms-user-select: none;
+                -moz-user-select: none;
+                -khtml-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+            #directions {
+                position: fixed;
+                top: 200px;
+                left: 50%;
+                transform: translate(-50%);
+                margin-top: 0;
+            }
+
+            #back {
+                position: fixed;
+                left: 10px;
+                top: 10px;
+                border-radius: 8px;
+            }
+            #previous {
+                position: absolute;
+                left: 20px;
+                top: 50%;
+            }
+            #next {
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: rotate(180deg);
+            }
+            svg {
+                cursor: pointer;
+            }
+            svg:hover {
+                background-color: cadetblue;
+                border-radius: 8px;
+            }
+
+            @media (max-height: 900px) {
+                .progress {
+                    top: calc(50% + 220px);
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <svg onclick="location.href = 'index.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+
+        <h1 id="title"></h1>
+
+        <svg onclick="previous()" id="previous" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+
+        <div id="question" onclick="flip()">
+            <p></p>
+            
+            <div class="fold-corner-card"></div>
+        </div>
+
+        <svg onclick="next()" id="next" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+
+        <p id="directions">flip over for answer</p>
+
+        <script>
+            const question = document.getElementById('question');
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const questionsListUrl = urlParams.get('questions');
+
+            if (!questionsListUrl || questionsListUrl == 'sets') {
+                alert('invalid list');
+                location.href = 'index.html';
+            }
+
+            let questions;
+            let questionKeys;
+            let questionsCount;
+            let flipped = false;
+            let curQuestion = 0;
+
+            fetch(questionsListUrl).then((response) => response.json()).then((data) => {
+                questions = data.questions;
+                questionKeys = Object.keys(questions);
+                questionsCount = questionKeys.length;
+
+                document.getElementById('title').innerText = data.title;
+                document.title = data.title;
+
+                question.children[0].innerText = questions[questionKeys[curQuestion]];
+            });
+
+            function flip() {
+                if (flipped) {
+                    question.children[0].innerText = questions[questionKeys[curQuestion]];
+                } else {
+                    question.children[0].innerText = questionKeys[curQuestion];
+                }
+
+                flipped = !flipped;
+            }
+
+            function previous() {
+                if (curQuestion == 0) return;
+
+                curQuestion -= 1;
+
+                question.children[0].innerText = questions[questionKeys[curQuestion]];
+            }
+            function next() {
+                if (curQuestion == questionsCount) return;
+
+                curQuestion += 1;
+
+                question.children[0].innerText = questions[questionKeys[curQuestion]];
+            }
+        </script>
+    </body>
+</html>

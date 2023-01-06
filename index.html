@@ -26,18 +26,16 @@
                 margin-top: 10px;
                 width: 300px;
             }
-            button {
-                border: 2px solid #222;
-                border-radius: 8px;
-                padding: 10px;
-                left: 50%;
-                bottom: 10px;
-                transform: translate(-50%);
+            .actions {
+                width: 100%;
+                text-align: center;
                 position: absolute;
+                text-align: center;
                 bottom: 10px;
-                cursor: pointer;
-                background-color: white;
-                outline: none;
+            }
+            .actions button {
+                bottom: 10px;
+                display: inline-block;
             }
             button:hover {
                 background-color: cadetblue;
@@ -46,8 +44,20 @@
                 color: black;
             }
 
-            .button {
+            button {
+                border-radius: 8px;
+                padding: 10px;
+                cursor: pointer;
+                background-color: white;
+                outline: none;
+                border: 2px solid #222;
+            }
+
+            .create {
                 bottom: calc(100% - 100px);
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%);
             }
             
             #main {
@@ -107,11 +117,15 @@
                 <option value="lists/spanish-3-2.1.json">Spanish 3 - Present-Tense irregular verbs definitions</option>
             </select>
             
-            <button class="button" onclick="location.href = 'create.html'">Create a study set</button>
-            <button onclick="loadStudySet();">Study</button>
+            <button class="create" onclick="location.href = 'create.html'">Create a study set</button>
+
+            <div class="actions">
+                <button onclick="loadFlashcards();">Study With Flashcards</button>
+                <button onclick="loadStudySet();">Study with Questions</button>
+            </div>
         </div>
         <p id="errors"></p>
-        <p id="accents">click <a href="accents.html">here</a> for the accents copy-paste tool</p>
+        <p id="accents">click <a href="accents.html">here</a> for the spanish accents copy-paste tool</p>
 
         <script>
             window.addEventListener('load', () => {
@@ -131,9 +145,16 @@
             function loadStudySet() {
                 let set = document.getElementById('main').children[0].value;
                 
-                if (set == 'lists') return document.getElementById('errors').innerText = 'you must select a list to continue.';
+                if (set == 'sets') return document.getElementById('errors').innerText = 'you must select a list to continue.';
                 
                 location.assign(`study.html?questions=${set}`);
+            }
+            function loadFlashcards() {
+                let set = document.getElementById('main').children[0].value;
+                
+                if (set == 'sets') return document.getElementById('errors').innerText = 'you must select a list to continue.';
+                
+                location.assign(`flashcards.html?questions=${set}`);
             }
         </script>
     </body>
