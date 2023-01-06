@@ -183,7 +183,7 @@
                 questionsCount = questionKeys.length;
 
                 document.getElementById('title').innerText = data.title;
-                document.getElementById('num-cards').innerHTML = questionsCount + ' Cards';
+                document.getElementById('num-cards').innerHTML = 'Card ' + (curQuestion + 1) + '/' + questionsCount;
                 document.title = data.title;
 
                 question.children[0].innerText = questions[questionKeys[curQuestion]];
@@ -205,13 +205,15 @@
                 curQuestion -= 1;
 
                 question.children[0].innerText = questions[questionKeys[curQuestion]];
+                document.getElementById('num-cards').innerHTML = 'Card ' + (curQuestion + 1) + '/' + questionsCount;
             }
             function next() {
-                if (curQuestion == questionsCount) return;
+                if (curQuestion == questionsCount - 1) return;
 
                 curQuestion += 1;
 
                 question.children[0].innerText = questions[questionKeys[curQuestion]];
+                document.getElementById('num-cards').innerHTML = 'Card ' + (curQuestion + 1) + '/' + questionsCount;
             }
         </script>
     </body>
