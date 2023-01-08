@@ -110,6 +110,19 @@
                 background-color: cadetblue;
             }
 
+            #chars {
+                position: fixed;
+                left: 30px;
+                white-space: pre-line;
+                top: 200px;
+            }
+            .char {
+                margin-top: 15px;
+                font-size: 20pt;
+                width: 40px;
+                position: relative;
+            }
+
             @media (max-height: 900px) {
                 .progress {
                     top: calc(50% + 220px);
@@ -135,6 +148,17 @@
 
         <p class="progress" id="mastered"></p>
         <p class="progress" id="stillWorking"></p>
+
+        <div id="chars">
+            <button class="char" onclick="addChar(event, 'á');">á</button>
+            <button class="char" onclick="addChar(event, 'é');">é</button>
+            <button class="char" onclick="addChar(event, 'í');">í</button>
+            <button class="char" onclick="addChar(event, 'ó');">ó</button>
+            <button class="char" onclick="addChar(event, 'ú');">ú</button>
+            <button class="char" onclick="addChar(event, 'ñ');">ñ</button>
+            <button class="char" onclick="addChar(event, '¡');">¡</button>
+            <button class="char" onclick="addChar(event, '¿');">¿</button>
+        </div>
 
         <script>
             const question = document.getElementById('question');
@@ -256,6 +280,12 @@
             function restart() {
                 questions = [];
                 location.reload();
+            }
+
+            function addChar(e, char) {
+                let input = question.children[1];
+
+                input.value += char
             }
         </script>
     </body>
