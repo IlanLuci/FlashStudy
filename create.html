@@ -195,6 +195,14 @@
 
                 main.insertBefore(ele, document.getElementById('new-question'))
             }
+
+            window.addEventListener('keydown', (e) => {
+                switch (e.keyCode) { 
+                    case 9: // tab key
+                        if (document.activeElement.getAttribute('placeholder') == 'answer' && Array.from(document.activeElement.parentElement.parentElement.children).indexOf(document.activeElement.parentElement) == document.activeElement.parentElement.parentElement.children.length - 3) addQuestion();
+                        break;
+                }
+            });
         </script>
     </body>
 </html>
