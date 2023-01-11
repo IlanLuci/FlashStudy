@@ -22,7 +22,7 @@
                 border-radius: 8px;
                 padding: 10px;
                 outline: none;
-                width: 150px;
+                width: 175px;
                 margin-top: 10px;
             }
             input:hover, input:focus {
@@ -77,10 +77,10 @@
                 color: #eb4034;
             }
             #name {
-                width: 300px;
+                width: 350px;
             }
             #description {
-                width: 300px;
+                width: 350px;
             }
             #new-question {
                 cursor: pointer;;
@@ -112,9 +112,16 @@
             <input id="name" type="text" placeholder="flash set name">
             <input id="description" type="text" placeholder="flash set description">
 
+            <br><br>
+            
+            <input id="q" type="text" placeholder="list name (ex: states)">
+            <input id="a" type="text" placeholder="list name (ex: capitals)">
+
+            <br><br>
+
             <span class="questions">
-                <input type="text" placeholder="question">
-                <input type="text" placeholder="answer">
+                <input type="text" placeholder="question (ex: California)">
+                <input type="text" placeholder="answer (ex: Sacramento)">
             </span>
 
             <span class="questions">
@@ -143,49 +150,52 @@
         </div>
         <p id="errors"></p>
 
+        <script src="main.js"></script>
         <script>
-            function createStudySet() {
+            window.addEventListener('load', async () => {
+                let response = await fetcher(`/auth/check`);
+                let result = await response.text();
+
+                if (result == 'A token is required for authentication' || result == 'Invalid Token') {
+                    alert('You must be logged in to access this.');
+
+                    location.assign('/index.html');
+                }
+            });
+
+            async function createStudySet() {
+                const questionsElements = document.querySelectorAll('.questions');
                 const main = document.getElementById('main');
+
                 const name = main.children[0].value;
                 const description = main.children[1].value;
-                const questionsElements = document.querySelectorAll('.questions');
+                const q = main.children[4].value;
+                const a = main.children[5].value;
 
-                if (name == '' || name == null) {
-                    return document.getElementById('errors').innerText = 'name is required';
-                } else if (description == '' || description == null) {
-                    return document.getElementById('errors').innerText = 'description is required';
-                }
-
-                let questions = {};
+                let questions = [];
+                let answers = []
 
                 questionsElements.forEach((question) => {
                     if (question.children[0].value == null || question.children[0].value == '' || question.children[1].value == null || question.children[1].value == '') {
                         return document.getElementById('errors').innerText = 'one of your question answer values is empty. this question will not be included';
                     }
 
-                    questions[question.children[0].value] = question.children[1].value;
+                    questions.push(question.children[0].value);
+                    answers.push(question.children[1].value);
                 });
 
-                const data = {"title":name,"description":description,"questions":questions}
+                const data = { "name": name, "description": description, "q": q, "a": a, "questions": questions, "answers": answers };
 
-                fetch(`https://ilan-not-elon.com/studytool/create_set.php?name=${name}&data=${JSON.stringify(data)}`).then((response) => response.text()).then((res) => {
-                    if (res.startsWith('https')) {
-                        if (localStorage.getItem('sets')) {
-                            let sets = JSON.parse(localStorage.getItem('sets'));
+                let res = await fetcher(`/sets/create`, { method: 'post', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' }});
+                let text = await res.text();
 
-                            sets.push(res);
-
-                            localStorage.setItem('sets', JSON.stringify(sets));
-
-                        } else {
-                            localStorage.setItem('sets', JSON.stringify([res]));
-                        }
-
-                        location.href = `study.html?questions=${res}`;
-                    } else {
-                        document.getElementById('errors').innerText = res;
-                    }
-                });
+                if (res.status == 201) {
+                    // success
+                    location.href = `study.html?id=${text}`;
+                } else {
+                    //failed to create set
+                    document.getElementById('errors').innerText = text;
+                }
             }
 
             function addQuestion() {

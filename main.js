@@ -1,6 +1,6 @@
 const liveServer = 'https://api.flashstudy.org';
-const localServer = 'http://localhost:5000';
-const activeServer = location.host.startsWith('localhost') ? localServer : liveServer;
+const localServer = 'http://localhost:5001';
+const activeServer = location.host.startsWith('localhost') || location.host.startsWith('127.0.0.1')  ? localServer : liveServer;
 
 let cookies = document.cookie.split(';');
 let jwt;

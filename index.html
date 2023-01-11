@@ -131,9 +131,6 @@
         <div id="main">
             <select>
                 <option selected disabled>flash sets</option>
-                <option value="lists/spanish-3-1.1.json">Spanish 3 - Stem changing verbs definitions</option>
-                <option value="lists/spanish-3-1.2.json">Spanish 3 - Stem changing verbs conjugations</option>
-                <option value="lists/spanish-3-2.1.json">Spanish 3 - Present-Tense irregular verbs definitions</option>
             </select>
             
             <button class="create" onclick="location.href = 'create.html'">Create a flash set</button>
@@ -151,7 +148,6 @@
             window.addEventListener('load', async () => {
                 let main = document.getElementById('main');
                 let profile = document.getElementById('profile');
-                let sets = JSON.parse(localStorage.getItem('sets'));
 
                 let response = await fetcher(`/auth/check`);
                 let result = await response.text();
@@ -159,16 +155,24 @@
                 if (result == 'A token is required for authentication' || result == 'Invalid Token') {
                     // not logged into any account, proceed as normal
                 } else {
+                    let json = JSON.parse(result);
+
                     profile.onclick = logout;
                     profile.classList += ' logout';
-                }
+                    
+                    for (set in json.sets) {
+                        if (json.sets[set] == '') continue;
+                        
+                        let setResponse = await fetcher(`/sets/get/${json.sets[set]}`);
 
-                if (sets) {
-                    for (set in sets) {
-                        let ele = document.createElement('option');
-                        ele.value = sets[set];
-                        ele.innerText = sets[set].slice(41, sets[set].length - 5)
-                        main.children[0].insertBefore(ele, main.children[0].children[0]);
+                        if (setResponse.status == 201) {
+                            let setJson = await setResponse.json();
+
+                            let ele = document.createElement('option');
+                            ele.value = json.sets[set];
+                            ele.innerText = setJson.name;
+                            main.children[0].insertBefore(ele, main.children[0].children[0]);
+                        }
                     }
                 }
             });
@@ -178,14 +182,14 @@
                 
                 if (set == 'sets') return document.getElementById('errors').innerText = 'you must select a list to continue.';
                 
-                location.assign(`study.html?questions=${set}`);
+                location.assign(`study.html?id=${set}`);
             }
             function loadFlashcards() {
                 let set = document.getElementById('main').children[0].value;
                 
                 if (set == 'sets') return document.getElementById('errors').innerText = 'you must select a list to continue.';
                 
-                location.assign(`flashcards.html?questions=${set}`);
+                location.assign(`flashcards.html?id=${set}`);
             }
         </script>
     </body>

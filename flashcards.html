@@ -159,42 +159,56 @@
 
         <p id="directions">flip over for answer</p>
 
+        <script src="main.js"></script>
         <script>
             const question = document.getElementById('question');
 
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
-            const questionsListUrl = urlParams.get('questions');
+            const id = urlParams.get('id');
 
-            if (!questionsListUrl || questionsListUrl == 'sets') {
+            if (!id) {
                 alert('invalid list');
                 location.href = 'index.html';
             }
 
             let questions;
-            let questionKeys;
-            let questionsCount;
+            let answers;
+            let q;
+            let a;
             let flipped = false;
             let curQuestion = 0;
 
-            fetch(questionsListUrl).then((response) => response.json()).then((data) => {
-                questions = data.questions;
-                questionKeys = Object.keys(questions);
-                questionsCount = questionKeys.length;
+            window.addEventListener('load', async () => {
+                let response = await fetcher(`/sets/get/${id}`);
 
-                document.getElementById('title').innerText = data.title;
-                document.getElementById('num-cards').innerHTML = 'Card ' + (curQuestion + 1) + '/' + questionsCount;
-                document.title = data.title;
+                if (response.status == 201) {
+                    let json = await response.json();
 
-                question.children[0].innerText = questions[questionKeys[curQuestion]];
+                    // update local variables with data retrieved from server
+                    questions = json.questions;
+                    answers = json.answers;
+                    q = json.q;
+                    a = json.a;
+
+                    //add display of json.creator
+
+                    // update ui elements with data retrieved
+                    document.getElementById('num-cards').innerHTML = `${q} ${(curQuestion + 1)}/${questions.length}`;
+                    document.getElementById('title').innerText = json.name;
+                    document.title = json.name;
+
+                    question.children[0].innerText = questions[curQuestion];
+                } else {
+                    // id given in urlparams is either invalid or server bug has occured 
+                    alert('invalid list');
+                    location.href = 'index.html';
+                }
             });
 
             function flip() {
-                if (flipped) {
-                    question.children[0].innerText = questions[questionKeys[curQuestion]];
-                } else {
-                    question.children[0].innerText = questionKeys[curQuestion];
-                }
+                if (flipped) question.children[0].innerText = questions[curQuestion];
+                else question.children[0].innerText = answers[curQuestion];
 
                 flipped = !flipped;
             }
@@ -204,16 +218,16 @@
 
                 curQuestion -= 1;
 
-                question.children[0].innerText = questions[questionKeys[curQuestion]];
-                document.getElementById('num-cards').innerHTML = 'Card ' + (curQuestion + 1) + '/' + questionsCount;
+                question.children[0].innerText = questions[curQuestion];
+                    document.getElementById('num-cards').innerHTML = `${q} ${(curQuestion + 1)}/${questions.length}`;
             }
             function next() {
-                if (curQuestion == questionsCount - 1) return;
+                if (curQuestion == questions.length - 1) return;
 
                 curQuestion += 1;
 
-                question.children[0].innerText = questions[questionKeys[curQuestion]];
-                document.getElementById('num-cards').innerHTML = 'Card ' + (curQuestion + 1) + '/' + questionsCount;
+                question.children[0].innerText = questions[curQuestion];
+                document.getElementById('num-cards').innerHTML = `${q} ${(curQuestion + 1)}/${questions.length}`;
             }
 
             window.addEventListener('keydown', (e) => {

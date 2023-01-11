@@ -160,97 +160,115 @@
             <button class="char" onclick="addChar(event, '¿');">¿</button>
         </div>
 
+        <script src="main.js"></script>
         <script>
             const question = document.getElementById('question');
             const corrections = document.getElementById('corrections');
+
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
-            const questionsListUrl = urlParams.get('questions');
+            const id = urlParams.get('id');
 
-            if (!questionsListUrl || questionsListUrl == 'sets') {
+            if (!id) {
                 alert('invalid list');
                 location.href = 'index.html';
             }
 
+            let questions;
+            let answers;
+            let count;
             let lastQuestion;
-            let questionBank;
-            let questionBankKeys;
-            let questions = [];
-            let questionsCount;
+            let restarting = false;
 
-            fetch(questionsListUrl).then((response) => response.json()).then((data) => {
-                questionBank = data.questions;
-                questionBankKeys = Object.keys(questionBank);
-                questionsCount = questionBankKeys.length
+            window.addEventListener('load', async () => {
+                let response = await fetcher(`/sets/get/${id}`);
 
-                document.getElementById('description').innerText = data.description;
-                document.getElementById('title').innerText = data.title;
-                document.title = data.title;
+                if (response.status == 201) {
+                    let json = await response.json();
 
-                if (localStorage.getItem(questionsListUrl)) {
-                    questions = JSON.parse(localStorage.getItem(questionsListUrl));
+                    //add display of json.creator
+
+                    // update ui elements with data retrieved
+                    document.getElementById('description').innerText = json.description;
+                    document.getElementById('title').innerText = json.name;
+                    document.title = json.name;
+
+                    // update local variables with data retrieved from server
+                    questions = json.questions;
+                    answers = json.answers;
+                    count = questions.length;
+
+                    // check if the user has previously answered questions saved
+                    let saved = JSON.parse(localStorage.getItem(id));
+
+                    if (saved) {
+                        // remove already answered questions from lists according to saved data
+                        questions = saved.questions;
+                        answers = saved.answers;
+                    }
+
+                    newQuestion();
+                    updateProgress();
+                } else {
+                    // id given in urlparams is either invalid or server bug has occured 
+                    alert('invalid list');
+                    location.href = 'index.html';
                 }
-
-                newQuestion();
-                updateProgress();
             });
-
             window.addEventListener('unload', () => {
-                localStorage.setItem(questionsListUrl, JSON.stringify(questions));
+                // don't save questions when attempting to reset list
+                if (restarting) return;
+
+                // save unanswered questions to localstorage when leaving page
+                localStorage.setItem(id, JSON.stringify({ questions: questions, answers: answers }));
             });
             window.addEventListener('keypress', (e) => {
                 if (e.key == 'Enter') submitQuestion();
             });
 
             function newQuestion() {
-                let correct = questions.filter(element => element.correct === true).length;
+                //total number of questions correct = total number of questions - questions left after removing correct ones
+                let correct = count - questions.length;
 
-                if (correct == questionsCount) {
+                if (correct == count) {
+                    // all questions answered correctly... alert user and provide option to restart
                     question.children[1].style.display = 'none';
                     question.children[3].innerText = 'Restart'
                     question.children[3].setAttribute('onclick', 'restart()');
                     question.children[0].style.color = '#32a852';
                     question.children[0].innerText = 'You have answered all questions correctly. Click below to restart and practice again';
+
                     return;
                 }
 
-                let randIndex = Math.floor(Math.random() * questionBankKeys.length);
+                let randIndex = Math.floor(Math.random() * questions.length);
                 
-                let questionText = questionBankKeys[randIndex];
-                let exists = questions.find(element => element.question == questionText);
+                let newQuestion = questions[randIndex];
+                let newAnswer = answers[randIndex];
 
-                if (exists && exists.correct == true) {
-                    return newQuestion();
-                } else if (exists && exists.correct == false) {
-                    questions.splice(questions.indexOf(exists), 1)
-                }
-
-                question.children[0].innerText = questionText;
-                lastQuestion = questionText;
-
-                // save question to list
-                questions.push({ question: questionText, answer: questionBank[questionBankKeys[randIndex]] });
+                question.children[0].innerText = newQuestion;
+                lastQuestion = randIndex;
             }
+            
             function submitQuestion() {
-                let found = questions.find(element => element.question == lastQuestion);
-                let index = questions.indexOf(found);
                 let input = question.children[1].value;
 
-                if (input != '' && input.trim() == found.answer) {
-                    questions[index].correct = true;
+                // continue if input answer (with whitespace trimmed) is correct
+                if (input != '' && input.trim() == answers[lastQuestion]) {
+                    questions.splice(lastQuestion, 1);
+                    answers.splice(lastQuestion, 1);
 
                     question.children[1].value = '';
                     question.style.backgroundColor = '#32a852';
 
                     newQuestion();
+                    updateProgress();
 
                     setTimeout(() => {
                         question.style.backgroundColor = '';
                     }, 300);
                 } else {
-                    questions[index].correct = false;
-                    
-                    corrections.innerText = `The correct answer for ${found.question} was ${found.answer} `;
+                    corrections.innerText = `The correct answer for ${questions[lastQuestion]} was ${answers[lastQuestion]} `;
                     question.children[1].value = '';
                     question.style.backgroundColor = '#eb4034';
 
@@ -264,28 +282,33 @@
                         corrections.innerText = '';
                     }, 3000);
                 }
-                
-                updateProgress();
             }
+
             function updateProgress() {
                 let mastered = document.getElementById('mastered');
                 let stillWorking = document.getElementById('stillWorking');
 
-                let correct = questions.filter(element => element.correct === true).length;
-                let incorrect = questionsCount - correct;
+                //total number of questions correct = total number of questions - questions left after removing correct ones
+                let correct = count - questions.length;
+                //any questions still in the list have not been answered correctly yet
+                let incorrect = questions.length;
 
                 mastered.innerText = `Mastered: ${correct}`;
                 stillWorking.innerText = `Still working on: ${incorrect}`;
             }
+
             function restart() {
-                questions = [];
+                localStorage.removeItem(id);
+
+                restarting = true;
+
                 location.reload();
             }
 
             function addChar(e, char) {
                 let input = question.children[1];
 
-                input.value += char
+                input.value += char;
             }
         </script>
     </body>
