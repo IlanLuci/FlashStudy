@@ -1,0 +1,211 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Flash Study</title>
+        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1939117506678773" crossorigin="anonymous"></script>
+
+        <style>
+            body {
+                background-color: whitesmoke;
+                color: #222;
+                margin: 0;
+                padding: 0;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+
+            input {
+                border: 2px solid #222;
+                border-radius: 8px;
+                padding: 10px;
+                outline: none;
+                width: 150px;
+                width: 300px;
+                margin-top: 10px;
+            }
+            input:hover, input:focus {
+                background-color: cadetblue;
+            }
+            button {
+                border: 2px solid #222;
+                border-radius: 8px;
+                padding: 10px;
+                margin-top: 20px;
+                position: relative;
+                bottom: 10px;
+                cursor: pointer;
+                background-color: white;
+                outline: none;
+            }
+            button:hover {
+                background-color: cadetblue;
+            }
+            a {
+                color: black;
+            }
+            
+            #main {
+                position: absolute;
+                text-align: center;
+                width: 400px;
+                transition: 0.3s;
+                border: 3px solid #222;
+                border-radius: 8px;
+                margin-left: 50%;
+                margin-top: 150px;
+                transform: translate(-50%);
+            }
+            #title {
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                transform: translate(-50%);
+                color: #222;
+            }
+            #errors {
+                position: absolute;
+                top: 90px;
+                left: 50%;
+                transform: translate(-50%);
+                font-size: 14pt;
+                color: #eb4034;
+            }
+            #back {
+                position: fixed;
+                left: 10px;
+                top: 10px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            #back:hover {
+                background-color: cadetblue;
+            }
+
+            #switch {
+                cursor: pointer;;
+            }
+            #switch:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+
+    <body>
+        <svg onclick="location.href = 'index.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+
+        <h1 id="title">Register</h1>
+
+        <div id="main">
+            <input id="email" type="text" placeholder="email">
+            <input id="username" type="text" placeholder="username">
+            <input id="password" type="password" placeholder="password">
+            <input id="confPassword" type="password" placeholder="confirm password">
+
+            <br>
+
+            <button id="submit" onclick="register(event);">Submit</button>
+            
+            <p id="switch" onclick="switchType();">Already have an account? Login instead.</p>
+        </div>
+
+        <p id="errors"></p>
+
+        <script src="main.js"></script>
+        <script>
+            window.addEventListener('load', async () => {
+                let response = await fetcher(`/auth/check`);
+                let result = await response.text();
+
+                if (result == 'A token is required for authentication' || result == 'Invalid Token') {
+                    // not logged into any account, proceed as normal
+                } else {
+                    alert('You cannot access this while logged into your account');
+
+                    location.assign('/index.html');
+                }
+            });
+
+            async function register(e) {
+                const email = e.target.parentNode.children[0].value;
+                const username = e.target.parentNode.children[1].value;
+                const password = e.target.parentNode.children[2].value;
+                const confirm_password = e.target.parentNode.children[3].value;
+
+                let res = await fetcher(`/auth/register`, { method: 'post', body: JSON.stringify({ email: email, username: username, password: password, confirm_password: confirm_password }), headers: { 'Content-Type': 'application/json' }});
+
+                if (res.status == 201) {
+                    //user registered succesfully
+                    let json = await res.json();
+
+                    document.cookie = `jwt=${json.token}`;
+
+                    document.getElementById('errors').style.color = '#2ab55d';
+                    document.getElementById('errors').innerText = 'success';
+
+                    setTimeout(() => {
+                        location.assign('/index.html');
+                    }, 500);
+                } else {
+                    //failed to register user
+                    let text = await res.text();
+
+                    document.getElementById('errors').innerText = text;
+                }
+            }
+            async function login(e) {
+                const email = e.target.parentNode.children[0].value;
+                const password = e.target.parentNode.children[2].value;
+
+                let res = await fetcher(`/auth/login`, { method: 'post', body: JSON.stringify({ email: email, password: password }), headers: { 'Content-Type': 'application/json' }});
+
+                if (res.status == 201) {
+                    //user registered succesfully
+                    let json = await res.json();
+
+                    document.cookie = `jwt=${json.token}`;
+
+                    document.getElementById('errors').style.color = '#2ab55d';
+                    document.getElementById('errors').innerText = 'success';
+
+                    setTimeout(() => {
+                        location.assign('/index.html');
+                    }, 500);
+                } else {
+                    //failed to register user
+                    let text = await res.text();
+
+                    document.getElementById('errors').innerText = text;
+                }
+            }
+
+            function switchType() {
+                let switchBtn = document.getElementById('switch');
+                let submitBtn = document.getElementById('submit');
+                let confPassword = document.getElementById('confPassword');
+                let username = document.getElementById('username');
+                let title = document.getElementById('title');
+
+                if (switchBtn.innerText.startsWith('A')) {
+                    switchBtn.innerText = 'Need an account? Register Instead.';
+                    title.innerText = 'Login';
+                    submitBtn.onclick = login;
+
+                    confPassword.style.display = 'none';
+                    username.style.display = 'none';
+                } else {
+                    switchBtn.innerText = 'Already have an account? Login instead.';
+                    title.innerText = 'Register';
+                    submitBtn.onclick = register;
+                    
+                    confPassword.style.display = '';
+                    username.style.display = '';
+                }
+            }
+        </script>
+    </body>
+</html>

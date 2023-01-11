@@ -102,10 +102,29 @@
                 transform: translate(-50%);
                 font-size: 14pt;
             }
+
+            #profile {
+                position: fixed;
+                right: 10px;
+                top: 10px;
+                border-radius: 8px;
+                border: 3px solid #222;
+                cursor: pointer;
+            }
+            #profile:hover {
+                background-color: cadetblue;
+            }
+            .logout:hover {
+                background-color: #eb4034 !important;
+            }
         </style>
     </head>
 
     <body>
+        <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+        </svg>
+
         <h1 id="title">Flash Study</h1>
         <p id="description">Select a flash set to start studying.</p>
 
@@ -127,10 +146,22 @@
         <p id="errors"></p>
         <p id="accents">click <a href="accents.html">here</a> for the spanish accents copy-paste tool</p>
 
+        <script src="main.js"></script>
         <script>
-            window.addEventListener('load', () => {
-                let main = document.getElementById('main')
+            window.addEventListener('load', async () => {
+                let main = document.getElementById('main');
+                let profile = document.getElementById('profile');
                 let sets = JSON.parse(localStorage.getItem('sets'));
+
+                let response = await fetcher(`/auth/check`);
+                let result = await response.text();
+
+                if (result == 'A token is required for authentication' || result == 'Invalid Token') {
+                    // not logged into any account, proceed as normal
+                } else {
+                    profile.onclick = logout;
+                    profile.classList += ' logout';
+                }
 
                 if (sets) {
                     for (set in sets) {
