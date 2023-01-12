@@ -129,6 +129,11 @@
                     location.assign('/index.html');
                 }
             });
+            window.addEventListener('keypress', (e) => {
+                if (e.key == 'Enter') {
+                    document.getElementById('submit').click();
+                }
+            });
 
             async function register(e) {
                 const email = e.target.parentNode.children[0].value;
