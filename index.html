@@ -115,9 +115,6 @@
             #profile:hover {
                 background-color: cadetblue;
             }
-            .logout:hover {
-                background-color: #eb4034 !important;
-            }
         </style>
     </head>
 
@@ -157,9 +154,6 @@
                     // not logged into any account, proceed as normal
                 } else {
                     let json = JSON.parse(result);
-
-                    profile.onclick = logout;
-                    profile.classList += ' logout';
                     
                     for (set in json.sets) {
                         if (json.sets[set] == '') continue;

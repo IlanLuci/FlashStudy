@@ -125,9 +125,7 @@
                 if (result == 'A token is required for authentication' || result == 'Invalid Token') {
                     // not logged into any account, proceed as normal
                 } else {
-                    alert('You cannot access this while logged into your account');
-
-                    location.assign('/index.html');
+                    location.assign('/profile.html');
                 }
             });
             window.addEventListener('keypress', (e) => {
