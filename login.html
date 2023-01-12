@@ -130,9 +130,8 @@
                 }
             });
             window.addEventListener('keypress', (e) => {
-                if (e.key == 'Enter') {
-                    document.getElementById('submit').click();
-                }
+                // submit form when enter is clicked
+                if (e.key == 'Enter') document.getElementById('submit').click();
             });
 
             async function register(e) {
