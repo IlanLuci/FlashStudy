@@ -180,14 +180,14 @@
             function loadStudySet() {
                 let set = document.getElementById('main').children[0].value;
                 
-                if (set == 'sets') return document.getElementById('errors').innerText = 'you must select a list to continue.';
+                if (set == 'flash sets') return document.getElementById('errors').innerText = 'you must select a list to continue.';
                 
                 location.assign(`study.html?id=${set}`);
             }
             function loadFlashcards() {
                 let set = document.getElementById('main').children[0].value;
                 
-                if (set == 'sets') return document.getElementById('errors').innerText = 'you must select a list to continue.';
+                if (set == 'flash sets') return document.getElementById('errors').innerText = 'you must select a list to continue.';
                 
                 location.assign(`flashcards.html?id=${set}`);
             }
