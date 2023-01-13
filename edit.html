@@ -1,0 +1,245 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Flash Study</title>
+        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8483062904808401"
+     crossorigin="anonymous"></script>
+
+        <style>
+            body {
+                background-color: whitesmoke;
+                color: #222;
+                margin: 0;
+                padding: 0;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+
+            input {
+                border: 2px solid #222;
+                border-radius: 8px;
+                padding: 10px;
+                outline: none;
+                width: 175px;
+                margin-top: 10px;
+            }
+            input:hover, input:focus {
+                background-color: cadetblue;
+            }
+
+            button {
+                border: 2px solid #222;
+                border-radius: 8px;
+                padding: 10px;
+                margin-top: 20px;
+                position: relative;
+                bottom: 10px;
+                cursor: pointer;
+                background-color: white;
+                outline: none;
+            }
+            button:hover {
+                background-color: cadetblue;
+            }
+
+            a {
+                color: black;
+            }
+
+            #title {
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                transform: translate(-50%);
+                color: #222;
+            }
+
+            #back {
+                position: fixed;
+                left: 10px;
+                top: 10px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            #back:hover {
+                background-color: cadetblue;
+            }
+
+            #messages {
+                position: absolute;
+                color: #32a852;
+                left: 50%;
+                transform: translate(-50%);
+                top: 80px;
+                font-size: 15pt;
+            }
+
+            #main {
+                position: absolute;
+                text-align: center;
+                width: 400px;
+                transition: 0.3s;
+                border: 3px solid #222;
+                border-radius: 8px;
+                margin-left: 50%;
+                margin-top: 150px;
+                transform: translate(-50%);
+            }
+
+            #name {
+                width: 350px;
+            }
+            #description {
+                width: 350px;
+            }
+
+            .questions {
+                display: inline-block;
+            }
+            
+            #new-question {
+                cursor: pointer;
+            }
+            #new-question:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+
+    <body>
+        <svg onclick="location.href = 'profile.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+
+        <h1 id="title">Edit Set</h1>
+        
+        <p id="messages"></p>
+        
+        <div id="main">
+            <input id="name" type="text" placeholder="flash set name">
+            <input id="description" type="text" placeholder="flash set description">
+
+            <br><br>
+            
+            <input id="q" type="text" placeholder="list name (ex: states)">
+            <input id="a" type="text" placeholder="list name (ex: capitals)">
+
+            <br><br>
+        </div>
+
+        <script src="main.js"></script>
+        <script>
+            // get set id from query params
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const id = urlParams.get('id');
+
+            window.addEventListener('load', async () => {
+                let response = await fetcher(`/auth/check`);
+                let result = await response.text();
+
+                if (result == 'A token is required for authentication' || result == 'Invalid Token') {
+                    alert('You must be logged in to access this.');
+                    location.assign('/login.html');
+                } else {
+                    let json = JSON.parse(result);
+
+                    // check if list is owned by the signed in user
+                    if (json.sets.includes(id)) {
+                        let setResponse = await fetcher(`/sets/get/${id}`);
+                        let main = document.getElementById('main');
+
+                        if (setResponse.status == 201) {
+                            let setJson = await setResponse.json();
+
+                            document.getElementById('description').setAttribute('value', setJson.description);
+                            document.getElementById('name').setAttribute('value', setJson.name);
+                            document.getElementById('q').setAttribute('value', setJson.q);
+                            document.getElementById('a').setAttribute('value', setJson.a);
+
+                            for (question in setJson.questions) {
+                                main.innerHTML += `
+                                    <span class="questions">
+                                        <input type="text" placeholder="question" value="${setJson.questions[question]}">
+                                        <input type="text" placeholder="answer" value="${setJson.answers[question]}">
+                                    </span>
+                                `;
+                            }
+
+                            main.innerHTML += `<p id="new-question" onclick="addQuestion();">add another question</p><button onclick="submit();">Submit</button>`;
+                        } else {
+                            // id given in urlparams is either invalid or server bug has occured 
+                            alert('invalid set id');
+                            location.href = 'index.html';
+                        }
+                    } else {
+                        // user does not own list
+                        alert('you cannot edit a set you do not own');
+                        location.href = 'index.html';
+                    }
+                }
+            });
+            window.addEventListener('keydown', (e) => {
+                switch (e.keyCode) { 
+                    case 9: // tab key
+                        if (document.activeElement.getAttribute('placeholder') == 'answer' && Array.from(document.activeElement.parentElement.parentElement.children).indexOf(document.activeElement.parentElement) == document.activeElement.parentElement.parentElement.children.length - 3) addQuestion();
+                        break;
+                }
+            });
+
+            function addQuestion(parent) {
+                const submit = document.getElementById('submit');
+
+                const main = document.getElementById('main');
+
+                let ele = document.createElement('span');
+                ele.className = 'questions';
+                ele.innerHTML = `<input type="text" placeholder="question"> <input type="text" placeholder="answer">`;
+
+                main.insertBefore(ele, main.children[main.children.length - 2])
+            }
+
+            async function submit() {
+                const questionsElements = document.querySelectorAll('.questions');
+                const messages = document.getElementById('messages');
+                const main = document.getElementById('main');
+
+                const name = main.children[0].value;
+                const description = main.children[1].value;
+                const q = main.children[4].value;
+                const a = main.children[5].value;
+
+                let questions = [];
+                let answers = [];
+
+                questionsElements.forEach((question) => {
+                    if (question.children[0].value == null || question.children[0].value == '' || question.children[1].value == null || question.children[1].value == '') {
+                        return document.getElementById('errors').innerText = 'one of your question answer values is empty. this question will not be included';
+                    }
+
+                    questions.push(question.children[0].value);
+                    answers.push(question.children[1].value);
+                });
+
+                const data = { "name": name, "description": description, "q": q, "a": a, "questions": questions, "answers": answers, "id": id };
+
+                let res = await fetcher(`/sets/edit`, { method: 'post', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' }});
+                let text = await res.text();
+
+                if (res.status == 201) {
+                    // success
+                    messages.innerText = 'success';
+
+                    location.href = `profile.html`;
+                } else {
+                    //failed to create set
+                    messages.style.color = '#eb4034';
+                    messages.innerText = text;
+                }
+            }
+        </script>
+    </body>
+</html>

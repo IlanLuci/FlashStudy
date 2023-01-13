@@ -171,7 +171,7 @@
             const id = urlParams.get('id');
 
             if (!id) {
-                alert('invalid list');
+                alert('invalid set id');
                 location.href = 'index.html';
             }
 
@@ -212,7 +212,7 @@
                     updateProgress();
                 } else {
                     // id given in urlparams is either invalid or server bug has occured 
-                    alert('invalid list');
+                    alert('invalid set id');
                     location.href = 'index.html';
                 }
             });

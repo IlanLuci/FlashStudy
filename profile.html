@@ -48,31 +48,12 @@
                 color: black;
             }
             
-            #main {
-                position: absolute;
-                text-align: center;
-                width: 400px;
-                transition: 0.3s;
-                border: 3px solid #222;
-                border-radius: 8px;
-                margin-left: 50%;
-                margin-top: 150px;
-                transform: translate(-50%);
-            }
             #title {
                 position: absolute;
                 top: 10px;
                 left: 50%;
                 transform: translate(-50%);
                 color: #222;
-            }
-            #errors {
-                position: absolute;
-                top: 90px;
-                left: 50%;
-                transform: translate(-50%);
-                font-size: 14pt;
-                color: #eb4034;
             }
             #back {
                 position: fixed;
@@ -138,8 +119,6 @@
 
         <script src="main.js"></script>
         <script>
-            //must implement logout
-
             window.addEventListener('load', async () => {
                 let response = await fetcher(`/auth/check`);
                 let result = await response.text();
@@ -167,7 +146,7 @@
                                 
                                 <input type="text" value="https://flashstudy.org/flashcards.html?id=${json.sets[set]}" style="display: none;">
                                 <button onclick="copy(event)">Copy Share Link</button>
-                                <button onclick="">Edit</button>
+                                <button onclick="location.assign('edit.html?id=${json.sets[set]}');">Edit</button>
                                 
                                 <br><br><br>
 
