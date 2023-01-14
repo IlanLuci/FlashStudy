@@ -144,14 +144,14 @@
 
                                 <p>${setJson.questions.length} questions</p>
                                 
-                                <input type="text" value="https://flashstudy.org/flashcards.html?id=${json.sets[set]}" style="display: none;">
+                                <input type="text" value="https://flashstudy.org/study.html?id=${json.sets[set]}" style="display: none;">
                                 <button onclick="copy(event)">Copy Share Link</button>
                                 <button onclick="location.assign('edit.html?id=${json.sets[set]}');">Edit</button>
                                 
                                 <br><br><br>
 
                                 <button onclick="location.assign('flashcards.html?id=${json.sets[set]}');">Study With Flashcards</button>
-                                <button onclick="location.assign('flashcards.html?id=${json.sets[set]}');">Study with Questions</button>
+                                <button onclick="location.assign('study.html?id=${json.sets[set]}');">Study with Questions</button>
                             </div>
                         `;
                         }
