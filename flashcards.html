@@ -216,7 +216,7 @@
                     a = json.a;
 
                     //retrieve swapped value from localstorage
-                    swapped = (localStorage.getItem('swapped') === 'true');
+                    swapped = (localStorage.getItem(`swapped_${id}`) === 'true');
 
                     //add display of json.creator
 
@@ -264,7 +264,7 @@
                 question.children[0].innerText = swapped ? answers[curQuestion] : questions[curQuestion];
                 document.getElementById('num-cards').innerHTML = `Card ${(curQuestion + 1)}/${questions.length}`;
 
-                localStorage.setItem('swapped', swapped);
+                localStorage.setItem(`swapped_${id}`, swapped);
             }
 
             window.addEventListener('keydown', (e) => {

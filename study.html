@@ -134,6 +134,19 @@
             #profile:hover {
                 background-color: cadetblue;
             }
+
+            #swap {
+                margin: 0;
+                position: absolute;
+                font-size: 12pt;
+                left: 50%;
+                transform: translate(-50%);
+                top: calc(50% + 210px);
+                cursor: pointer;
+            }
+            #swap:hover {
+                text-decoration: underline;
+            }
         </style>
     </head>
 
@@ -159,6 +172,8 @@
 
             <button onclick="submitQuestion();">Submit</button>
         </div>
+        
+        <<p id="swap" onclick="swap();"></p>
 
         <p id="corrections"></p>
 
@@ -206,6 +221,7 @@
 
                     // update ui elements with data retrieved
                     document.getElementById('description').innerText = json.description;
+                    document.getElementById('swap').innerText = `Swap ${json.q} and ${json.a}`;
                     document.getElementById('title').innerText = json.name;
                     document.title = json.name;
 
@@ -326,6 +342,16 @@
                 localStorage.removeItem(id);
 
                 restarting = true;
+
+                location.reload();
+            }
+
+            function swap() {
+                let oldQuestions = questions;
+                let oldAnswers = answers;
+
+                questions = oldAnswers;
+                answers = oldQuestions;
 
                 location.reload();
             }
