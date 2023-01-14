@@ -150,6 +150,7 @@
                                 
                                 <input type="text" value="https://flashstudy.org/study.html?id=${json.sets[set]}" style="display: none;">
                                 <button onclick="copy(event)">Copy Share Link</button>
+                                <button onclick="deleteSet(${json.sets[set]});">Delete</button>
                                 <button onclick="location.assign('edit.html?id=${json.sets[set]}');">Edit</button>
                                 
                                 <br><br><br>
@@ -176,6 +177,24 @@
                 setTimeout(() => {
                     document.getElementById('messages').innerText = '';
                 }, 1000);
+            }
+
+            async function deleteSet(id) {
+                let res = await fetcher(`/sets/delete`, { method: 'post', body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' }});
+
+                if (res.status == 201) {
+                    // set deleted succesfully
+                    document.getElementById('messages').innerText = 'set successfully deleted';
+
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                } else {
+                    //failed to delete set
+                    let text = await res.text();
+
+                    document.getElementById('messages').innerText = text;
+                }
             }
         </script>
     </body>
