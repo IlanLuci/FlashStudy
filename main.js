@@ -17,7 +17,9 @@ function fetcher(endpoint, options) {
     if (jwt) {
         updatedOptions.headers = {
             ...options ? options.headers : null,
-            'x-access-token': jwt
+            'x-access-token': jwt,
+            // not sure if this actually works as expected -- hopefully reduces preflight requests?
+            'Access-Control-Max-Age': 86400
         }
     }
     return fetch(`${activeServer}${endpoint}`, updatedOptions)

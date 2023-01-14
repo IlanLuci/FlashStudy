@@ -154,6 +154,8 @@
                     // not logged into any account, proceed as normal
                 } else {
                     let json = JSON.parse(result);
+
+                    profile.setAttribute('onclick', `location.href = 'profile.html'`);
                     
                     for (set in json.sets) {
                         if (json.sets[set] == '') continue;
