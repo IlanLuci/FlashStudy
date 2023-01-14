@@ -72,7 +72,7 @@
             }
             #corrections {
                 position: absolute;
-                top: calc(50% + 200px);
+                top: calc(50% + 220px);
                 left: 50%;
                 transform: translate(-50%);
                 font-size: 14pt;
@@ -258,8 +258,8 @@
                 if (e.key == 'Enter') submitQuestion();
             });
 
-            function newQuestion() {
-                if (questions.length == 1) {
+            async function newQuestion() {
+                if (questions.length == 1  && questions[0] == '') {
                     document.getElementById('corrections').innerText = 'this set has no questions.';
                     document.getElementById('progress').style.display = 'none';
 
@@ -277,6 +277,14 @@
                     question.children[0].style.color = '#32a852';
                     question.children[0].innerText = 'You have answered all questions correctly. Click below to restart and practice again';
 
+                    let completed = localStorage.getItem(`completed_${id}`);
+                    if (!completed) {
+                        localStorage.setItem(`completed_${id}`, true);
+                        
+                        let data = { id: id };
+                        let res = await fetcher(`/sets/completion`, { method: 'post', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' }});
+                    }
+
                     return;
                 }
 
@@ -290,7 +298,7 @@
             }
             
             function submitQuestion() {
-                if (questions.length == 1) return;
+                if (questions.length == 1  && questions[0] == '') return;
 
                 let input = question.children[1].value;
 
@@ -340,6 +348,7 @@
 
             function restart() {
                 localStorage.removeItem(id);
+                localStorage.removeItem(`completed_${id}`);
 
                 restarting = true;
 

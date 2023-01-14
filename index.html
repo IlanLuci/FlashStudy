@@ -115,6 +115,28 @@
             #profile:hover {
                 background-color: cadetblue;
             }
+
+            #featured {
+                position: fixed;
+                width: 350px;
+                top: 50px;
+                height: calc(100% - 60px);
+                text-align: center;
+                overflow: scroll;
+                padding: 20px;
+            }
+            .set {
+                margin-bottom: 20px;
+                border-radius: 8px;
+                border: 3px solid #222;
+                height: 150px;
+            }
+            .name {
+                font-size: 15pt;
+            }
+            hr {
+                border: 2px solid #222;
+            }
         </style>
     </head>
 
@@ -125,6 +147,48 @@
 
         <h1 id="title">Flash Study</h1>
         <p id="description">Select a flash set to start studying.</p>
+
+        <div id="featured">
+            <h2>Midterm Prep</h2>
+
+            <hr>
+
+            <div class="set">
+                <p class="name">El arte Vocab</p>
+
+                <p>Created By Ilan</p>
+
+                <button onclick="location.assign('flashcards.html?id=2269605474256915');">Study With Flashcards</button>
+                <button onclick="location.assign('study.html?id=2269605474256915');">Study with Questions</button>
+            </div>
+
+            <div class="set">
+                <p class="name">La Naturaleza Vocab</p>
+
+                <p>Created By Ilan</p>
+
+                <button onclick="location.assign('flashcards.html?id=8711863823042543');">Study With Flashcards</button>
+                <button onclick="location.assign('study.html?id=8711863823042543');">Study with Questions</button>
+            </div>
+
+            <div class="set">
+                <p class="name">La Competencia Vocab</p>
+
+                <p>Created By Ilan</p>
+
+                <button onclick="location.assign('flashcards.html?id=6007132213000859');">Study With Flashcards</button>
+                <button onclick="location.assign('study.html?id=6007132213000859');">Study with Questions</button>
+            </div>
+
+            <div class="set">
+                <p class="name">Ir de viaje Vocab</p>
+
+                <p>Created By Ilan</p>
+
+                <button onclick="location.assign('flashcards.html?id=5329713716511546');">Study With Flashcards</button>
+                <button onclick="location.assign('study.html?id=5329713716511546');">Study with Questions</button>
+            </div>
+        </div>
 
         <div id="main">
             <select>
