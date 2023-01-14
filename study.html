@@ -275,11 +275,11 @@
             
             function submitQuestion() {
                 if (questions.length == 1) return;
-                
+
                 let input = question.children[1].value;
 
                 // continue if input answer (with whitespace trimmed) is correct
-                if (input != '' && input.trim() == answers[lastQuestion]) {
+                if (input != '' && input.trim().toLowerCase() == answers[lastQuestion].toLowerCase()) {
                     questions.splice(lastQuestion, 1);
                     answers.splice(lastQuestion, 1);
 
