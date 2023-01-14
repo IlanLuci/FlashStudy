@@ -233,7 +233,7 @@
 
                 questionsElements.forEach((question) => {
                     if (question.children[0].value == null || question.children[0].value == '' || question.children[1].value == null || question.children[1].value == '') {
-                        return document.getElementById('errors').innerText = 'one of your question answer values is empty. this question will not be included';
+                        return document.getElementById('messages').innerText = 'one of your question answer values is empty. this question will not be included';
                     }
 
                     questions.push(question.children[0].value);
