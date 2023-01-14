@@ -50,7 +50,7 @@
             
             #title {
                 position: absolute;
-                top: 10px;
+                margin-top: 10px;
                 left: 50%;
                 transform: translate(-50%);
                 color: #222;
@@ -131,6 +131,8 @@
                 } else {
                     let container = document.getElementById('container');
                     let json = JSON.parse(result);
+                    
+                    document.getElementById('title').innerText = `${json.username}'s Profile`;
                     
                     for (set in json.sets) {
                         if (json.sets[set] == '') continue;

@@ -53,7 +53,7 @@
 
             .progress {
                 position: absolute;
-                top: 80px;
+                top: calc(50% - 80px);
                 transform: translate(-50%);
                 margin-left: 50%;
             }
@@ -80,7 +80,7 @@
             }
             #description {
                 position: absolute;
-                top: calc(50% - 280px);
+                top: 50px;
                 left: 50%;
                 transform: translate(-50%);
                 font-size: 14pt;
@@ -88,7 +88,7 @@
             }
             #title {
                 position: absolute;
-                top: 10px;
+                margin-top: 10px;
                 left: 50%;
                 transform: translate(-50%);
                 color: #222;
@@ -112,22 +112,15 @@
             }
 
             #chars {
-                position: fixed;
-                left: 30px;
-                white-space: pre-line;
-                top: 70px;
+                position: absolute;
+                bottom: 10px;
+                left: calc(50% + 20px);
+                transform: translate(-50%);
             }
             .char {
-                margin-top: 15px;
                 font-size: 20pt;
                 width: 40px;
                 position: relative;
-            }
-
-            @media (max-height: 900px) {
-                .progress {
-                    top: calc(50% + 220px);
-                }
             }
         </style>
     </head>
@@ -138,13 +131,19 @@
         </svg>
 
         <h1 id="title"></h1>
+
         <p id="description"></p>
+
         <div id="question">
             <p></p>
+
             <input type="text">
+
             <br>
+
             <button onclick="submitQuestion();">Submit</button>
         </div>
+
         <p id="corrections"></p>
 
         <p class="progress" id="mastered"></p>
