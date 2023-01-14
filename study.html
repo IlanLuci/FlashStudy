@@ -243,6 +243,13 @@
             });
 
             function newQuestion() {
+                if (questions.length == 1) {
+                    document.getElementById('corrections').innerText = 'this set has no questions.';
+                    document.getElementById('progress').style.display = 'none';
+
+                    return;
+                }
+
                 //total number of questions correct = total number of questions - questions left after removing correct ones
                 let correct = count - questions.length;
 
@@ -267,6 +274,8 @@
             }
             
             function submitQuestion() {
+                if (questions.length == 1) return;
+                
                 let input = question.children[1].value;
 
                 // continue if input answer (with whitespace trimmed) is correct
