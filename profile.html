@@ -74,6 +74,11 @@
             #logout:hover {
                 background-color: #eb4034;
             }
+            #create {
+                position: absolute;
+                bottom: calc(100% - 60px);
+                right: 100px;
+            }
 
             #container {
                 display: flex;
@@ -118,6 +123,7 @@
         </div>
 
         <button id="logout" onclick="logout();">Logout</button>
+        <button id="create" onclick="location.href = 'create.html'">Create a flash set</button>
 
         <script src="main.js"></script>
         <script>
