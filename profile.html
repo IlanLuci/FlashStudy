@@ -6,7 +6,7 @@
 
         <title>Flash Study</title>
         
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8483062904808401" crossorigin="anonymous"></script>
+        <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8483062904808401" crossorigin="anonymous"></script>-->
 
         <style>
             body {
@@ -187,20 +187,22 @@
             }
 
             async function deleteSet(id) {
-                let res = await fetcher(`/sets/delete`, { method: 'post', body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' }});
+                if (confirm('Are you sure you want to delete this flash set?')) {
+                    let res = await fetcher(`/sets/delete`, { method: 'post', body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' }});
 
-                if (res.status == 201) {
-                    // set deleted succesfully
-                    document.getElementById('messages').innerText = 'set successfully deleted';
+                    if (res.status == 201) {
+                        // set deleted succesfully
+                        document.getElementById('messages').innerText = 'set successfully deleted';
 
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
-                } else {
-                    //failed to delete set
-                    let text = await res.text();
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
+                    } else {
+                        //failed to delete set
+                        let text = await res.text();
 
-                    document.getElementById('messages').innerText = text;
+                        document.getElementById('messages').innerText = text;
+                    }
                 }
             }
         </script>
