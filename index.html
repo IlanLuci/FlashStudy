@@ -231,6 +231,7 @@
         <script>
             window.addEventListener('load', async () => {
                 let profile = document.getElementById('profile');
+                let searched = document.getElementById('searched');
 
                 let response = await fetcher(`/auth/check`);
                 let result = await response.text();
@@ -241,6 +242,28 @@
                     let json = JSON.parse(result);
 
                     profile.setAttribute('onclick', `location.href = 'profile.html'`);
+                }
+
+                // load popular flash sets
+                let res = await fetcher(`/sets/popular`, { method: 'post', body: JSON.stringify({ order: 1 }), headers: { 'Content-Type': 'application/json' }});
+
+                if (res.status == 201) {
+                    let json = await res.json();
+
+                    for (set in json) {
+                        searched.innerHTML += `
+                            <div class="set">
+                                <p class="name">${json[set].name}</p>
+
+                                <p>Created By ${json[set].creator}</p>
+
+                                <button onclick="location.assign('flashcards.html?id=${json[set].id}');">Study With Flashcards</button>
+                                <button onclick="location.assign('study.html?id=${json[set].id}');">Study with Questions</button>
+                            </div>
+                        `;
+                    }
+                } else {
+                    console.log(text)
                 }
             });
             window.addEventListener('keypress', (e) => {
