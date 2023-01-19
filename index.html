@@ -107,7 +107,7 @@
                 margin-bottom: 20px;
                 border-radius: 8px;
                 border: 3px solid #222;
-                height: 150px;
+                padding-bottom: 10px;
             }
             .name {
                 font-size: 15pt;
@@ -249,6 +249,9 @@
 
             async function search(e) {
                 let query = document.getElementById('search').value;
+                let searched = document.getElementById('searched');
+
+                searched.innerText = '';
 
                 if (query == '') return;
 
@@ -257,10 +260,6 @@
                 let text = await res.text();
 
                 if (res.status == 201) {
-                    let searched = document.getElementById('searched');
-
-                    searched.innerText = '';
-
                     if (text == 'all sets are displayed') {
                             searched.innerHTML += 'there are no sets matching your search';
                     } else {
