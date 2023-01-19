@@ -158,6 +158,14 @@
                 overflow-y: scroll;
                 padding: 20px;
             }
+
+            .load {
+                font-size: 15pt;
+                cursor: pointer;
+            }
+            .load:hover {
+                text-decoration: underline;
+            }
         </style>
     </head>
 
@@ -229,6 +237,11 @@
 
         <script src="main.js"></script>
         <script>
+            const setsPerPage = 5;
+
+            let setsLoaded = 0;
+            let queryLoaded;
+
             window.addEventListener('load', async () => {
                 let profile = document.getElementById('profile');
                 let searched = document.getElementById('searched');
@@ -251,6 +264,8 @@
                     let json = await res.json();
 
                     for (set in json) {
+                        setsLoaded += 1;
+
                         searched.innerHTML += `
                             <div class="set">
                                 <p class="name">${json[set].name}</p>
@@ -262,6 +277,8 @@
                             </div>
                         `;
                     }
+
+                    searched.innerHTML += `<p class="load" onclick="loadMore();">load more</p>`;                    
                 } else {
                     console.log(text)
                 }
@@ -274,7 +291,9 @@
                 let query = document.getElementById('search').value;
                 let searched = document.getElementById('searched');
 
+                queryLoaded = query;
                 searched.innerText = '';
+                setsLoaded = 0;
 
                 if (query == '') return;
 
@@ -289,6 +308,8 @@
                         let json = JSON.parse(text);
 
                         for (set in json) {
+                            setsLoaded += 1;
+
                             searched.innerHTML += `
                                 <div class="set">
                                     <p class="name">${json[set].name}</p>
@@ -300,6 +321,78 @@
                                 </div>
                             `;
                         }
+
+                        searched.innerHTML += `<p class="load" onclick="loadMoreSearch();">load more</p>`;
+                    }
+                } else {
+                    console.log(text)
+                }
+            }
+
+            async function loadMore() {
+                let searched = document.getElementById('searched');
+
+                searched.removeChild(searched.children[searched.children.length - 1]);
+
+                // load next setsPerPage popular flash sets
+                let res = await fetcher(`/sets/popular`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1 }), headers: { 'Content-Type': 'application/json' }});
+
+                if (res.status == 201) {
+                    let json = await res.json();
+
+                    for (set in json) {
+                        setsLoaded += 1;
+
+                        searched.innerHTML += `
+                            <div class="set">
+                                <p class="name">${json[set].name}</p>
+
+                                <p>Created By ${json[set].creator}</p>
+
+                                <button onclick="location.assign('flashcards.html?id=${json[set].id}');">Study With Flashcards</button>
+                                <button onclick="location.assign('study.html?id=${json[set].id}');">Study with Questions</button>
+                            </div>
+                        `;
+                    }
+
+                    if (json.length == 0) return searched.innerHTML += `<p class="load">all sets are displayed</p>`;
+
+                    searched.innerHTML += `<p class="load" onclick="loadMore();">load more</p>`;
+                } else {
+                    console.log(text)
+                }
+            }
+            async function loadMoreSearch() {
+                let searched = document.getElementById('searched');
+
+                searched.removeChild(searched.children[searched.children.length - 1]);
+                // load next setsPerPage popular flash sets
+                let res = await fetcher(`/sets/search`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1, query: queryLoaded }), headers: { 'Content-Type': 'application/json' }});
+
+                if (res.status == 201) {
+                    let text = await res.text();
+
+                    if (text == 'all sets are displayed') {
+                        return searched.innerHTML += `<p class="load">all sets are displayed</p>`;
+                    } else {
+                        let json = JSON.parse(text);
+
+                        for (set in json) {
+                            setsLoaded += 1;
+
+                            searched.innerHTML += `
+                                <div class="set">
+                                    <p class="name">${json[set].name}</p>
+
+                                    <p>Created By ${json[set].creator}</p>
+
+                                    <button onclick="location.assign('flashcards.html?id=${json[set].id}');">Study With Flashcards</button>
+                                    <button onclick="location.assign('study.html?id=${json[set].id}');">Study with Questions</button>
+                                </div>
+                            `;
+                        }
+
+                        searched.innerHTML += `<p class="load" onclick="loadMore();">load more</p>`;
                     }
                 } else {
                     console.log(text)
