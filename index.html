@@ -262,6 +262,8 @@
 
                 if (res.status == 201) {
                     let json = await res.json();
+                    
+                    searched.innerHTML += `<p class="load">Popular Flash Sets</p>`;
 
                     for (set in json) {
                         setsLoaded += 1;
@@ -278,7 +280,7 @@
                         `;
                     }
 
-                    searched.innerHTML += `<p class="load" onclick="loadMore();">load more</p>`;                    
+                    searched.innerHTML += `<p class="load" onclick="loadMore();">load more</p>`;
                 } else {
                     console.log(text)
                 }
