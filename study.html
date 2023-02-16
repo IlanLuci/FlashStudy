@@ -320,7 +320,7 @@
                 let input = question.children[1].value;
 
                 // continue if input answer (with whitespace trimmed) is correct
-                if (input != '' && input.trim().toLowerCase() == answers[lastQuestion].toLowerCase()) {
+                if (input != '' && input.trim().toLowerCase() == answers[lastQuestion].trim().toLowerCase()) {
                     questions.splice(lastQuestion, 1);
                     answers.splice(lastQuestion, 1);
 
