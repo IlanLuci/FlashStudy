@@ -10,7 +10,7 @@
 
         <style>
             body {
-                background-color: whitesmoke;
+                background-color: #0390fc;
                 color: #222;
                 margin: 0;
                 padding: 0;
@@ -21,13 +21,14 @@
                 border: 2px solid #222;
                 border-radius: 8px;
                 padding: 10px;
+                background-color: #0390fc;
                 position: absolute;
                 outline: none;
                 bottom: 60px;
                 transform: translate(-50%);
             }
             input:hover, input:focus {
-                background-color: cadetblue;
+                background-color: #413fb6;
             }
 
             button {
@@ -38,11 +39,11 @@
                 position: absolute;
                 bottom: 10px;
                 cursor: pointer;
-                background-color: white;
+                background-color: #0390fc;
                 outline: none;
             }
             button:hover {
-                background-color: cadetblue;
+                background-color: #413fb6;
             }
 
             p {
@@ -75,7 +76,7 @@
                 left: 50%;
                 transform: translate(-50%);
                 font-size: 14pt;
-                color: #eb4034;
+                color: #a8514b;
             }
             #description {
                 position: absolute;
@@ -97,7 +98,7 @@
                 color: #fcba03;
             }
             #mastered {
-                color: #32a852;
+                color: #2eb351;
             }
             #back {
                 position: fixed;
@@ -107,7 +108,7 @@
                 cursor: pointer;
             }
             #back:hover {
-                background-color: cadetblue;
+                background-color: #413fb6;
             }
 
             #chars {
@@ -131,7 +132,7 @@
                 cursor: pointer;
             }
             #profile:hover {
-                background-color: cadetblue;
+                background-color: #413fb6;
             }
             #new {
                 position: fixed;
@@ -147,7 +148,7 @@
                 cursor: pointer;
             }
             #new:hover {
-                background-color: cadetblue;
+                background-color: #413fb6;
             }
 
             #swap {
@@ -291,7 +292,7 @@
                     question.children[1].style.display = 'none';
                     question.children[3].innerText = 'Restart'
                     question.children[3].setAttribute('onclick', 'restart()');
-                    question.children[0].style.color = '#32a852';
+                    question.children[0].style.color = '#2eb351';
                     question.children[0].innerText = 'You have answered all questions correctly. Click below to restart and practice again';
 
                     let completed = localStorage.getItem(`completed_${id}`);
@@ -319,13 +320,13 @@
 
                 let input = question.children[1].value;
 
-                // continue if input answer (with whitespace trimmed) is correct
+                // continue if input answer (with #0390fcspace trimmed) is correct
                 if (input != '' && input.trim().toLowerCase() == answers[lastQuestion].trim().toLowerCase()) {
                     questions.splice(lastQuestion, 1);
                     answers.splice(lastQuestion, 1);
 
                     question.children[1].value = '';
-                    question.style.backgroundColor = '#32a852';
+                    question.style.backgroundColor = '#2eb351';
 
                     newQuestion();
                     updateProgress();
@@ -336,7 +337,7 @@
                 } else {
                     corrections.innerText = `The correct answer for ${questions[lastQuestion]} was ${answers[lastQuestion]} `;
                     question.children[1].value = '';
-                    question.style.backgroundColor = '#eb4034';
+                    question.style.backgroundColor = '#a8514b';
 
                     newQuestion();
 

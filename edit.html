@@ -10,7 +10,7 @@
 
         <style>
             body {
-                background-color: whitesmoke;
+                background-color: #0390fc;
                 color: #222;
                 margin: 0;
                 padding: 0;
@@ -21,12 +21,16 @@
                 border: 2px solid #222;
                 border-radius: 8px;
                 padding: 10px;
+                background-color: #0390fc;
                 outline: none;
                 width: 175px;
                 margin-top: 10px;
             }
+            input::placeholder {
+                color: #222;
+            }
             input:hover, input:focus {
-                background-color: cadetblue;
+                background-color: #413fb6;
             }
 
             button {
@@ -37,11 +41,11 @@
                 position: relative;
                 bottom: 10px;
                 cursor: pointer;
-                background-color: white;
+                background-color: #0390fc;
                 outline: none;
             }
             button:hover {
-                background-color: cadetblue;
+                background-color: #413fb6;
             }
 
             a {
@@ -64,12 +68,12 @@
                 cursor: pointer;
             }
             #back:hover {
-                background-color: cadetblue;
+                background-color: #413fb6;
             }
 
             #messages {
                 position: absolute;
-                color: #32a852;
+                color: #2eb351;
                 left: 50%;
                 transform: translate(-50%);
                 top: 80px;
@@ -115,7 +119,7 @@
                 cursor: pointer;
             }
             #profile:hover {
-                background-color: cadetblue;
+                background-color: #413fb6;
             }
             #new {
                 position: fixed;
@@ -131,7 +135,7 @@
                 cursor: pointer;
             }
             #new:hover {
-                background-color: cadetblue;
+                background-color: #413fb6;
             }
         </style>
     </head>
@@ -269,7 +273,7 @@
                     location.href = `profile.html`;
                 } else {
                     //failed to create set
-                    messages.style.color = '#eb4034';
+                    messages.style.color = '#a8514b';
                     messages.innerText = text;
                 }
             }
