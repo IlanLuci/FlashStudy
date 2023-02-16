@@ -290,7 +290,7 @@
             });
 
             async function search(e) {
-                let query = document.getElementById('search').value;
+                let query = document.getElementById('search').value.trim();
                 let searched = document.getElementById('searched');
 
                 queryLoaded = query;
