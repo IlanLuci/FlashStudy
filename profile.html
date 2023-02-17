@@ -65,6 +65,9 @@
             #back:hover {
                 background-color: #0390fc;
             }
+            .delete:hover {
+                background-color: #a8514b;
+            }
 
             #logout {
                 position: absolute;
@@ -157,7 +160,7 @@
                                 
                                 <input type="text" value="https://flashstudy.org/study.html?id=${json.sets[set]}" style="display: none;">
                                 <button onclick="copy(event)">Copy Share Link</button>
-                                <button onclick="deleteSet(${json.sets[set]});">Delete</button>
+                                <button onclick="deleteSet(${json.sets[set]});" class="delete">Delete</button>
                                 <button onclick="location.assign('edit.html?id=${json.sets[set]}');">Edit</button>
                                 
                                 <br><br>
