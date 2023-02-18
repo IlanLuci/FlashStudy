@@ -173,6 +173,7 @@
         <script src="main.js"></script>
         <script>
             window.addEventListener('load', async () => {
+                let profile = document.getElementById('profile');
                 let response = await fetcher(`/auth/check`);
                 let result = await response.text();
 
@@ -180,6 +181,8 @@
                     alert('You must be logged in to access this.');
 
                     location.assign('/login.html');
+                } else {
+                    profile.setAttribute('onclick', `location.href = 'profile.html'`);
                 }
             });
 

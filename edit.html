@@ -175,6 +175,7 @@
             const id = urlParams.get('id');
 
             window.addEventListener('load', async () => {
+                let profile = document.getElementById('profile');
                 let response = await fetcher(`/auth/check`);
                 let result = await response.text();
 
@@ -183,6 +184,8 @@
                     location.assign('/login.html');
                 } else {
                     let json = JSON.parse(result);
+
+                    profile.setAttribute('onclick', `location.href = 'profile.html'`);
 
                     // check if list is owned by the signed in user
                     if (json.sets.includes(id)) {
