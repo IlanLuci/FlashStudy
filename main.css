@@ -1,0 +1,26 @@
+body {background-color:#5c5ac6;color:#222;margin:0;padding:0;font-family:'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif;}
+
+/* stop color changes on links */
+a {color:#222;}
+
+/* button styling */
+button {border-radius:8px;padding:10px;cursor:pointer;background-color:#5c5ac6;outline:none;border:2px solid #222;}
+
+/* styling profile button in header */
+#profile {position:fixed;right:10px;top:10px;border-radius:8px;border:3px solid #222;cursor:pointer;}
+#profile:hover {background-color:#0390fc;}
+
+/* styling for new set and note button in header */
+#new {position: fixed;transform: initial;margin-top:0;bottom:initial;right:70px;padding:10px;font-size:14pt;top:10px;border-radius:8px;border:3px solid #222;cursor:pointer;}
+#new:hover {background-color:#0390fc;}
+
+/* used for dropdown hiding/showing */
+.show {display:block!important;}
+
+/* create new set and note dropdown */
+.dropdown-content {display:none;position:fixed;background-color:#f1f1f1;min-width:160px;z-index:1;border:3px solid #222;border-radius:8px;background-color:#0390fc;right:30px;top:60px;}
+.dropdown-content a {padding:12px 16px;text-decoration:none;display:block;}
+.dropdown-content a:hover {background-color:#5c5ac6;}
+
+/* styling for titles on pages */
+#title {top:0;position:absolute;margin-top:10px;left:50%;transform:translate(-50%);color:#222;-ms-user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;user-select:none;}

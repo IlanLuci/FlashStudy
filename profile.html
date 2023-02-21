@@ -8,14 +8,9 @@
         
         <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8483062904808401" crossorigin="anonymous"></script>-->
 
+        <link rel="stylesheet" href="main.css">
         <style>
-            body {
-                background-color:#5c5ac6;
-                color: #222;
-                margin: 0;
-                padding: 0;
-                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            }
+            
 
             input {
                 border: 2px solid #222;
@@ -30,31 +25,13 @@
                 background-color: #0390fc;
             }
             button {
-                border: 2px solid #222;
-                border-radius: 8px;
-                padding: 10px;
-                margin-top: 20px;
                 position: relative;
                 bottom: 10px;
-                cursor: pointer;
-                background-color:#5c5ac6;
-                outline: none;
             }
             button:hover {
                 background-color: #0390fc;
             }
-            a {
-                color: black;
-            }
-            
-            #title {
-                position: absolute;
-                margin-top: 10px;
-                top: 0;
-                left: 50%;
-                transform: translate(-50%);
-                color: #222;
-            }
+          
             #back {
                 background-color:#5c5ac6;
                 position: fixed;
@@ -72,21 +49,21 @@
 
             #logout {
                 position: absolute;
-                bottom: calc(100% - 60px);
-                right: 20px;
+                bottom: calc(100% - 50px);
+                right: 10px;
             }
             #logout:hover {
                 background-color: #a8514b;
             }
             #create-set {
                 position: absolute;
-                bottom: calc(100% - 60px);
-                right: 100px;
+                bottom: calc(100% - 50px);
+                right: 75px;
             }
             #create-note {
                 position: absolute;
-                bottom: calc(100% - 60px);
-                right: 260px;
+                bottom: calc(100% - 50px);
+                right: 216px;
             }
 
             #sets-container {
@@ -152,7 +129,7 @@
         <button id="create-set" onclick="location.href = 'create-set.html'">Create New Flash Set</button>
         <button id="create-note" onclick="location.href = 'create-note.html'">Create New Flash Note</button>
 
-        <script src="main.js"></script>
+        <script src="main.js?v1"></script>
         <script>
             window.addEventListener('load', async () => {
                 let response = await fetcher(`/auth/check`);

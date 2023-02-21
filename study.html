@@ -8,14 +8,9 @@
 
         <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8483062904808401" crossorigin="anonymous"></script>-->
 
+        <link rel="stylesheet" href="main.css">
         <style>
-            body {
-                background-color:#5c5ac6;
-                color: #222;
-                margin: 0;
-                padding: 0;
-                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            }
+            
 
             input {
                 border: 2px solid #222;
@@ -32,15 +27,9 @@
             }
 
             button {
-                border: 2px solid #222;
-                border-radius: 8px;
-                padding: 10px;
                 transform: translate(-50%);
                 position: absolute;
                 bottom: 10px;
-                cursor: pointer;
-                background-color:#5c5ac6;
-                outline: none;
             }
             button:hover {
                 background-color: #0390fc;
@@ -86,13 +75,6 @@
                 font-size: 14pt;
                 color: #222;
             }
-            #title {
-                position: absolute;
-                margin-top: 10px;
-                left: 50%;
-                transform: translate(-50%);
-                color: #222;
-            }
             #stillWorking {
                 margin-top: 50px;
                 color: #fcba03;
@@ -123,33 +105,9 @@
                 position: relative;
             }
 
-            #profile {
-                position: fixed;
-                right: 10px;
-                top: 10px;
-                border-radius: 8px;
-                border: 3px solid #222;
-                cursor: pointer;
-            }
-            #profile:hover {
-                background-color: #0390fc;
-            }
-            #new {
-                position: fixed;
-                transform: initial;
-                margin-top: 0;
-                bottom: initial;
-                right: 70px;
-                padding: 10px;
-                font-size: 14pt;
-                top: 10px;
-                border-radius: 8px;
-                border: 3px solid #222;
-                cursor: pointer;
-            }
-            #new:hover {
-                background-color: #0390fc;
-            }
+            
+            
+            
 
             #swap {
                 margin: 0;
@@ -175,7 +133,11 @@
             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
         </svg>
         
-        <button onclick="location.href = 'create-set.html'" id="new">Create New Flash Set</button>
+        <button onclick="dropdown();" id="new">Create</button>
+        <div id="dropdown" class="dropdown-content">
+            <a href="create-set.html">Create New Set</a>
+            <a href="create-note.html">Create New Note</a>
+        </div>
 
         <h1 id="title"></h1>
 
@@ -209,7 +171,7 @@
             <button class="char" onclick="addChar(event, '¿');">¿</button>
         </div>
 
-        <script src="main.js"></script>
+        <script src="main.js?v1"></script>
         <script>
             const question = document.getElementById('question');
             const corrections = document.getElementById('corrections');

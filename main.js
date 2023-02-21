@@ -35,3 +35,22 @@ function logout() {
     //reload page
     location.reload();
 }
+
+// dropdown in header
+function dropdown() {
+    document.getElementById("dropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('#new')) {
+      let dropdowns = document.getElementsByClassName("dropdown-content");
+      
+      for (let i = 0; i < dropdowns.length; i++) {
+        let openDropdown = dropdowns[i];
+        
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }

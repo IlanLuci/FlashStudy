@@ -8,14 +8,9 @@
         
         <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8483062904808401" crossorigin="anonymous"></script>-->
 
+        <link rel="stylesheet" href="main.css">
         <style>
-            body {
-                background-color:#5c5ac6;
-                color: #222;
-                margin: 0;
-                padding: 0;
-                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            }
+            
 
             input {
                 border: 2px solid #222;
@@ -33,21 +28,13 @@
                 background-color: #0390fc;
             }
             button {
-                border: 2px solid #222;
-                border-radius: 8px;
-                padding: 10px;
                 margin-top: 20px;
                 position: relative;
                 bottom: 10px;
-                cursor: pointer;
-                background-color:#5c5ac6;
-                outline: none;
             }
+            
             button:hover {
                 background-color: #0390fc;
-            }
-            a {
-                color: black;
             }
 
             .questions {
@@ -64,13 +51,6 @@
                 margin-left: 50%;
                 margin-top: 150px;
                 transform: translate(-50%);
-            }
-            #title {
-                position: absolute;
-                left: 50%;
-                margin-top: 10px;
-                transform: translate(-50%);
-                color: #222;
             }
             #errors {
                 position: absolute;
@@ -103,17 +83,7 @@
                 background-color: #0390fc;
             }
 
-            #profile {
-                position: fixed;
-                right: 10px;
-                top: 10px;
-                border-radius: 8px;
-                border: 3px solid #222;
-                cursor: pointer;
-            }
-            #profile:hover {
-                background-color: #0390fc;
-            }
+            
         </style>
     </head>
 
@@ -170,7 +140,7 @@
         </div>
         <p id="errors"></p>
 
-        <script src="main.js"></script>
+        <script src="main.js?v1"></script>
         <script>
             window.addEventListener('load', async () => {
                 let profile = document.getElementById('profile');

@@ -8,14 +8,9 @@
         
         <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8483062904808401" crossorigin="anonymous"></script>-->
 
+        <link rel="stylesheet" href="main.css">
         <style>
-            body {
-                background-color:#5c5ac6;
-                color: #222;
-                margin: 0;
-                padding: 0;
-                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            }
+            
 
             #create {
                 border: 2px solid #222;
@@ -33,10 +28,6 @@
             #create:hover {
                 background-color: #0390fc;
             }
-
-            a {
-                color: black;
-            }
             
             #main {
                 position: absolute;
@@ -47,13 +38,6 @@
                 margin-left: 50%;
                 margin-top: 150px;
                 transform: translate(-50%);
-            }
-            #title {
-                position: absolute;
-                left: 50%;
-                margin-top: 10px;
-                transform: translate(-50%);
-                color: #222;
             }
             #errors {
                 position: absolute;
@@ -75,17 +59,7 @@
                 background-color: #0390fc;
             }
 
-            #profile {
-                position: fixed;
-                right: 10px;
-                top: 10px;
-                border-radius: 8px;
-                border: 3px solid #222;
-                cursor: pointer;
-            }
-            #profile:hover {
-                background-color: #0390fc;
-            }
+            
 
             .textInput {
                 display: inline;
@@ -256,7 +230,7 @@
 
         <p id="errors"></p>
 
-        <script src="main.js"></script>
+        <script src="main.js?v1"></script>
         <script>
             // get note id from query params
             const queryString = window.location.search;
