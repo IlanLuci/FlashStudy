@@ -18,48 +18,33 @@
             .create {
                 margin-top: 10px;
             }
-            
-            #description {
-                position: absolute;
-                top: 50px;
-                left: 50%;
-                transform: translate(-50%);
-                font-size: 14pt;
-                color: #222;
-            }
             #errors {
-                position: absolute;
-                top: calc(50% + 200px);
-                left: 50%;
-                transform: translate(-50%);
-                font-size: 14pt;
-                color: #a8514b;
-            }
-            #accents {
-                position: absolute;
-                bottom: 0px;
-                left: 50%;
-                transform: translate(-50%);
-                font-size: 14pt;
-            }
-
-            
-            
-            
-
-            #featured {
+                display: none;
                 position: fixed;
-                width: 350px;
-                height: calc(100% - 60px);
+                top: 100px;
+                font-size: 15pt;
+                right: 10px;
+            }
+            #footer {
+                position: fixed;
+                padding: 5px;
+                bottom: -20px;
+                left: 0;
+                width: 100%;
                 text-align: center;
-                overflow: scroll;
-                padding: 20px;
+                height: 30px;
+                background-color: #5c5ac6;
+                font-size: 14pt;
             }
             .set {
                 margin-bottom: 20px;
+                margin: 10px;
                 border-radius: 8px;
+                padding: 8px;
+                display: inline-block;
                 border: 3px solid #222;
                 padding-bottom: 10px;
+                text-align: center;
             }
             .name {
                 font-size: 15pt;
@@ -85,42 +70,70 @@
 
             #search {
                 position: absolute;
-                top: 120px;
+                top: 25px;
                 left: calc(50% - 19px);
                 transform: translate(-50%);
             }
             #search-icon {
                 position: absolute;
-                top: 120px;
+                top: 25px;
                 left: calc(50% + 131px);
                 transform: translate(-50%);
-                padding: 4px;
+                padding: 4.5px;
                 border-radius: 8px;
                 border: 2px solid #222;
                 cursor: pointer;
             }
-            #search-icon:hover, #search-icon:focus {
-                background-color: #0390fc;
-            }
 
             #searched {
-                position: fixed;
-                width: 350px;
-                top: 170px;
+                white-space: nowrap;
+                position: absolute;
+                overflow-x: scroll;
+                width: 100%;
+                top: 150px;
                 left: 50%;
                 transform: translate(-50%);
-                height: calc(100% - 250px);
                 text-align: center;
-                overflow-y: scroll;
-                padding: 20px;
             }
 
-            .load {
+            #description {
+                font-size: 15pt;
+                margin: 120px 10px;
+            }
+
+            #load {
+                margin: 190px 10px 0px calc(100% - 100px);
                 font-size: 15pt;
                 cursor: pointer;
+                -ms-user-select: none;
+                -moz-user-select: none;
+                -khtml-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
             }
-            .load:hover {
+            #load:hover {
                 text-decoration: underline;
+            }
+            #title {
+                top: 5px;
+                left: 10px;
+                transform: none;
+                padding: 3px 10px 5px 10px;
+            }
+            #title::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: calc(100% + 5px);
+                left: -2px;
+                top: -3px;
+                z-index: -1;
+                background: #0390fc 0 0;
+                transform: rotate(5deg);
+                border-top-left-radius: 80px;
+                border-top-right-radius: 40px;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 70px;
             }
         </style>
     </head>
@@ -138,62 +151,21 @@
 
         <h1 id="title">Flash Study</h1>
 
-        <p id="description">Select a flash set to start studying.</p>
-
         <input id="search" type="text" placeholder="search flash sets">
 
         <svg onclick="search();" id="search-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
         </svg>
 
+        <p id="description">Popular Flash Sets</p>
+        <p id="errors">all sets are displayed</p>
+
         <div id="searched"></div>
 
-        <!--<div id="featured">
-            <h2>Midterm Prep</h2>
-
-            <hr>
-
-            <div class="set">
-                <p class="name">El arte Vocab</p>
-
-                <p>Created By Ilan</p>
-
-                <button onclick="location.assign('flashcards.html?id=2269605474256915');">Study With Flashcards</button>
-                <button onclick="location.assign('study.html?id=2269605474256915');">Study with Questions</button>
-            </div>
-
-            <div class="set">
-                <p class="name">La Naturaleza Vocab</p>
-
-                <p>Created By Ilan</p>
-
-                <button onclick="location.assign('flashcards.html?id=8711863823042543');">Study With Flashcards</button>
-                <button onclick="location.assign('study.html?id=8711863823042543');">Study with Questions</button>
-            </div>
-
-            <div class="set">
-                <p class="name">La Competencia Vocab</p>
-
-                <p>Created By Ilan</p>
-
-                <button onclick="location.assign('flashcards.html?id=6007132213000859');">Study With Flashcards</button>
-                <button onclick="location.assign('study.html?id=6007132213000859');">Study with Questions</button>
-            </div>
-
-            <div class="set">
-                <p class="name">Ir de viaje Vocab</p>
-
-                <p>Created By Ilan</p>
-
-                <button onclick="location.assign('flashcards.html?id=5329713716511546');">Study With Flashcards</button>
-                <button onclick="location.assign('study.html?id=5329713716511546');">Study with Questions</button>
-            </div>
-        </div>-->
-
-        <p id="errors"></p>
+        <p id="load" onclick="loadMore();">load more</p>
         
-        <p id="accents">Created by Ilan L and Chris O. Please reach out with any suggestions.</p>
-        <!--<p id="accents">click <a href="accents.html">here</a> for the spanish accents copy-paste tool</p>-->
+        <p id="footer">Created by Ilan L and Chris O. Please reach out with any suggestions.</p>
+        <!--<p id="footer">click <a href="accents.html">here</a> for the spanish accents copy-paste tool</p>-->
 
         <script src="main.js?v1"></script>
         <script>
@@ -217,33 +189,7 @@
                     profile.setAttribute('onclick', `location.href = 'profile.html'`);
                 }
 
-                // load popular flash sets
-                let res = await fetcher(`/sets/popular`, { method: 'post', body: JSON.stringify({ order: 1 }), headers: { 'Content-Type': 'application/json' }});
-
-                if (res.status == 201) {
-                    let json = await res.json();
-                    
-                    searched.innerHTML += `<p class="load">Popular Flash Sets</p>`;
-
-                    for (set in json) {
-                        setsLoaded += 1;
-
-                        searched.innerHTML += `
-                            <div class="set">
-                                <p class="name">${json[set].name}</p>
-
-                                <p>Created By ${json[set].creator}</p>
-
-                                <button onclick="location.assign('flashcards.html?id=${json[set].id}');">Study With Flashcards</button>
-                                <button onclick="location.assign('study.html?id=${json[set].id}');">Study with Questions</button>
-                            </div>
-                        `;
-                    }
-
-                    searched.innerHTML += `<p class="load" onclick="loadMore();">load more</p>`;
-                } else {
-                    console.log(text)
-                }
+                loadPopular();
             });
             window.addEventListener('keypress', (e) => {
                 if (e.key == 'Enter' && document.activeElement == document.getElementById('search')) search();
@@ -252,12 +198,16 @@
             async function search(e) {
                 let query = document.getElementById('search').value.trim();
                 let searched = document.getElementById('searched');
+                let description = document.getElementById('description');
+                let load = document.getElementById('load');
+
+                if (query == '') return loadPopular();
 
                 queryLoaded = query;
                 searched.innerText = '';
+                description.innerText = query + ' Flash Sets';
+                load.onclick = loadMoreSearch;
                 setsLoaded = 0;
-
-                if (query == '') return;
 
                 let res = await fetcher(`/sets/search`, { method: 'post', body: JSON.stringify({ order: 1, query: query }), headers: { 'Content-Type': 'application/json' }});
 
@@ -272,19 +222,8 @@
                         for (set in json) {
                             setsLoaded += 1;
 
-                            searched.innerHTML += `
-                                <div class="set">
-                                    <p class="name">${json[set].name}</p>
-
-                                    <p>Created By ${json[set].creator}</p>
-
-                                    <button onclick="location.assign('flashcards.html?id=${json[set].id}');">Study With Flashcards</button>
-                                    <button onclick="location.assign('study.html?id=${json[set].id}');">Study with Questions</button>
-                                </div>
-                            `;
+                            addSet(json[set].name, json[set].creator, json[set].id);
                         }
-
-                        searched.innerHTML += `<p class="load" onclick="loadMoreSearch();">load more</p>`;
                     }
                 } else {
                     console.log(text)
@@ -293,8 +232,6 @@
 
             async function loadMore() {
                 let searched = document.getElementById('searched');
-
-                searched.removeChild(searched.children[searched.children.length - 1]);
 
                 // load next setsPerPage popular flash sets
                 let res = await fetcher(`/sets/popular`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1 }), headers: { 'Content-Type': 'application/json' }});
@@ -305,21 +242,18 @@
                     for (set in json) {
                         setsLoaded += 1;
 
-                        searched.innerHTML += `
-                            <div class="set">
-                                <p class="name">${json[set].name}</p>
-
-                                <p>Created By ${json[set].creator}</p>
-
-                                <button onclick="location.assign('flashcards.html?id=${json[set].id}');">Study With Flashcards</button>
-                                <button onclick="location.assign('study.html?id=${json[set].id}');">Study with Questions</button>
-                            </div>
-                        `;
+                        addSet(json[set].name, json[set].creator, json[set].id);
                     }
 
-                    if (json.length == 0) return searched.innerHTML += `<p class="load">all sets are displayed</p>`;
+                    if (json.length == 0) {
+                        document.getElementById('errors').style.display = 'block';
 
-                    searched.innerHTML += `<p class="load" onclick="loadMore();">load more</p>`;
+                        setTimeout(() => {
+                        document.getElementById('errors').style.display = 'none';
+                        }, 1500);
+
+                        return;
+                    }
                 } else {
                     console.log(text)
                 }
@@ -327,34 +261,66 @@
             async function loadMoreSearch() {
                 let searched = document.getElementById('searched');
 
-                searched.removeChild(searched.children[searched.children.length - 1]);
                 // load next setsPerPage popular flash sets
                 let res = await fetcher(`/sets/search`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1, query: queryLoaded }), headers: { 'Content-Type': 'application/json' }});
 
+                let text = await res.text();
                 if (res.status == 201) {
-                    let text = await res.text();
 
                     if (text == 'all sets are displayed') {
-                        return searched.innerHTML += `<p class="load">all sets are displayed</p>`;
+                        document.getElementById('errors').style.display = 'block';
+
+                        setTimeout(() => {
+                        document.getElementById('errors').style.display = 'none';
+                        }, 1500);
+
+                        return;
                     } else {
                         let json = JSON.parse(text);
 
                         for (set in json) {
                             setsLoaded += 1;
 
-                            searched.innerHTML += `
-                                <div class="set">
-                                    <p class="name">${json[set].name}</p>
-
-                                    <p>Created By ${json[set].creator}</p>
-
-                                    <button onclick="location.assign('flashcards.html?id=${json[set].id}');">Study With Flashcards</button>
-                                    <button onclick="location.assign('study.html?id=${json[set].id}');">Study with Questions</button>
-                                </div>
-                            `;
+                            addSet(json[set].name, json[set].creator, json[set].id);
                         }
+                    }
+                } else {
+                    console.log(text)
+                }
+            }
 
-                        searched.innerHTML += `<p class="load" onclick="loadMore();">load more</p>`;
+            function addSet(name, creator, id) {
+                let searched = document.getElementById('searched');
+
+                searched.innerHTML += `
+                    <div class="set">
+                        <p class="name">${name}</p>
+
+                        <p>Created By ${creator}</p>
+
+                        <button onclick="location.assign('flashcards.html?id=${id}');">Study With Flashcards</button>
+                        <button onclick="location.assign('study.html?id=${id}');">Study with Questions</button>
+                    </div>
+                `;
+            }
+
+            async function loadPopular() {
+                queryLoaded = '';
+                searched.innerText = '';
+                setsLoaded = 0;
+                description.innerText = 'Popular Flash Sets';
+                load.onclick = loadMore;
+
+                // load popular flash sets
+                let res = await fetcher(`/sets/popular`, { method: 'post', body: JSON.stringify({ order: 1 }), headers: { 'Content-Type': 'application/json' }});
+
+                if (res.status == 201) {
+                    let json = await res.json();
+
+                    for (set in json) {
+                        setsLoaded += 1;
+
+                        addSet(json[set].name, json[set].creator, json[set].id);
                     }
                 } else {
                     console.log(text)

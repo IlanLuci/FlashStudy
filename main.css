@@ -1,4 +1,6 @@
-body {background-color:#5c5ac6;color:#222;margin:0;padding:0;font-family:'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif;}
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+body {background-color:#5c5ac6;color:#222;margin:0;padding:0;font-family:'Source Sans Pro',sans-serif;}
 
 /* stop color changes on links */
 a {color:#222;}
