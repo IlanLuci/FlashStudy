@@ -10,8 +10,6 @@
 
         <link rel="stylesheet" href="main.css">
         <style>
-            
-
             input {
                 border: 2px solid #222;
                 border-radius: 8px;
@@ -32,17 +30,6 @@
                 background-color: #0390fc;
             }
           
-            #back {
-                background-color:#5c5ac6;
-                position: fixed;
-                left: 10px;
-                top: 10px;
-                border-radius: 8px;
-                cursor: pointer;
-            }
-            #back:hover {
-                background-color: #0390fc;
-            }
             .delete:hover {
                 background-color: #a8514b;
             }
@@ -86,7 +73,7 @@
                 border-radius: 8px;
                 border: 2px solid #222;
                 width: 400px;
-                height: 275px;
+                height: 230px;
                 margin: 30px;
                 text-align: center;
                 font-size: 13pt;
@@ -96,7 +83,7 @@
                 border-radius: 8px;
                 border: 2px solid #222;
                 width: 300px;
-                height: 170px;
+                height: 160px;
                 margin: 30px;
                 text-align: center;
                 font-size: 13pt;
@@ -198,7 +185,7 @@
                                 <button onclick="deleteNote(${json.notes[note]});" class="delete">Delete</button>
                                 <button onclick="location.assign('edit-note.html?id=${json.notes[note]}');">Edit</button>
                                 
-                                <br>
+                                <br><br>
 
                                 <button onclick="location.assign('note.html?id=${json.notes[note]}');">View</button>
                             </div>

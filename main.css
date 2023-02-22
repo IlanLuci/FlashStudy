@@ -3,12 +3,17 @@ body {background-color:#5c5ac6;color:#222;margin:0;padding:0;font-family:'Frankl
 /* stop color changes on links */
 a {color:#222;}
 
+/* styling for svgs */
+svg:hover {background-color:#0390fc!important;}
+
 /* button styling */
 button {border-radius:8px;padding:10px;cursor:pointer;background-color:#5c5ac6;outline:none;border:2px solid #222;}
 
+/* styling back button in header */
+#back {background-color:#5c5ac6;position:fixed;left:10px;top:10px;border-radius:8px;cursor:pointer;}
+
 /* styling profile button in header */
 #profile {position:fixed;right:10px;top:10px;border-radius:8px;border:3px solid #222;cursor:pointer;}
-#profile:hover {background-color:#0390fc;}
 
 /* styling for new set and note button in header */
 #new {position: fixed;transform: initial;margin-top:0;bottom:initial;right:70px;padding:10px;font-size:14pt;top:10px;border-radius:8px;border:3px solid #222;cursor:pointer;}

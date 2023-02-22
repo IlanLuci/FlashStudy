@@ -47,20 +47,6 @@
                 font-size: 14pt;
                 color: #a8514b;
             }
-            #back {
-                position: fixed;
-                left: 10px;
-                top: 10px;
-                padding: 0;
-                border-radius: 8px;
-                cursor: pointer;
-            }
-            #back:hover {
-                background-color: #0390fc;
-            }
-
-            
-
             .textInput {
                 display: inline;
                 border: 2px solid #222;
@@ -90,13 +76,24 @@
                 margin-left: 5px;
                 color: #222;
             }
-            svg:hover, svg:focus {
-                background-color: #0390fc;
-            }
 
-            .input {
+            .select {
                 position: relative;
                 top: -10px;
+                border-radius: 8px;
+                height: 30px;
+                border: 1px solid #222;
+                overflow: hidden;
+                overflow: -moz-hidden-unscrollable;
+                background: no-repeat #5c5ac6;
+                padding: 5px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+            }
+            .select:hover, .select:focus {
+                background-color: #0390fc;
+            }
+            .input {
                 border-radius: 8px;
                 height: 30px;
                 border: 1px solid #222;
@@ -195,7 +192,7 @@
 
             <input class="input" type="color" onchange="chooseColor()" id="colorSelect"/>
 
-            <select class="input" id="fontType" onchange="changeFont (this);">
+            <select class="select" id="fontType" onchange="changeFont (this);">
                 <option value="Arial">Arial</option>
                 <option value="Helvetica">Helvetica</option>
                 <option value="Times New Roman">Times New Roman</option>
@@ -211,7 +208,7 @@
                 <option value="Comic Sans MS">Comic Sans MS</option>
             </select>
 
-            <select class="input" id="fontSize" onchange="changeSize()">
+            <select class="select" id="fontSize" onchange="changeSize()">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3" selected>3</option>
