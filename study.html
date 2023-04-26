@@ -16,14 +16,14 @@
                 border: 2px solid #222;
                 border-radius: 8px;
                 padding: 10px;
-                background-color:#5c5ac6;
+                background-color:#0B5563;
                 position: absolute;
                 outline: none;
                 bottom: 60px;
                 transform: translate(-50%);
             }
             input:hover, input:focus {
-                background-color: #0390fc;
+                background-color: #ECA400;
             }
 
             button {
@@ -32,7 +32,7 @@
                 bottom: 10px;
             }
             button:hover {
-                background-color: #0390fc;
+                background-color: #ECA400;
             }
 
             p {
@@ -269,7 +269,7 @@
 
                 let input = question.children[1].value;
 
-                // continue if input answer (with#5c5ac6space trimmed) is correct
+                // continue if input answer (with#0B5563space trimmed) is correct
                 if (input != '' && input.trim().toLowerCase() == answers[lastQuestion].trim().toLowerCase()) {
                     questions.splice(lastQuestion, 1);
                     answers.splice(lastQuestion, 1);
