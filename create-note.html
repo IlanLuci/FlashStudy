@@ -249,7 +249,7 @@
                 const subject = main.children[1].value;
                 const note = main.children[15];
 
-                const data = { "title": title, "subject": subject, "note": htmlToJSON(note.innerHTML) };
+                const data = { "title": title, "subject": subject, "note": note.innerHTML };
 
                 let res = await fetcher(`/notes/create`, { method: 'post', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' }});
                 let text = await res.text();
@@ -277,30 +277,6 @@
             function chooseColor() {
                 const color = document.getElementById('colorSelect').value;
                 document.execCommand('foreColor', false, color);
-            }
- 
-            function htmlToJSON(html) {
-                let split = html.split('<');
-                let blocks = [];
-                let level = 0;
-
-                for (string in split) {
-                    if (split[string] == '') continue;
-
-                    let deepSplit = split[string].split('>');
-
-                    if (deepSplit[0].startsWith('/')) {
-                        //closing tag
-                        level -= 1;
-                    } else {
-                        //opening tag
-                        blocks.push({ "tag": deepSplit[0], "content": deepSplit[1] || '', "level": level });
-                        
-                        level += 1;                      
-                    }
-                }
-                
-                return blocks;
             }
         </script>
     </body>

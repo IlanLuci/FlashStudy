@@ -70,6 +70,7 @@
             <p></p>
         </div>
 
+        <script type="text/javascript" src="purify.min.js"></script>
         <script src="main.js?v1"></script>
         <script>
             const noteDiv = document.getElementById('note');
@@ -97,7 +98,7 @@
                     // update local variables with data retrieved from server
                     title = json.title;
                     subject = json.subject;
-                    note = JSON.parse(json.note);
+                    note = json.note;
                     creator = json.creator;
 
                     //add display of json.creator
@@ -106,47 +107,9 @@
                     document.getElementById('title').innerText = title;
                     document.title = title;
 
-                    let level = 0;
-                    let lastEle;
+                    let cleanNote = DOMPurify.sanitize(note);
 
-                    for (let block in note) {
-                        let split = note[block].tag.split(' ');
-
-                        let ele = document.createElement(split[0]);
-
-                        for (let x = 1; x < split.length; x += 1) {
-                            let val = split[x].split('"');
-
-                            if (val[1] == '') {
-                                let lastVal = split[x - 1].split('"');
-
-                                ele.setAttribute(lastVal[0].slice(0, lastVal[0].length - 1), lastVal[1] +  val[0]);
-                            }
-
-                            ele.setAttribute(val[0].slice(0, val[0].length - 1), val[1]);
-                        }
-
-                        ele.innerText = decode(note[block].content);
-
-                        if (!lastEle) {
-                            noteDiv.appendChild(ele);
-                        } else if (note[block].level > level) {
-                            //append within
-                            lastEle.appendChild(ele);
-                        } else {
-                            //append after
-                            let loc = lastEle;
-
-                            for (let x = note[block].level; x < level; x += 1) {
-                                loc = loc.parentNode;
-                            }
-
-                            loc.parentNode.appendChild(ele);
-                        }
-
-                        level = note[block].level;
-                        lastEle = ele;
-                    }
+                    noteDiv.innerHTML += cleanNote;
                 } else {
                     // id given in urlparams is either invalid or server bug has occured 
                     alert('invalid set id');
