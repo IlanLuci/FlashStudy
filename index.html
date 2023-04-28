@@ -190,76 +190,78 @@
             <!-- <p id="load" onclick="loadMore();">load more</p> -->
         </div>
 
-        <div class="set" id="1">
-            <p class="name">......</p>
-
-            <p>...</p>
-
-            <button onclick="">Flashcards</button>
-            <button onclick="">Questions</button>
-        </div>
-
-        <div class="set" id="2">
-            <p class="name">......</p>
-
-            <p>...</p>
-
-            <button onclick="">Flashcards</button>
-            <button onclick="">Questions</button>
-        </div>
-
-        <div class="set" id="3">
-            <p class="name">......</p>
-
-            <p>...</p>
-
-            <button onclick="">Flashcards</button>
-            <button onclick="">Questions</button>
-        </div>
-
-        <div class="set" id="4">
-            <p class="name">......</p>
-
-            <p>...</p>
-
-            <button onclick="">Flashcards</button>
-            <button onclick="">Questions</button>
-        </div>
-
-        <div class="set" id="5">
-            <p class="name">......</p>
-
-            <p>...</p>
-
-            <button onclick="">Flashcards</button>
-            <button onclick="">Questions</button>
-        </div>
-
-        <div class="set" id="6">
-            <p class="name">......</p>
-
-            <p>...</p>
-
-            <button onclick="">Flashcards</button>
-            <button onclick=""> Questions</button>
-        </div>
-
-        <div class="set" id="7">
-            <p class="name">......</p>
-
-            <p>...</p>
-
-            <button onclick="">Flashcards</button>
-            <button onclick=""> Questions</button>
-        </div>
-
-        <div class="set" id="8">
-            <p class="name">......</p>
-
-            <p>...</p>
-
-            <button onclick="">Flashcards</button>
-            <button onclick="">Questions</button>
+        <div id="sets">
+            <div class="set" id="1">
+                <p class="name">......</p>
+    
+                <p>...</p>
+    
+                <button onclick="">Flashcards</button>
+                <button onclick="">Questions</button>
+            </div>
+    
+            <div class="set" id="2">
+                <p class="name">......</p>
+    
+                <p>...</p>
+    
+                <button onclick="">Flashcards</button>
+                <button onclick="">Questions</button>
+            </div>
+    
+            <div class="set" id="3">
+                <p class="name">......</p>
+    
+                <p>...</p>
+    
+                <button onclick="">Flashcards</button>
+                <button onclick="">Questions</button>
+            </div>
+    
+            <div class="set" id="4">
+                <p class="name">......</p>
+    
+                <p>...</p>
+    
+                <button onclick="">Flashcards</button>
+                <button onclick="">Questions</button>
+            </div>
+    
+            <div class="set" id="5">
+                <p class="name">......</p>
+    
+                <p>...</p>
+    
+                <button onclick="">Flashcards</button>
+                <button onclick="">Questions</button>
+            </div>
+    
+            <div class="set" id="6">
+                <p class="name">......</p>
+    
+                <p>...</p>
+    
+                <button onclick="">Flashcards</button>
+                <button onclick=""> Questions</button>
+            </div>
+    
+            <div class="set" id="7">
+                <p class="name">......</p>
+    
+                <p>...</p>
+    
+                <button onclick="">Flashcards</button>
+                <button onclick=""> Questions</button>
+            </div>
+    
+            <div class="set" id="8">
+                <p class="name">......</p>
+    
+                <p>...</p>
+    
+                <button onclick="">Flashcards</button>
+                <button onclick="">Questions</button>
+            </div>
         </div>
 
         <p id="notes-label"></p>
@@ -419,26 +421,29 @@
             // }
 
             function addSet(name, creator, id) {
-                let set = document.getElementById(setsLoaded);
+                let sets = document.getElementById('sets');
 
-                set.children[0].innerText = name;
-                set.children[1].innerText = creator;
-                set.children[2].onclick = `location.assign('flashcards.html?id=${id}');`;
-                set.children[3].onclick = `location.assign('flashcards.html?id=${id}');`;
+                // TODO: this may allow html injection
+                sets.innerHTML += `
+                    <div class="set" id="${setsLoaded}">
+                        <p class="name">${name}</p>
+            
+                        <p>${creator}</p>
+            
+                        <button onclick="location.assign('flashcards.html?id=${id}');">Flashcards</button>
+                        <button onclick="location.assign('flashcards.html?id=${id}');">Questions</button>
+                    </div>
+                `;
             }
             function resetSets() {
-                for (let x = 1; x <= 8; x += 1) {
-                    let set = document.getElementById(x);
+                let sets = document.getElementById('sets');
 
-                    set.children[0].innerText = '......';
-                    set.children[1].innerText = '...';
-                    set.children[2].onclick = ``;
-                    set.children[3].onclick = ``;
-                }
+                sets.innerHTML = '';
             }
             function addNote(name, creator, id) {
                 let notes = document.getElementById('notes');
 
+                // TODO: this may allow html injection
                 notes.innerHTML += `
                     <div class="set">
                         <p class="name">${name}</p>
@@ -465,6 +470,8 @@
 
                 if (res.status == 201) {
                     let json = await res.json();
+
+                    resetSets();
 
                     for (set in json) {
                         setsLoaded += 1;
