@@ -324,7 +324,7 @@
 
                 if (setRes.status == 201) {
                     if (setText == 'all sets are displayed') {
-                            //searched.innerHTML += 'there are no sets matching your search';
+                            document.getElementById('sets').innerHTML += 'there are no sets matching your search';
                     } else {
                         let json = JSON.parse(setText);
 
