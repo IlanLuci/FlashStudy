@@ -34,20 +34,12 @@
 
         <link rel="stylesheet" href="main.css">
         <style>
-            
             button:hover {
                 background-color: #ECA400;
             }
 
             .create {
                 margin-top: 10px;
-            }
-            #errors {
-                display: none;
-                position: fixed;
-                top: 100px;
-                font-size: 15pt;
-                right: 10px;
             }
             #footer {
                 position: fixed;
@@ -61,6 +53,7 @@
                 font-size: 14pt;
             }
             .set {
+                width: calc(25% - 50px);
                 margin-bottom: 20px;
                 margin: 10px;
                 border-radius: 8px;
@@ -70,8 +63,13 @@
                 padding-bottom: 10px;
                 text-align: center;
             }
+            .set button {
+                margin: 3px;
+            }
             .name {
                 font-size: 15pt;
+                overflow: hidden;
+                white-space: nowrap;
             }
             hr {
                 border: 2px solid #222;
@@ -109,41 +107,31 @@
                 cursor: pointer;
             }
 
-            #searched {
-                white-space: nowrap;
-                position: absolute;
-                overflow-x: scroll;
-                width: 100%;
-                top: 150px;
-                left: 50%;
-                transform: translate(-50%);
-                text-align: center;
-            }
-
             #notes {
                 white-space: nowrap;
-                position: absolute;
-                overflow-x: scroll;
                 width: 100%;
-                top: 400px;
-                left: 50%;
-                transform: translate(-50%);
+                padding: 10px;
+                margin-bottom: 50px;
+                overflow-x: scroll;
             }
 
-            #description {
+            .set-heading {
                 font-size: 15pt;
-                margin: 120px 10px;
+                margin-top: 120px;
+                margin-left: 10px;
             }
+            .set-heading p {
+                display: inline-block;
+            }
+
             #notes-label {
                 font-size: 15pt;
-                position: absolute;
-                top: 350px;
-                left: 10px;
+                margin-left: 10px;
+                margin-top: 10px;
             }
 
             #load {
-                margin: 190px 10px 0px calc(100% - 100px);
-                font-size: 15pt;
+                margin-left: calc(100% - 280px);
                 cursor: pointer;
                 -ms-user-select: none;
                 -moz-user-select: none;
@@ -197,13 +185,82 @@
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
         </svg>
 
-        <p id="description">Popular Flash Sets</p>
-        <p id="errors">all sets are displayed</p>
+        <div class="set-heading">
+            <p id="description">Popular Flash Sets</p>
+            <!-- <p id="load" onclick="loadMore();">load more</p> -->
+        </div>
 
-        <div id="searched"></div>
+        <div class="set" id="1">
+            <p class="name">......</p>
 
-        <p id="load" onclick="loadMore();">load more</p>
+            <p>...</p>
 
+            <button onclick="">Flashcards</button>
+            <button onclick="">Questions</button>
+        </div>
+
+        <div class="set" id="2">
+            <p class="name">......</p>
+
+            <p>...</p>
+
+            <button onclick="">Flashcards</button>
+            <button onclick="">Questions</button>
+        </div>
+
+        <div class="set" id="3">
+            <p class="name">......</p>
+
+            <p>...</p>
+
+            <button onclick="">Flashcards</button>
+            <button onclick="">Questions</button>
+        </div>
+
+        <div class="set" id="4">
+            <p class="name">......</p>
+
+            <p>...</p>
+
+            <button onclick="">Flashcards</button>
+            <button onclick="">Questions</button>
+        </div>
+
+        <div class="set" id="5">
+            <p class="name">......</p>
+
+            <p>...</p>
+
+            <button onclick="">Flashcards</button>
+            <button onclick="">Questions</button>
+        </div>
+
+        <div class="set" id="6">
+            <p class="name">......</p>
+
+            <p>...</p>
+
+            <button onclick="">Flashcards</button>
+            <button onclick=""> Questions</button>
+        </div>
+
+        <div class="set" id="7">
+            <p class="name">......</p>
+
+            <p>...</p>
+
+            <button onclick="">Flashcards</button>
+            <button onclick=""> Questions</button>
+        </div>
+
+        <div class="set" id="8">
+            <p class="name">......</p>
+
+            <p>...</p>
+
+            <button onclick="">Flashcards</button>
+            <button onclick="">Questions</button>
+        </div>
 
         <p id="notes-label"></p>
         <div id="notes"></div>
@@ -213,7 +270,7 @@
 
         <script src="main.js?v1"></script>
         <script>
-            const setsPerPage = 5;
+            const setsPerPage = 8;
 
             let setsLoaded = 0;
             let notesLoaded = 0;
@@ -221,7 +278,6 @@
 
             window.addEventListener('load', async () => {
                 let profile = document.getElementById('profile');
-                let searched = document.getElementById('searched');
 
                 let response = await fetcher(`/auth/check`);
                 let result = await response.text();
@@ -242,21 +298,21 @@
 
             async function search(e) {
                 let query = document.getElementById('search').value.trim();
-                let searched = document.getElementById('searched');
                 let notes = document.getElementById('notes');
                 let description = document.getElementById('description');
                 let notesLabel = document.getElementById('notes-label');
-                let load = document.getElementById('load');
+                // let load = document.getElementById('load');
 
                 if (query == '') return loadPopular();
 
                 queryLoaded = query;
-                searched.innerText = '';
                 notes.innerText = '';
                 description.innerText = query + ' Flash Sets';
                 notesLabel.innerText = query + ' Flash Notes';
-                load.onclick = loadMoreSearch;
+                // load.onclick = loadMoreSearch;
                 setsLoaded = 0;
+
+                resetSets();
 
                 let setRes = await fetcher(`/sets/search`, { method: 'post', body: JSON.stringify({ order: 1, query: query }), headers: { 'Content-Type': 'application/json' }});
                 let noteRes = await fetcher(`/notes/search`, { method: 'post', body: JSON.stringify({ order: 1, query: query }), headers: { 'Content-Type': 'application/json' }});
@@ -266,7 +322,7 @@
 
                 if (setRes.status == 201) {
                     if (setText == 'all sets are displayed') {
-                            searched.innerHTML += 'there are no sets matching your search';
+                            //searched.innerHTML += 'there are no sets matching your search';
                     } else {
                         let json = JSON.parse(setText);
 
@@ -299,82 +355,86 @@
                 }
             }
 
-            async function loadMore() {
-                /*
-                    consider loading more as a new row in the future
-                */
+            // async function loadMore() {
+            //     /*
+            //         consider loading more as a new row in the future
+            //     */
 
-                let searched = document.getElementById('searched');
+            //     let searched = document.getElementById('searched');
 
-                // load next setsPerPage popular flash sets
-                let res = await fetcher(`/sets/popular`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1 }), headers: { 'Content-Type': 'application/json' }});
+            //     // load next setsPerPage popular flash sets
+            //     let res = await fetcher(`/sets/popular`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1 }), headers: { 'Content-Type': 'application/json' }});
 
-                if (res.status == 201) {
-                    let json = await res.json();
+            //     if (res.status == 201) {
+            //         let json = await res.json();
 
-                    for (set in json) {
-                        setsLoaded += 1;
+            //         for (set in json) {
+            //             setsLoaded += 1;
 
-                        addSet(json[set].name, json[set].creator, json[set].id);
-                    }
+            //             addSet(json[set].name, json[set].creator, json[set].id);
+            //         }
 
-                    if (json.length == 0) {
-                        document.getElementById('errors').style.display = 'block';
+            //         if (json.length == 0) {
+            //             document.getElementById('errors').style.display = 'block';
 
-                        setTimeout(() => {
-                        document.getElementById('errors').style.display = 'none';
-                        }, 1500);
+            //             setTimeout(() => {
+            //             document.getElementById('errors').style.display = 'none';
+            //             }, 1500);
 
-                        return;
-                    }
-                } else {
-                    console.log(text)
-                }
-            }
-            async function loadMoreSearch() {
-                let searched = document.getElementById('searched');
+            //             return;
+            //         }
+            //     } else {
+            //         console.log(text)
+            //     }
+            // }
+            // async function loadMoreSearch() {
+            //     let searched = document.getElementById('searched');
 
-                // load next setsPerPage popular flash sets
-                let res = await fetcher(`/sets/search`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1, query: queryLoaded }), headers: { 'Content-Type': 'application/json' }});
+            //     // load next setsPerPage popular flash sets
+            //     let res = await fetcher(`/sets/search`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1, query: queryLoaded }), headers: { 'Content-Type': 'application/json' }});
 
-                let text = await res.text();
-                if (res.status == 201) {
+            //     let text = await res.text();
+            //     if (res.status == 201) {
 
-                    if (text == 'all sets are displayed') {
-                        document.getElementById('errors').style.display = 'block';
+            //         if (text == 'all sets are displayed') {
+            //             document.getElementById('errors').style.display = 'block';
 
-                        setTimeout(() => {
-                        document.getElementById('errors').style.display = 'none';
-                        }, 1500);
+            //             setTimeout(() => {
+            //             document.getElementById('errors').style.display = 'none';
+            //             }, 1500);
 
-                        return;
-                    } else {
-                        let json = JSON.parse(text);
+            //             return;
+            //         } else {
+            //             let json = JSON.parse(text);
 
-                        for (set in json) {
-                            setsLoaded += 1;
+            //             for (set in json) {
+            //                 setsLoaded += 1;
 
-                            addSet(json[set].name, json[set].creator, json[set].id);
-                        }
-                    }
-                } else {
-                    console.log(text)
-                }
-            }
+            //                 addSet(json[set].name, json[set].creator, json[set].id);
+            //             }
+            //         }
+            //     } else {
+            //         console.log(text)
+            //     }
+            // }
 
             function addSet(name, creator, id) {
-                let searched = document.getElementById('searched');
+                let set = document.getElementById(setsLoaded);
 
-                searched.innerHTML += `
-                    <div class="set">
-                        <p class="name">${name}</p>
+                set.children[0].innerText = name;
+                set.children[1].innerText = creator;
+                set.children[2].onclick = `location.assign('flashcards.html?id=${id}');`;
+                set.children[3].onclick = `location.assign('flashcards.html?id=${id}');`;
+            }
+            function resetSets() {
+                for (let x = 1; x <= 8; x += 1) {
+                    let set = document.getElementById(x);
 
-                        <p>Created By ${creator}</p>
-
-                        <button onclick="location.assign('flashcards.html?id=${id}');">Study With Flashcards</button>
-                        <button onclick="location.assign('study.html?id=${id}');">Study with Questions</button>
-                    </div>
-                `;
+                    set.children[0].innerText = '......';
+                    set.children[1].innerText = '...';
+                    set.children[2].onclick = ``;
+                    set.children[3].onclick = ``;
+                }
             }
             function addNote(name, creator, id) {
                 let notes = document.getElementById('notes');
@@ -395,11 +455,10 @@
 
                 queryLoaded = '';
                 notes.innerText = '';
-                searched.innerText = '';
                 setsLoaded = 0;
                 description.innerText = 'Popular Flash Sets';
                 notesLabel.innerText = '';
-                load.onclick = loadMore;
+                // load.onclick = loadMore;
 
                 // load popular flash sets
                 let res = await fetcher(`/sets/popular`, { method: 'post', body: JSON.stringify({ order: 1 }), headers: { 'Content-Type': 'application/json' }});
