@@ -61,5 +61,7 @@ if (typeof screen.orientation !== 'undefined' || isMac) {
     // not mobile
 } else {
     // mobile
-    window.open('/mobile/index', '_self');
+    if (!location.pathname.startsWith('/mobile')) {
+        window.open('/mobile/index', '_self');
+    }
 }
