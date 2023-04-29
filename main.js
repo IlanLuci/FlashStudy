@@ -43,14 +43,23 @@ function dropdown() {
 
 window.onclick = function(event) {
     if (!event.target.matches('#new')) {
-      let dropdowns = document.getElementsByClassName("dropdown-content");
-      
-      for (let i = 0; i < dropdowns.length; i++) {
-        let openDropdown = dropdowns[i];
+        let dropdowns = document.getElementsByClassName("dropdown-content");
         
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
+        for (let i = 0; i < dropdowns.length; i++) {
+            let openDropdown = dropdowns[i];
+        
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
         }
-      }
     }
-  }
+}
+
+// redirect to mobile page if user is on mobile device
+let isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+if (typeof screen.orientation !== 'undefined' || isMac) {
+    // not mobile
+} else {
+    // mobile
+    window.open('/mobile/index', '_self');
+}

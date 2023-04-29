@@ -34,119 +34,9 @@
 
         <link rel="stylesheet" href="main.css">
         <style>
-            button:hover {
-                background-color: #ECA400;
-            }
-
-            .create {
-                margin-top: 10px;
-            }
-            #footer {
-                position: fixed;
-                padding: 5px;
-                bottom: -20px;
-                left: 0;
-                width: 100%;
-                text-align: center;
-                height: 30px;
-                background-color: #0B5563;
-                font-size: 14pt;
-            }
-            .set {
-                width: calc(25% - 50px);
-                margin-bottom: 20px;
-                margin: 10px;
-                border-radius: 8px;
-                padding: 8px;
-                display: inline-block;
-                border: 3px solid #222;
-                padding-bottom: 10px;
-                text-align: center;
-            }
-            .set button {
-                margin: 3px;
-            }
-            .name {
-                font-size: 15pt;
-                overflow: hidden;
-                white-space: nowrap;
-            }
-
-            input {
-                border: 2px solid #222;
-                border-radius: 8px;
-                padding: 10px;
-                outline: none;
-                width: 250px;
-                background-color:#0B5563;
-            }
-            input::placeholder {
-                color: #222;
-            }
-            input:hover, input:focus {
-                background-color: #ECA400;
-            }
-
-            #search {
-                position: absolute;
-                top: 25px;
-                left: calc(50% - 19px);
-                transform: translate(-50%);
-            }
-            #search-icon {
-                position: absolute;
-                top: 25px;
-                left: calc(50% + 131px);
-                transform: translate(-50%);
-                padding: 4.5px;
-                border-radius: 8px;
-                border: 2px solid #222;
-                cursor: pointer;
-            }
-
-            #notes {
-                white-space: nowrap;
-                width: 100%;
-                padding: 10px;
-                margin-bottom: 50px;
-                overflow-x: scroll;
-            }
-
-            #sets {
-                padding: 10px;
-            }
-
-            .set-heading {
-                font-size: 15pt;
-                margin-top: 120px;
-                margin-left: 10px;
-            }
-            .set-heading p {
-                display: inline-block;
-            }
-
-            #notes-label {
-                font-size: 15pt;
-                margin-left: 10px;
-                margin-top: 10px;
-            }
-
-            #load {
-                margin-left: calc(100% - 280px);
-                cursor: pointer;
-                -ms-user-select: none;
-                -moz-user-select: none;
-                -khtml-user-select: none;
-                -webkit-user-select: none;
-                user-select: none;
-            }
-            #load:hover {
-                text-decoration: underline;
-            }
+            /* flashstudy title text */
             #title {
-                top: 5px;
-                left: 10px;
-                transform: none;
+                margin-top: 10px;
                 padding: 3px 10px 5px 10px;
             }
             #title::before {
@@ -164,6 +54,100 @@
                 border-bottom-left-radius: 20px;
                 border-bottom-right-radius: 70px;
             }
+
+            /* searchbar */
+            #search {
+                position: absolute;
+                top: 90px;
+                left: calc(50% - 19px);
+                transform: translate(-50%);
+            }
+            #search-icon {
+                position: absolute;
+                top: 90px;
+                left: calc(50% + 131px);
+                transform: translate(-50%);
+                padding: 4.5px;
+                border-radius: 8px;
+                border: 2px solid #222;
+                cursor: pointer;
+            }
+            input {
+                border: 2px solid #222;
+                border-radius: 8px;
+                padding: 10px;
+                outline: none;
+                width: 250px;
+                background-color:#0B5563;
+            }
+            input::placeholder {
+                color: #222;
+            }
+            input:hover, input:focus {
+                background-color: #ECA400;
+            }
+
+            /* heading for flash sets - by default says "Popular Flash Sets" */
+            .set-heading {
+                font-size: 15pt;
+                margin-top: 140px;
+                text-align: center;
+            }
+            .set-heading p {
+                display: inline-block;
+            }
+            
+            /* flash set information display */
+            #sets {
+                text-align: center;
+            }
+
+            .set {
+                width: calc(100vw - 50px);
+                margin: 10px;
+                margin-bottom: 20px;
+                border-radius: 8px;
+                display: inline-block;
+                border: 3px solid #222;
+                padding-bottom: 10px;
+                text-align: center;
+            }
+            .set button {
+                margin: 3px;
+            }
+            .name {
+                font-size: 15pt;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+
+            #notes {
+                white-space: nowrap;
+                width: calc(100% - 20px);
+                padding: 10px;
+                margin-bottom: 50px;
+                overflow-x: scroll;
+                text-align: center;
+            }
+
+            #notes-label {
+                font-size: 15pt;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            /* #load {
+                margin-left: calc(100% - 280px);
+                cursor: pointer;
+                -ms-user-select: none;
+                -moz-user-select: none;
+                -khtml-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+            #load:hover {
+                text-decoration: underline;
+            } */
         </style>
     </head>
 
@@ -171,12 +155,6 @@
         <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
         </svg>
-        
-        <button onclick="dropdown();" id="new">Create</button>
-        <div id="dropdown" class="dropdown-content">
-            <a href="create-set.html">Create New Set</a>
-            <a href="create-note.html">Create New Note</a>
-        </div>
 
         <h1 id="title">Flash Study</h1>
 
@@ -200,78 +178,12 @@
                 <button onclick="">Flashcards</button>
                 <button onclick="">Questions</button>
             </div>
-    
-            <div class="set" id="2">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
-    
-            <div class="set" id="3">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
-    
-            <div class="set" id="4">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
-    
-            <div class="set" id="5">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
-    
-            <div class="set" id="6">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick=""> Questions</button>
-            </div>
-    
-            <div class="set" id="7">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick=""> Questions</button>
-            </div>
-    
-            <div class="set" id="8">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
         </div>
 
         <p id="notes-label"></p>
         <div id="notes"></div>
-        
-        <p id="footer">Created by Ilan L and Chris O. Please reach out with any suggestions.</p>
-        <!--<p id="footer">click <a href="accents.html">here</a> for the spanish accents copy-paste tool</p>-->
 
-        <script src="main.js?v1"></script>
+        <script src="../main.js?v1"></script>
         <script>
             const setsPerPage = 8;
 
@@ -431,8 +343,8 @@
             
                         <p>${creator}</p>
             
-                        <button onclick="location.assign('flashcards.html?id=${id}');">Flashcards</button>
-                        <button onclick="location.assign('flashcards.html?id=${id}');">Questions</button>
+                        <button onclick="location.assign('./flashcards.html?id=${id}');">Flashcards</button>
+                        <button onclick="location.assign('./flashcards.html?id=${id}');">Questions</button>
                     </div>
                 `;
             }
