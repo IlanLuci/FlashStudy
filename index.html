@@ -53,7 +53,7 @@
                 font-size: 14pt;
             }
             .set {
-                width: calc(25% - 50px);
+                width: calc(25% - 45px);
                 margin-bottom: 20px;
                 margin: 10px;
                 border-radius: 8px;
@@ -106,7 +106,7 @@
 
             #notes {
                 white-space: nowrap;
-                width: 100%;
+                width: calc(100% - 20px);
                 padding: 10px;
                 margin-bottom: 50px;
                 overflow-x: scroll;
@@ -119,7 +119,8 @@
             .set-heading {
                 font-size: 15pt;
                 margin-top: 120px;
-                margin-left: 10px;
+                padding: 10px;
+                width: calc(100% - 20px);
             }
             .set-heading p {
                 display: inline-block;
@@ -131,8 +132,16 @@
                 margin-top: 10px;
             }
 
+            #errors {
+                position: relative;
+                display: none;
+                left: calc(50% - 100px);
+                transform: translate(-50%);
+            }
+
             #load {
-                margin-left: calc(100% - 280px);
+                margin-right: 10px;
+                float: right;
                 cursor: pointer;
                 -ms-user-select: none;
                 -moz-user-select: none;
@@ -188,7 +197,8 @@
 
         <div class="set-heading">
             <p id="description">Popular Flash Sets</p>
-            <!-- <p id="load" onclick="loadMore();">load more</p> -->
+            <p id="errors">all sets are displayed</p>
+            <p id="load" onclick="loadMore();">load more</p>
         </div>
 
         <div id="sets">
@@ -304,7 +314,7 @@
                 let notes = document.getElementById('notes');
                 let description = document.getElementById('description');
                 let notesLabel = document.getElementById('notes-label');
-                // let load = document.getElementById('load');
+                let load = document.getElementById('load');
 
                 if (query == '') return loadPopular();
 
@@ -312,7 +322,7 @@
                 notes.innerText = '';
                 description.innerText = query + ' Flash Sets';
                 notesLabel.innerText = query + ' Flash Notes';
-                // load.onclick = loadMoreSearch;
+                load.onclick = loadMoreSearch;
                 setsLoaded = 0;
 
                 resetSets();
@@ -358,68 +368,68 @@
                 }
             }
 
-            // async function loadMore() {
-            //     /*
-            //         consider loading more as a new row in the future
-            //     */
+            async function loadMore() {
+                /*
+                    consider loading more as a new row in the future
+                */
 
-            //     let searched = document.getElementById('searched');
+                let searched = document.getElementById('searched');
 
-            //     // load next setsPerPage popular flash sets
-            //     let res = await fetcher(`/sets/popular`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1 }), headers: { 'Content-Type': 'application/json' }});
+                // load next setsPerPage popular flash sets
+                let res = await fetcher(`/sets/popular`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1 }), headers: { 'Content-Type': 'application/json' }});
 
-            //     if (res.status == 201) {
-            //         let json = await res.json();
+                if (res.status == 201) {
+                    let json = await res.json();
 
-            //         for (set in json) {
-            //             setsLoaded += 1;
+                    for (set in json) {
+                        setsLoaded += 1;
 
-            //             addSet(json[set].name, json[set].creator, json[set].id);
-            //         }
+                        addSet(json[set].name, json[set].creator, json[set].id);
+                    }
 
-            //         if (json.length == 0) {
-            //             document.getElementById('errors').style.display = 'block';
+                    if (json.length == 0) {
+                        document.getElementById('errors').style.display = 'inline-block';
 
-            //             setTimeout(() => {
-            //             document.getElementById('errors').style.display = 'none';
-            //             }, 1500);
+                        setTimeout(() => {
+                        document.getElementById('errors').style.display = 'none';
+                        }, 1500);
 
-            //             return;
-            //         }
-            //     } else {
-            //         console.log(text)
-            //     }
-            // }
-            // async function loadMoreSearch() {
-            //     let searched = document.getElementById('searched');
+                        return;
+                    }
+                } else {
+                    console.log(text)
+                }
+            }
+            async function loadMoreSearch() {
+                let searched = document.getElementById('searched');
 
-            //     // load next setsPerPage popular flash sets
-            //     let res = await fetcher(`/sets/search`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1, query: queryLoaded }), headers: { 'Content-Type': 'application/json' }});
+                // load next setsPerPage popular flash sets
+                let res = await fetcher(`/sets/search`, { method: 'post', body: JSON.stringify({ order: setsLoaded / setsPerPage + 1, query: queryLoaded }), headers: { 'Content-Type': 'application/json' }});
 
-            //     let text = await res.text();
-            //     if (res.status == 201) {
+                let text = await res.text();
+                if (res.status == 201) {
 
-            //         if (text == 'all sets are displayed') {
-            //             document.getElementById('errors').style.display = 'block';
+                    if (text == 'all sets are displayed') {
+                        document.getElementById('errors').style.display = 'inline-block';
 
-            //             setTimeout(() => {
-            //             document.getElementById('errors').style.display = 'none';
-            //             }, 1500);
+                        setTimeout(() => {
+                        document.getElementById('errors').style.display = 'none';
+                        }, 1500);
 
-            //             return;
-            //         } else {
-            //             let json = JSON.parse(text);
+                        return;
+                    } else {
+                        let json = JSON.parse(text);
 
-            //             for (set in json) {
-            //                 setsLoaded += 1;
+                        for (set in json) {
+                            setsLoaded += 1;
 
-            //                 addSet(json[set].name, json[set].creator, json[set].id);
-            //             }
-            //         }
-            //     } else {
-            //         console.log(text)
-            //     }
-            // }
+                            addSet(json[set].name, json[set].creator, json[set].id);
+                        }
+                    }
+                } else {
+                    console.log(text)
+                }
+            }
 
             function addSet(name, creator, id) {
                 let sets = document.getElementById('sets');
@@ -464,7 +474,7 @@
                 setsLoaded = 0;
                 description.innerText = 'Popular Flash Sets';
                 notesLabel.innerText = '';
-                // load.onclick = loadMore;
+                load.onclick = loadMore;
 
                 // load popular flash sets
                 let res = await fetcher(`/sets/popular`, { method: 'post', body: JSON.stringify({ order: 1 }), headers: { 'Content-Type': 'application/json' }});
