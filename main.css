@@ -9,7 +9,7 @@ a {color:#222;}
 svg:hover {background-color:#ECA400!important;}
 
 /* button styling */
-button {border-radius:8px;padding:10px;cursor:pointer;background-color:#0B5563;outline:none;border:2px solid #222;}
+button {color:#222;border-radius:8px;padding:10px;cursor:pointer;background-color:#0B5563;outline:none;border:2px solid #222;}
 
 /* styling back button in header */
 #back {background-color:#0B5563;position:absolute;left:10px;top:10px;border-radius:8px;cursor:pointer;}
