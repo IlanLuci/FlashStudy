@@ -41,9 +41,14 @@
                 width: calc(100% - 24px);
                 height: 230px;
                 margin: 10px;
+                padding-bottom: 10px;
                 text-align: center;
                 font-size: 13pt;
             }
+            .set button {
+                margin: 5px 0px 5px 0px;
+            }
+
             .note {
                 border-radius: 8px;
                 border: 2px solid #222;
@@ -53,23 +58,10 @@
                 text-align: center;
                 font-size: 13pt;
             }
+            .note button {
+                margin: 5px 0px 5px 0px;
+            }
 
-            input {
-                border: 2px solid #222;
-                border-radius: 8px;
-                padding: 10px;
-                outline: none;
-                width: 150px;
-                width: 300px;
-                margin-top: 10px;
-            }
-            input:hover, input:focus {
-                background-color: #ECA400;
-            }
-            .set button {
-                position: relative;
-                bottom: 10px;
-            }
             button:hover {
                 background-color: #ECA400;
             }
@@ -146,7 +138,7 @@
                                 <button onclick="deleteSet(${json.sets[set]});" class="delete">Delete</button>
                                 <button onclick="location.assign('./edit-set.html?id=${json.sets[set]}');">Edit</button>
                                 
-                                <br><br>
+                                <br>
 
                                 <button onclick="location.assign('./flashcards.html?id=${json.sets[set]}');">Study With Flashcards</button>
                                 <button onclick="location.assign('./study.html?id=${json.sets[set]}');">Study with Questions</button>
@@ -176,7 +168,7 @@
                                 <button onclick="deleteNote(${json.notes[note]});" class="delete">Delete</button>
                                 <button onclick="location.assign('./edit-note.html?id=${json.notes[note]}');">Edit</button>
                                 
-                                <br><br>
+                                <br>
 
                                 <button onclick="location.assign('./note.html?id=${json.notes[note]}');">View</button>
                             </div>
