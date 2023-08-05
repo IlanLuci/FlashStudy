@@ -1,4 +1,4 @@
-const liveServer = 'https://api.flashstudy.org';
+const liveServer = 'https://api.flashstudy.org/v1';
 const localServer = 'http://localhost:5001';
 const activeServer = location.host.startsWith('localhost') || location.host.startsWith('127.0.0.1')  ? localServer : liveServer;
 
@@ -41,7 +41,7 @@ function dropdown() {
     document.getElementById("dropdown").classList.toggle("show");
 }
 
-window.onclick = function(event) {
+window.onclick = (event) => {
     if (!event.target.matches('#new')) {
         let dropdowns = document.getElementsByClassName("dropdown-content");
         
