@@ -114,10 +114,6 @@
 
                 if (res.status == 201) {
                     //user registered succesfully
-                    let json = await res.json();
-
-                    document.cookie = `jwt=${json.token}`;
-
                     document.getElementById('errors').style.color = '#2eb351';
                     document.getElementById('errors').innerText = 'success';
 
@@ -139,10 +135,6 @@
 
                 if (res.status == 201) {
                     //user registered succesfully
-                    let json = await res.json();
-
-                    document.cookie = `jwt=${json.token}`;
-
                     document.getElementById('errors').style.color = '#2eb351';
                     document.getElementById('errors').innerText = 'success';
 
