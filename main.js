@@ -1,14 +1,16 @@
 const liveServer = 'https://api.flashstudy.org/v1';
 const localServer = 'http://localhost:5001/v1';
-const activeServer = location.host.startsWith('localhost') || location.host.startsWith('127.0.0.1')  ? localServer : liveServer;
+const activeServer = location.host.startsWith('localhost')  ? localServer : liveServer;
 
 function fetcher(endpoint, options) {
     let updatedOptions = { ...options };
 
     updatedOptions.headers = {
         ...options ? options.headers : null,
-        credentials: 'include'
     }
+
+    // allow set cookie headers and such
+    updatedOptions.credentials = 'include';
 
     return fetch(`${activeServer}${endpoint}`, updatedOptions)
 }
