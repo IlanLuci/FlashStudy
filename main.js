@@ -7,6 +7,7 @@ function fetcher(endpoint, options) {
 
     updatedOptions.headers = {
         ...options ? options.headers : null,
+        credentials: 'include'
     }
 
     return fetch(`${activeServer}${endpoint}`, updatedOptions)
