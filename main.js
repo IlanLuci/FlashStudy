@@ -1,6 +1,6 @@
 const liveServer = 'https://api.flashstudy.org/v1';
 const localServer = 'http://localhost:5001/v1';
-const activeServer = location.host.startsWith('localhost')  ? localServer : liveServer;
+const activeServer = location.host.startsWith('localhost') || location.host.startsWith('127.0.0.1') ? localServer : liveServer;
 
 function fetcher(endpoint, options) {
     let updatedOptions = { ...options };
