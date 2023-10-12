@@ -19,7 +19,7 @@ async function logout() {
     await fetcher('/auth/logout')
     
     //reload page
-    location.reload();
+    location.assign('/');
 }
 
 // dropdown in header

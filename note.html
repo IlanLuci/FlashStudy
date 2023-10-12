@@ -106,7 +106,8 @@
                     document.getElementById('title').innerText = title;
                     document.title = title;
 
-                    let cleanNote = DOMPurify.sanitize(note);
+                    let escapedNote = escapeHtml(note);
+                    let cleanNote = DOMPurify.sanitize(escapedNote);
 
                     noteDiv.innerHTML += cleanNote;
                 } else {
@@ -120,6 +121,22 @@
                 let txt = new DOMParser().parseFromString(str, "text/html");
 
                 return txt.documentElement.textContent;
+            }
+            function escapeHtml (string) {
+                const entityMap = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;',
+                    '/': '&#x2F;',
+                    '`': '&#x60;',
+                    '=': '&#x3D;'
+                };
+
+                return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+                    return entityMap[s];
+                });
             }
         </script>
     </body>

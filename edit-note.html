@@ -260,7 +260,8 @@
                             let noteDiv = document.getElementById('editor');
                             let note = noteJson.note;
 
-                            let cleanNote = DOMPurify.sanitize(note);
+                            let escapedNote = escapeHtml(note);
+                            let cleanNote = DOMPurify.sanitize(escapedNote);
 
                             noteDiv.innerHTML += cleanNote;
                         } else {
