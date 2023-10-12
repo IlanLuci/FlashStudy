@@ -260,8 +260,7 @@
                             let noteDiv = document.getElementById('editor');
                             let note = noteJson.note;
 
-                            let escapedNote = escapeHtml(note);
-                            let cleanNote = DOMPurify.sanitize(escapedNote);
+                            let cleanNote = DOMPurify.sanitize(note);
 
                             noteDiv.innerHTML += cleanNote;
                         } else {
@@ -311,23 +310,6 @@
             function chooseColor() {
                 const color = document.getElementById('colorSelect').value;
                 document.execCommand('foreColor', false, color);
-            }
- 
-            function escapeHtml (string) {
-                const entityMap = {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#39;',
-                    '/': '&#x2F;',
-                    '`': '&#x60;',
-                    '=': '&#x3D;'
-                };
-
-                return String(string).replace(/[&<>"'`=\/]/g, function (s) {
-                    return entityMap[s];
-                });
             }
         </script>
     </body>

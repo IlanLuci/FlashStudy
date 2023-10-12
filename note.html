@@ -106,8 +106,7 @@
                     document.getElementById('title').innerText = title;
                     document.title = title;
 
-                    let escapedNote = escapeHtml(note);
-                    let cleanNote = DOMPurify.sanitize(escapedNote);
+                    let cleanNote = DOMPurify.sanitize(note);
 
                     noteDiv.innerHTML += cleanNote;
                 } else {
@@ -116,23 +115,6 @@
                     location.href = 'index.html';
                 }
             });
-
-            function escapeHtml (string) {
-                const entityMap = {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#39;',
-                    '/': '&#x2F;',
-                    '`': '&#x60;',
-                    '=': '&#x3D;'
-                };
-
-                return String(string).replace(/[&<>"'`=\/]/g, function (s) {
-                    return entityMap[s];
-                });
-            }
         </script>
     </body>
 </html>
