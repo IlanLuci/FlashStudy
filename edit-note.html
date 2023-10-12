@@ -313,10 +313,21 @@
                 document.execCommand('foreColor', false, color);
             }
  
-            function decode(str) {
-                let txt = new DOMParser().parseFromString(str, "text/html");
+            function escapeHtml (string) {
+                const entityMap = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;',
+                    '/': '&#x2F;',
+                    '`': '&#x60;',
+                    '=': '&#x3D;'
+                };
 
-                return txt.documentElement.textContent;
+                return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+                    return entityMap[s];
+                });
             }
         </script>
     </body>
