@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="theme-color" content="#0f7e94">
+        <meta property="og:type" content="website">
+        <meta name="robots" content="index, follow">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="DC.format" content="text/html" scheme="DCTERMS.DCMIType">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta property="og:title" content="Flash Study">
+        <meta name="twitter:title" content="Flash Study">
+        <meta property="og:site_name" content="Flash Study">
+        <meta name="DC.publisher" content="Flash Study" scheme="DCTERMS.DCMIType">
+        <meta name="owner" content="Ilan L">
+        <meta name="designer" content="Ilan L">
+        <meta name="DC.creator" content="Ilan L">
+        <meta name="url" content="https://flashstudy.org">
+        <meta property="og:url" content="https://flashstudy.org">
+        <meta name="twitter:url" content="https://flashstudy.org">
+        <meta name='description' content="A site for studying and note sharing">
+        <meta property="og:description" content="A site for studying and note sharing">
+        <meta name="twitter:description" content="A site for studying and note sharing">
+        <meta name="DC.description" content="A site for studying and note sharing'" scheme="DCTERMS.DCMIType">
+        <meta name="subject" content="flash study, flashcards, studying, quizlet, notes, notes sharing">
+        <meta name="DC.subject" content="flash study, flashcards, studying, quizlet, notes, notes sharing" scheme="DCTERMS.DCMIType">
+        <meta name="keywords" content="flash study, flashcards, studying, quizlet, notes, notes sharing">
+
+        <title>Flash Study </title>
+        
+        <link rel="stylesheet" href="main.css?1">
+        <style>
+            button:hover {
+                background-color: #ECA400;
+            }
+
+            .create {
+                margin-top: 10px;
+            }
+            #footer {
+                position: fixed;
+                padding: 5px;
+                bottom: -20px;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                height: 30px;
+                background-color: #0f7e94;
+                font-size: 14pt;
+            }
+            .set {
+                width: calc(25% - 45px);
+                margin-bottom: 20px;
+                margin: 10px;
+                border-radius: 8px;
+                padding: 8px;
+                display: inline-block;
+                border: 3px solid #222;
+                padding-bottom: 10px;
+                text-align: center;
+            }
+            .set button {
+                margin: 3px;
+            }
+            .name {
+                font-size: 15pt;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+
+            input {
+                border: 2px solid #222;
+                border-radius: 8px;
+                padding: 10px;
+                outline: none;
+                width: 250px;
+                background-color:#0f7e94;
+            }
+            input::placeholder {
+                color: #222;
+            }
+            input:hover, input:focus {
+                background-color: #ECA400;
+            }
+
+            #search {
+                position: absolute;
+                top: 25px;
+                left: calc(50% - 19px);
+                transform: translate(-50%);
+            }
+            #search-icon {
+                position: absolute;
+                top: 25px;
+                left: calc(50% + 145px);
+                transform: translate(-50%);
+                max-height: 24px;
+                padding: 4.5px;
+                border-radius: 8px;
+                border: 2px solid #222;
+                cursor: pointer;
+            }
+
+            #notes {
+                white-space: nowrap;
+                width: calc(100% - 20px);
+                padding: 10px;
+                margin-bottom: 50px;
+                overflow-x: scroll;
+            }
+
+            #tools {
+                margin-top: 100px;
+                padding: 10px;
+            }
+
+            .set-heading {
+                font-size: 15pt;
+                margin-top: 120px;
+                padding: 10px;
+                width: calc(100% - 20px);
+            }
+            .set-heading p {
+                display: inline-block;
+            }
+
+            #notes-label {
+                font-size: 15pt;
+                margin-left: 10px;
+                margin-top: 10px;
+            }
+
+            #errors {
+                position: relative;
+                display: none;
+                left: calc(50% - 100px);
+                transform: translate(-50%);
+            }
+
+            #load {
+                margin-right: 10px;
+                float: right;
+                cursor: pointer;
+                -ms-user-select: none;
+                -moz-user-select: none;
+                -khtml-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+            #load:hover {
+                text-decoration: underline;
+            }
+            #title {
+                top: 5px;
+                left: 10px;
+                transform: none;
+                padding: 3px 10px 5px 10px;
+            }
+            #title::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: calc(100% + 5px);
+                left: -2px;
+                top: -3px;
+                z-index: -1;
+                background: #ECA400 0 0;
+                transform: rotate(5deg);
+                border-top-left-radius: 80px;
+                border-top-right-radius: 40px;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 70px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+        </svg>
+
+        <h1 id="title">Flash Study</h1>
+
+        <div id="tools">
+            <div class="set" id="1">
+                <p class="name">Accent Copy-Paste</p>
+    
+                <p>copy spanish accents for use on other websites</p>
+    
+                <button onclick="location.assign('/accents.html')">Launch</button>
+            </div>
+    
+            <div class="set" id="2">
+                <p class="name">Physics Equations</p>
+    
+                <p>Equtions for AP Physics 1</p>
+    
+                <button onclick="location.assign('/physics-equations.html')">Launch</button>
+            </div>
+    
+            <div class="set" id="3">
+                <p class="name">Kinematics Table</p>
+    
+                <p>Coming Soon</p>
+    
+                <button onclick="location.assign('/tools.html')">Launch</button>
+            </div>
+    
+            <div class="set" id="4">
+                <p class="name">Coming Soon</p>
+    
+                <p>...</p>
+    
+                <button onclick="location.assign('/tools.html')">Launch</button>
+            </div>
+    
+            <div class="set" id="5">
+                <p class="name">Coming Soon</p>
+    
+                <p>...</p>
+    
+                <button onclick="location.assign('/tools.html')">Launch</button>
+            </div>
+    
+            <div class="set" id="6">
+                <p class="name">Coming Soon</p>
+    
+                <p>...</p>
+    
+                <button onclick="location.assign('/tools.html')">Launch</button>
+            </div>
+    
+            <div class="set" id="7">
+                <p class="name">Coming Soon</p>
+    
+                <p>...</p>
+    
+                <button onclick="location.assign('/tools.html')">Launch</button>
+            </div>
+    
+            <div class="set" id="8">
+                <p class="name">Coming Soon</p>
+    
+                <p>...</p>
+    
+                <button onclick="location.assign('/tools.html')">Launch</button>
+            </div>
+        </div>
+
+        <p id="notes-label"></p>
+        <div id="notes"></div>
+        
+        <p id="footer">Created by Ilan L. Please reach out with any suggestions.</p>
+
+        <script src="main.js?v1"></script>
+        <script>
+    
+        </script>
+    </body>
+</html>
