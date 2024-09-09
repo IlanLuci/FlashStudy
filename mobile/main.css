@@ -1,21 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
-body {background-color:#0B5563;color:#222;margin:0;padding:0;font-family:'Source Sans Pro',sans-serif;}
+body {background-color:#0f7e94;color:#d9dedd;margin:0;padding:0;font-family:'Source Sans Pro',sans-serif;}
 
 /* stop color changes on links */
-a {color:#222;}
+a {color:#d9dedd;}
 
 /* styling for svgs */
 svg:hover {background-color:#ECA400!important;}
 
 /* button styling */
-button {color:#222!important;border-radius:8px;padding:10px;cursor:pointer;background-color:#0B5563;outline:none;border:2px solid #222;}
+button {color:#d9dedd!important;border-radius:8px;padding:10px;cursor:pointer;background-color:#0f7e94;outline:none;border:2px solid #d9dedd;}
 
 /* styling back button in header */
-#back {background-color:#0B5563;position:absolute;left:5px;top:5px;border-radius:8px;cursor:pointer;}
+#back {background-color:#0f7e94;position:absolute;left:5px;top:5px;border-radius:8px;cursor:pointer;}
 
 /* styling profile button in header */
-#profile {position:absolute;right:5px;top:5px;border-radius:8px;border:3px solid #222;cursor:pointer;}
+#profile {position:absolute;right:5px;top:5px;border-radius:8px;border:3px solid #d9dedd;cursor:pointer;}
 
 /* styling for titles on pages */
-#title {top:0;position:absolute;margin-top:10px;left:50%;transform:translate(-50%);color:#222;-ms-user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;user-select:none;}
+#title {top:0;position:absolute;margin-top:10px;left:50%;transform:translate(-50%);color:#d9dedd;-ms-user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;user-select:none;}

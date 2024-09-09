@@ -1,33 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
-body {background-color:#0f7e94;color:#222;margin:0;padding:0;font-family:'Source Sans Pro',sans-serif;}
+body {background-color:#0f7e94;color:#d9dedd;margin:0;padding:0;font-family:'Source Sans Pro',sans-serif;}
 
 /* stop color changes on links */
-a {color:#222;}
+a {color:#d9dedd;}
 
 /* styling for svgs */
 svg:hover {background-color:#ECA400!important;}
 
 /* button styling */
-button {color:#222;border-radius:8px;padding:10px;cursor:pointer;background-color:#0f7e94;outline:none;border:2px solid #222;}
+button {color:#d9dedd;border-radius:8px;padding:10px;cursor:pointer;background-color:#0f7e94;outline:none;border:2px solid #d9dedd;}
 
 /* styling back button in header */
 #back {background-color:#0f7e94;position:absolute;left:10px;top:10px;border-radius:8px;cursor:pointer;}
 
 /* styling profile button in header */
-#profile {position:absolute;right:10px;top:10px;border-radius:8px;border:3px solid #222;cursor:pointer;}
+#profile {position:absolute;right:10px;top:10px;border-radius:8px;border:3px solid #d9dedd;cursor:pointer;}
 
 /* styling for new set and note button in header */
-#new {position: absolute;transform: initial;margin-top:0;bottom:initial;right:70px;padding:10px;font-size:14pt;top:10px;border-radius:8px;border:3px solid #222;cursor:pointer;}
+#new {position: absolute;transform: initial;margin-top:0;bottom:initial;right:70px;padding:10px;font-size:14pt;top:10px;border-radius:8px;border:3px solid #d9dedd;cursor:pointer;}
 #new:hover {background-color:#ECA400;}
 
 /* used for dropdown hiding/showing */
 .show {display:block!important;}
 
 /* create new set and note dropdown */
-.dropdown-content {display:none;position:absolute;background-color:#f1f1f1;min-width:160px;z-index:1;border:3px solid #222;border-radius:8px;background-color:#ECA400;right:30px;top:60px;}
+.dropdown-content {display:none;position:absolute;background-color:#f1f1f1;min-width:160px;z-index:1;border:3px solid #d9dedd;border-radius:8px;background-color:#ECA400;right:30px;top:60px;}
 .dropdown-content a {padding:12px 16px;text-decoration:none;display:block;}
 .dropdown-content a:hover {background-color:#0f7e94;}
 
 /* styling for titles on pages */
-#title {top:0;position:absolute;margin-top:10px;left:50%;transform:translate(-50%);color:#222;-ms-user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;user-select:none;}
+#title {top:0;position:absolute;margin-top:10px;left:50%;transform:translate(-50%);color:#d9dedd;-ms-user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;user-select:none;}
