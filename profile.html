@@ -89,11 +89,20 @@
                 display: inline-block;
                 border-radius: 8px;
                 border: 2px solid #d9dedd;
-                width: 300px;
-                height: 160px;
-                margin: 30px;
                 text-align: center;
-                font-size: 13pt;
+                width: calc(25% - 45px);
+                margin-bottom: 20px;
+                margin: 10px;
+                padding: 8px;
+                padding-bottom: 10px;
+            }
+            .note-heading {
+                font-size: 15pt;
+                overflow-x: hidden;
+                text-wrap: nowrap;
+            }
+            .note button {
+                margin: 3px;
             }
 
             #messages {
@@ -187,7 +196,7 @@
                             
                             noteContainer.innerHTML += `
                             <div class="note">
-                                <p>${noteJson.title}</p>
+                                <p class="note-heading">${noteJson.title}</p>
                                 
                                 <input type="text" value="https://flashstudy.org/note.html?id=${json.notes[note]}" style="display: none;">
                                 <button onclick="copy(event)">Copy Share Link</button>
