@@ -78,6 +78,8 @@
             }
             .set-heading {
                 font-size: 15pt;
+                overflow-x: hidden;
+                text-wrap: nowrap;
             }
             .set button {
                 margin: 3px;
@@ -157,9 +159,10 @@
                                 <br>
                                 <input type="text" value="https://flashstudy.org/study.html?id=${json.sets[set]}" style="display: none;">
                                 <button onclick="copy(event)">Copy Share Link</button>
-                                <br>
-                                <button onclick="deleteSet(${json.sets[set]});" class="delete">Delete</button>
-                                <button onclick="location.assign('edit-set.html?id=${json.sets[set]}');">Edit</button>
+                                <span>
+                                    <button onclick="deleteSet(${json.sets[set]});" class="delete">Delete</button>
+                                    <button onclick="location.assign('edit-set.html?id=${json.sets[set]}');">Edit</button>
+                                </span>
                                 
                                 <br><br>
 
