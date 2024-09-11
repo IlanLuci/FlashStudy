@@ -160,10 +160,10 @@
                                 <input type="text" value="https://flashstudy.org/study.html?id=${json.sets[set]}" style="display: none;">
                                 <button onclick="copy(event)">Copy Share Link</button>
                                 <span>
-                                    <button onclick="deleteSet(${json.sets[set]});" class="delete">Delete</button>
                                     <button onclick="location.assign('edit-set.html?id=${json.sets[set]}');">Edit</button>
+                                    <button onclick="deleteSet(${json.sets[set]});" class="delete">Delete</button>
                                 </span>
-                                
+
                                 <br><br>
 
                                 <button onclick="location.assign('flashcards.html?id=${json.sets[set]}');">Flashcards</button>
