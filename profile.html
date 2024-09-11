@@ -154,16 +154,17 @@
 
                                 <p>${setJson.questions.length} questions</p>
                                 <p>${setJson.completions || 0} completions</p>
-                                
+                                <br>
                                 <input type="text" value="https://flashstudy.org/study.html?id=${json.sets[set]}" style="display: none;">
                                 <button onclick="copy(event)">Copy Share Link</button>
+                                <br>
                                 <button onclick="deleteSet(${json.sets[set]});" class="delete">Delete</button>
                                 <button onclick="location.assign('edit-set.html?id=${json.sets[set]}');">Edit</button>
                                 
                                 <br><br>
 
-                                <button onclick="location.assign('flashcards.html?id=${json.sets[set]}');">Study With Flashcards</button>
-                                <button onclick="location.assign('study.html?id=${json.sets[set]}');">Study with Questions</button>
+                                <button onclick="location.assign('flashcards.html?id=${json.sets[set]}');">Flashcards</button>
+                                <button onclick="location.assign('study.html?id=${json.sets[set]}');">Questions</button>
                             </div>
                         `;
                         }
