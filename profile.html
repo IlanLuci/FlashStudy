@@ -79,6 +79,9 @@
                 overflow-x: hidden;
                 text-wrap: nowrap;
             }
+            .set-description {
+                margin: 10px 0 0 0;
+            }
             .set button {
                 margin: 3px;
             }
@@ -96,6 +99,7 @@
             }
             .note-heading {
                 font-size: 15pt;
+                margin: 5px 0 5px 0;
                 overflow-x: hidden;
                 text-wrap: nowrap;
             }
@@ -123,10 +127,10 @@
         
         <p id="messages"></p>
 
-        <p style="margin: 140px 0px -10px 15px">flash sets</p>
+        <p style="margin: 140px 0px -10px 15px; font-size: 15pt;">flash sets</p>
         <div id="sets-container"></div>
 
-        <p style="margin: 20px 0px -10px 15px">flash notes</p>
+        <p style="margin: 20px 0px -10px 15px; font-size: 15pt;">flash notes</p>
         <div id="notes-container"></div>
 
         <button id="logout" onclick="logout();">Logout</button>
@@ -161,8 +165,8 @@
                             <div class="set">
                                 <p class="set-heading">${setJson.name}</p>
 
-                                <p>${setJson.questions.length} questions</p>
-                                <p>${setJson.completions || 0} completions</p>
+                                <p class="set-description">${setJson.questions.length} questions</p>
+                                <p class="set-description">${setJson.completions || 0} completions</p>
                                 <br>
                                 <input type="text" value="https://flashstudy.org/study.html?id=${json.sets[set]}" style="display: none;">
                                 <button onclick="copy(event)">Copy Share Link</button>
@@ -171,10 +175,10 @@
                                     <button onclick="deleteSet(${json.sets[set]});" class="delete">Delete</button>
                                 </span>
 
-                                <br><br>
+                                <br>
 
-                                <button onclick="location.assign('flashcards.html?id=${json.sets[set]}');">Flashcards</button>
-                                <button onclick="location.assign('study.html?id=${json.sets[set]}');">Questions</button>
+                                <button style="margin-top: 12px;" onclick="location.assign('flashcards.html?id=${json.sets[set]}');">Flashcards</button>
+                                <button style="margin-top: 12px;" onclick="location.assign('study.html?id=${json.sets[set]}');">Questions</button>
                             </div>
                         `;
                         }
@@ -201,9 +205,9 @@
                                 <button onclick="deleteNote(${json.notes[note]});" class="delete">Delete</button>
                                 <button onclick="location.assign('edit-note.html?id=${json.notes[note]}');">Edit</button>
                                 
-                                <br><br>
+                                <br>
 
-                                <button onclick="location.assign('note.html?id=${json.notes[note]}');">View</button>
+                                <button style="margin-top: 12px;" onclick="location.assign('note.html?id=${json.notes[note]}');">View</button>
                             </div>
                         `;
                         }
