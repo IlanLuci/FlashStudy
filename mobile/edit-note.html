@@ -53,13 +53,14 @@
             }
             .textInput {
                 display: inline;
+                color: #d9dedd;
                 border: 2px solid #d9dedd;
                 border-radius: 8px;
                 padding: 10px;
                 margin: 10px 10px 10px 10px;
                 outline: none;
                 background-color:#0f7e94;
-                width: calc(50% - 24px);
+                width: calc(50% - 46px);
             }
             .textInput::placeholder {
                 color: #d9dedd;
@@ -84,6 +85,7 @@
             .select {
                 position: relative;
                 top: -10px;
+                color: #d9dedd;
                 border-radius: 8px;
                 height: 30px;
                 border: 1px solid #d9dedd;
@@ -116,7 +118,7 @@
                 padding: 5px 10px 5px 12px;
             }
             #editor {
-                min-height: 100px;
+                min-height: 300px;
                 outline: none;
                 padding: 5px;
             }
@@ -195,7 +197,7 @@
                 </svg>
             </a>
 
-            <input class="input" type="color" onchange="chooseColor()" id="colorSelect"/>
+            <input style="transform: translate(0, -10px);" class="input" type="color" onchange="chooseColor()" id="colorSelect"/>
 
             <select class="select" id="fontType" onchange="changeFont (this);">
                 <option value="Arial">Arial</option>
