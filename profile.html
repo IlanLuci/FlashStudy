@@ -152,6 +152,8 @@
                     let json = JSON.parse(result);
                     
                     document.getElementById('title').innerText = `${json.username}'s Profile`;
+
+                    json.sets.reverse();
                     
                     for (set in json.sets) {
                         if (json.sets[set] == '') continue;
