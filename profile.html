@@ -190,6 +190,8 @@
                         setContainer.innerHTML += '<p style="text-align: center">You have not created any sets yet.</p>'
                     }
 
+                    json.notes.reverse();
+
                     for (note in json.notes) {
                         if (json.notes[note] == '') continue;
                         

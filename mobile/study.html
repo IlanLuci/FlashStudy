@@ -241,7 +241,7 @@
 
                 let input = question.children[1].value;
 
-                // continue if input answer (with#0f7e94space trimmed) is correct
+                // continue if input answer (with space trimmed) is correct
                 if (input != '' && input.trim().toLowerCase() == answers[lastQuestion].trim().toLowerCase()) {
                     questions.splice(lastQuestion, 1);
                     answers.splice(lastQuestion, 1);

@@ -119,6 +119,8 @@
                     
                     document.getElementById('title').innerText = `${json.username}'s Profile`;
                     
+                    json.sets.reverse();
+
                     for (set in json.sets) {
                         if (json.sets[set] == '') continue;
                         
@@ -152,6 +154,8 @@
                         setContainer.innerHTML += '<p style="text-align: center">You have not created any sets yet.</p>'
                     }
 
+                    json.notes.reverse();
+                    
                     for (note in json.notes) {
                         if (json.notes[note] == '') continue;
                         
