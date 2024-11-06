@@ -31,10 +31,6 @@
         
         <link rel="stylesheet" href="main.css?2">
         <style>
-            button:hover {
-                background-color: #ECA400;
-            }
-
             .create {
                 margin-top: 10px;
             }
@@ -53,9 +49,12 @@
                 margin-bottom: 20px;
                 margin: 10px;
                 border-radius: 8px;
+                background-color: rgba(255, 255, 255, 0.21);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
                 padding: 8px;
                 display: inline-block;
-                border: 2px solid #d9dedd;
                 padding-bottom: 10px;
                 text-align: center;
             }
@@ -164,7 +163,11 @@
                 left: -2px;
                 top: -3px;
                 z-index: -1;
-                background: #ECA400 0 0;
+                border-radius: 8px;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
+                background: rgba(236, 164, 0, 0.5) 0 0;
                 transform: rotate(5deg);
                 border-top-left-radius: 80px;
                 border-top-right-radius: 40px;
