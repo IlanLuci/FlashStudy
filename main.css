@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
-body {background-color:#0f7e94;color:#d9dedd;margin:0;padding:0;font-family:'Source Sans Pro',sans-serif;}
+body {background-color:#4A5859;color:#d9dedd;margin:0;padding:0;font-family:'Source Sans Pro',sans-serif;}
 
 /* stop color changes on links */
 a {color:#d9dedd;}
@@ -9,10 +9,10 @@ a {color:#d9dedd;}
 svg:hover {background-color:#ECA400!important;}
 
 /* button styling */
-button {color:#d9dedd;border-radius:8px;padding:10px;cursor:pointer;background-color:#0f7e94;outline:none;border:2px solid #d9dedd;}
+button {color:#d9dedd;border-radius:8px;padding:10px;cursor:pointer;background-color:transparent;outline:none;border:2px solid #d9dedd;}
 
 /* styling back button in header */
-#back {background-color:#0f7e94;position:absolute;left:10px;top:10px;border-radius:8px;cursor:pointer;}
+#back {background-color:transparent;position:absolute;left:10px;top:10px;border-radius:8px;cursor:pointer;}
 
 /* styling profile button in header */
 #profile {position:absolute;right:10px;top:10px;border-radius:8px;border:3px solid #d9dedd;cursor:pointer;}
