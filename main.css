@@ -11,25 +11,26 @@ svg:hover {background-color:#d9dedd!important;color:#0f7e94;}
 
 /* button styling */
 button {transition:0.09s;color:#d9dedd;border-radius:8px;padding:10px;cursor:pointer;background-color:transparent;outline:none;border:1px solid #d9dedd;}
-button:hover {background-color:#d9dedd; color: #0f7e94;}
+button:hover {background-color:#d9dedd;color:#0f7e94;}
 
 /* styling back button in header */
-#back {background-color:transparent;position:absolute;left:10px;top:10px;border-radius:8px;cursor:pointer;}
+#back {background-color:transparent;position:absolute;left:10px;top:10px;border-radius:8px;cursor:pointer;transition:0.09s;}
+#back:hover {transform: scale(1.1);border-radius: 16px;}
 
 /* styling profile button in header */
 #profile {position:absolute;right:10px;top:10px;border-radius:8px;border:3px solid #d9dedd;cursor:pointer;}
 
 /* styling for new set and note button in header */
 #new {position: absolute;transform: initial;margin-top:0;bottom:initial;right:70px;padding:10px;font-size:14pt;top:10px;border-radius:8px;border:3px solid #d9dedd;cursor:pointer;}
-#new:hover {background-color:#ECA400;}
+#new:hover {background-color:#d9dedd;color:#0f7e94;}
 
 /* used for dropdown hiding/showing */
 .show {display:block!important;}
 
 /* create new set and note dropdown */
-.dropdown-content {display:none;position:absolute;background-color:#f1f1f1;min-width:160px;z-index:1;border:3px solid #d9dedd;border-radius:8px;background-color:#ECA400;right:30px;top:60px;}
+.dropdown-content {display:none;position:absolute;min-width:160px;z-index:1;border:3px solid #d9dedd;border-radius:8px;background-color:#0f7e94;right:30px;top:60px;transition:0.09s;}
 .dropdown-content a {padding:12px 16px;text-decoration:none;display:block;}
-.dropdown-content a:hover {background-color:#0f7e94;}
+.dropdown-content a:hover {color:#0f7e94;background-color:#d9dedd;}
 
 /* styling for titles on pages */
 #title {top:0;position:absolute;margin-top:10px;left:50%;transform:translate(-50%);color:#d9dedd;-ms-user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;user-select:none;}
