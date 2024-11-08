@@ -68,36 +68,36 @@
             }
 
             input {
-                border: 2px solid #d9dedd;
+                border: 1px solid #d9dedd;
                 border-radius: 8px;
                 padding: 10px;
+                transition: 0.09s;
                 color: #d9dedd;
+                font-size: 11pt;
                 outline: none;
-                width: 250px;
+                width: 200px;
                 background-color:transparent;
             }
             input::placeholder {
                 color: #d9dedd;
             }
-            input:hover, input:focus {
-                background-color: #ECA400;
-            }
 
             #search {
                 position: absolute;
-                top: 25px;
-                left: calc(50% - 19px);
+                text-align: center;
+                margin-top: 12px;
+                left: calc(50%);
                 transform: translate(-50%);
             }
             #search-icon {
                 position: absolute;
-                top: 25px;
-                left: calc(50% + 145px);
+                left: calc(50% + 140px);
                 transform: translate(-50%);
+                margin-top: 12px;
                 max-height: 24px;
-                padding: 5.5px;
+                padding: 6.2px;
                 border-radius: 8px;
-                border: 2px solid #d9dedd;
+                border: 1px solid #d9dedd;
                 cursor: pointer;
             }
 
@@ -114,13 +114,20 @@
             }
 
             .set-heading {
-                font-size: 15pt;
+                font-size: 14pt;
                 margin-top: 120px;
-                padding: 10px;
-                width: calc(100% - 20px);
+                border-radius: 8px;
+                margin-left: 20px;
+                padding: 0px 20px 0px 20px;
+                width: calc(100% - 100px);
+                background-color: rgba(255, 255, 255, 0.21);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
+                height: 60px;
             }
             .set-heading p {
-                display: inline-block;
+                float: left;
             }
 
             #notes-label {
@@ -132,23 +139,17 @@
             #errors {
                 position: relative;
                 display: none;
-                left: calc(50% - 100px);
+                left: calc(100% - 320px);
                 transform: translate(-50%);
             }
 
             #load {
-                margin-right: 10px;
                 float: right;
-                cursor: pointer;
-                -ms-user-select: none;
-                -moz-user-select: none;
-                -khtml-user-select: none;
-                -webkit-user-select: none;
-                user-select: none;
+                margin-top: 12px;
+                transform: translate(5px);
+                position: relative;
             }
-            #load:hover {
-                text-decoration: underline;
-            }
+            
             #title {
                 top: 5px;
                 left: 10px;
@@ -190,16 +191,16 @@
 
         <h1 id="title">Flash Study</h1>
 
-        <input id="search" type="text" placeholder="search flash sets">
-
-        <svg onclick="search();" id="search-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-        </svg>
-
         <div class="set-heading">
             <p id="description">Popular Flash Sets</p>
+
+            <input id="search" type="text" placeholder="Search">
+            <svg onclick="search();" id="search-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+
             <p id="errors">all sets are displayed</p>
-            <p id="load" onclick="loadMore();">load more</p>
+            <button id="load" onclick="loadMore();">Load More</button>
         </div>
 
         <div id="sets">
@@ -392,7 +393,7 @@
                     }
 
                     if (json.length == 0) {
-                        document.getElementById('errors').style.display = 'inline-block';
+                        document.getElementById('errors').style.display = '';
 
                         setTimeout(() => {
                         document.getElementById('errors').style.display = 'none';
@@ -414,7 +415,7 @@
                 if (res.status == 201) {
 
                     if (text == 'all sets are displayed') {
-                        document.getElementById('errors').style.display = 'inline-block';
+                        document.getElementById('errors').style.display = '';
 
                         setTimeout(() => {
                         document.getElementById('errors').style.display = 'none';

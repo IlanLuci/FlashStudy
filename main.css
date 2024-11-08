@@ -6,7 +6,8 @@ body {background-color:#0f7e94;color:#d9dedd;margin:0;padding:0;font-family:'Sou
 a {color:#d9dedd;}
 
 /* styling for svgs */
-svg:hover {background-color:#ECA400!important;}
+svg {transition: 0.09s;}
+svg:hover {background-color:#d9dedd!important;color:#0f7e94;}
 
 /* button styling */
 button {transition:0.09s;color:#d9dedd;border-radius:8px;padding:10px;cursor:pointer;background-color:transparent;outline:none;border:1px solid #d9dedd;}
