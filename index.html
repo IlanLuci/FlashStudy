@@ -372,7 +372,7 @@
 
                 if (noteRes.status == 201) {
                     if (noteText == 'all notes are displayed') {
-                            notesDiv.innerHTML += 'there are no notes matching your search';
+                            notesDiv.innerHTML += '<p style="margin-left: 20px;">there are no notes matching your search</p>';
                     } else {
                         let json = JSON.parse(noteText);
 
