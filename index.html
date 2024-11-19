@@ -117,7 +117,7 @@
                 font-size: 14pt;
                 margin-top: 120px;
                 border-radius: 8px;
-                margin-left: 20px;
+                margin-left: 10px;
                 padding: 0px 20px 0px 20px;
                 width: calc(100% - 100px);
                 background-color: rgba(255, 255, 255, 0.21);
@@ -130,10 +130,21 @@
                 float: left;
             }
 
-            #notes-label {
-                font-size: 15pt;
-                margin-left: 10px;
+            .note-heading {
+                font-size: 14pt;
                 margin-top: 10px;
+                border-radius: 8px;
+                margin-left: 20px;
+                padding: 0px 20px 0px 20px;
+                width: calc(100% - 100px);
+                background-color: rgba(255, 255, 255, 0.21);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
+                height: 60px;
+            }
+            .note-heading p {
+                float: left;
             }
 
             #errors {
@@ -192,7 +203,7 @@
         <h1 id="title">Flash Study</h1>
 
         <div class="set-heading">
-            <p id="description">Popular Flash Sets</p>
+            <p id="set-label">Popular Flash Sets</p>
 
             <input id="search" type="text" placeholder="Search">
             <svg onclick="search();" id="search-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -277,7 +288,9 @@
             </div>
         </div>
 
-        <p id="notes-label"></p>
+        <div style="display: none;" class="note-heading">
+            <p id="note-label">Popular Flash Notes</p>
+        </div>
         <div id="notes"></div>
         
         <p id="footer">
@@ -317,15 +330,15 @@
             async function search(e) {
                 let query = document.getElementById('search').value.trim();
                 let notes = document.getElementById('notes');
-                let description = document.getElementById('description');
-                let notesLabel = document.getElementById('notes-label');
+                let setLabel = document.getElementById('set-label');
+                let notesLabel = document.getElementById('note-label');
                 let load = document.getElementById('load');
 
                 if (query == '') return loadPopular();
 
                 queryLoaded = query;
                 notes.innerText = '';
-                description.innerText = query + ' Flash Sets';
+                setLabel.innerText = query + ' Flash Sets';
                 notesLabel.innerText = query + ' Flash Notes';
                 load.onclick = loadMoreSearch;
                 setsLoaded = 0;
@@ -340,7 +353,7 @@
 
                 if (setRes.status == 201) {
                     if (setText == 'all sets are displayed') {
-                            document.getElementById('sets').innerHTML += 'there are no sets matching your search';
+                            document.getElementById('sets').innerHTML += '<p style="margin-left: ;">there are no sets matching your search</p>';
                     } else {
                         let json = JSON.parse(setText);
 
@@ -472,13 +485,15 @@
             }
 
             async function loadPopular() {
-                let notesLabel = document.getElementById('notes-label');
+                let notesLabel = document.getElementById('note-label');
 
                 queryLoaded = '';
                 notes.innerText = '';
                 setsLoaded = 0;
-                description.innerText = 'Popular Flash Sets';
-                notesLabel.innerText = '';
+                setLabel.innerText = 'Popular Flash Sets';
+                notesLabel.innerText = 'Popular Flash Notes';
+                // TODO: this is here until I add displaying popular flash notes
+                notesLabel.parentElement.style.display = 'none';
                 load.onclick = loadMore;
 
                 // load popular flash sets
