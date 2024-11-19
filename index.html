@@ -117,7 +117,7 @@
                 font-size: 14pt;
                 margin-top: 120px;
                 border-radius: 8px;
-                margin-left: 10px;
+                margin-left: 20px;
                 padding: 0px 20px 0px 20px;
                 width: calc(100% - 100px);
                 background-color: rgba(255, 255, 255, 0.21);
@@ -353,7 +353,7 @@
 
                 if (setRes.status == 201) {
                     if (setText == 'all sets are displayed') {
-                            document.getElementById('sets').innerHTML += '<p style="margin-left: ;">there are no sets matching your search</p>';
+                            document.getElementById('sets').innerHTML += '<p style="margin-left: 10px;">there are no sets matching your search</p>';
                     } else {
                         let json = JSON.parse(setText);
 
@@ -486,6 +486,7 @@
 
             async function loadPopular() {
                 let notesLabel = document.getElementById('note-label');
+                let setLabel = document.getElementById('set-label');
 
                 queryLoaded = '';
                 notes.innerText = '';
