@@ -340,6 +340,7 @@
                 notes.innerText = '';
                 setLabel.innerText = query + ' Flash Sets';
                 notesLabel.innerText = query + ' Flash Notes';
+                notesLabel.parentElement.style.display = '';
                 load.onclick = loadMoreSearch;
                 setsLoaded = 0;
 
@@ -353,7 +354,7 @@
 
                 if (setRes.status == 201) {
                     if (setText == 'all sets are displayed') {
-                            document.getElementById('sets').innerHTML += '<p style="margin-left: 10px;">there are no sets matching your search</p>';
+                            document.getElementById('sets').innerHTML += '<p style="margin-left: 20px;">there are no sets matching your search</p>';
                     } else {
                         let json = JSON.parse(setText);
 
