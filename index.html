@@ -161,13 +161,21 @@
                 position: relative;
             }
             
-            #title {
+            #logo {
                 top: 5px;
                 left: 10px;
                 transform: none;
                 padding: 3px 10px 5px 10px;
+                position:absolute;
+                margin-top:10px;
+                color:#d9dedd;
+                -ms-user-select:none;
+                -moz-user-select:none;
+                -khtml-user-select:none;
+                -webkit-user-select:none;
+                user-select:none;
             }
-            #title::before {
+            #logo::before {
                 content: "";
                 position: absolute;
                 width: 100%;
@@ -200,7 +208,7 @@
             <a href="create-note.html">Create New Note</a>
         </div>
 
-        <h1 id="title">Flash Study</h1>
+        <h1 id="logo">Flash Study</h1>
 
         <div class="set-heading">
             <p id="set-label">Popular Flash Sets</p>
