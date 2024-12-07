@@ -9,23 +9,16 @@
 
         <link rel="stylesheet" href="main.css?2">
         <style>
-            
-
             .fold-corner-card {
-                margin: 2em;
-                padding: 2em;
-            }
-
-            .fold-corner-card {
-                background: -webkit-linear-gradient(225deg, transparent 50%, #C9CCD4 50%), -webkit-linear-gradient(45deg,#0f7e94,#0f7e94), -webkit-linear-gradient(135deg,#0f7e94,#0f7e94), -webkit-linear-gradient(225deg, transparent 25px,#0f7e94 10px);
+                background: -webkit-linear-gradient(225deg, transparent 50%, #C9CCD4 50%), -webkit-linear-gradient(225deg, transparent 25px,#0f7e94 10px);
                 -webkit-background-size: 40px 40px, 0 0, 0 0, 100% 100%;
                 -moz-background-size: 40px 40px, 0 0, 0 0, 100% 100%;
                 background-size: 40px 40px, 0 0, 0 0, 100% 100%;
                 background-position: 100% 0, 0 0, 100% 100%, 100% 0;
                 background-repeat: no-repeat;
                 position: absolute;
-                top: -32;
-                right: -32;
+                padding: 2em;
+                bottom: 0;
             }
 
             button {
@@ -52,7 +45,10 @@
                 width: 400px;
                 transition: 0.3s;
                 height: 400px;
-                border: 3px solid #d9dedd;
+                background-color: rgba(255, 255, 255, 0.21);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
                 cursor: pointer;
                 border-radius: 8px;
                 margin-left: 50%;
@@ -67,13 +63,17 @@
                 color: #2eb351;
             }
             #previous {
+                border: 1px solid #d9dedd;
+                border-radius: 8px;
                 position: absolute;
-                left: calc(50% - 300px);
+                left: calc(50% - 270px);
                 top: calc(50% - 20px);
             }
             #next {
+                border: 1px solid #d9dedd;
                 position: absolute;
-                left: calc(50% + 250px);
+                border-radius: 8px;
+                left: calc(50% + 220px);
                 top: calc(50% - 20px);
                 transform: rotate(180deg);
             }
@@ -97,14 +97,22 @@
                 text-decoration: underline;
             }
 
-            
-            
-            
-
             @media (max-height: 900px) {
                 .progress {
                     top: calc(50% + 220px);
                 }
+            }
+            #new {
+                margin-left: calc(100% - 170px);
+                margin-top: -50px;
+            }
+            #profile {
+                margin-left: calc(100% - 50px);
+                margin-top: -50px;
+                transform: translate(0, -13px);
+            }
+            header {
+                max-height: 49.5px;
             }
         </style>
     </head>
@@ -119,8 +127,8 @@
 
             <button onclick="dropdown();" id="new">Create</button>
             <div id="dropdown" class="dropdown-content">
-                <a href="create-set.html">Create New Set</a>
-                <a href="create-note.html">Create New Note</a>
+                <a style="border-top-left-radius:6px;border-top-right-radius:6px;" href="create-set.html">Create New Set</a>
+                <a style="border-bottom-left-radius:6px;border-bottom-right-radius:6px;" href="create-note.html">Create New Note</a>
             </div>
     
             <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -128,8 +136,9 @@
             </svg>
         </header>
 
-        <svg onclick="previous()" id="previous" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+
+        <svg onclick="previous()" id="previous" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
         </svg>
 
         <div id="question" onclick="flip()">
@@ -140,8 +149,8 @@
             <div class="fold-corner-card"></div>
         </div>
 
-        <svg onclick="next()" id="next" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        <svg onclick="next()" id="next" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
         </svg>
         
         <p id="switch" onclick="swap();"></p>

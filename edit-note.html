@@ -10,44 +10,39 @@
         <link rel="stylesheet" href="main.css?2">
         <style>
             #create {
-                border: 2px solid #d9dedd;
+                border: 1px solid #d9dedd;
                 border-radius: 8px;
                 padding: 10px;
                 margin-top: 20px;
                 position: relative;
                 bottom: 10px;
                 cursor: pointer;
-                background-color:transparent;
                 outline: none;
                 left: 50%;
                 transform: translate(-50%);
             }
-            #create:hover {
-                background-color: #ECA400;
-            }
             
             #main {
-                position: absolute;
                 width: 90vw;
                 transition: 0.3s;
-                border: 3px solid #d9dedd;
+                background-color: rgba(255, 255, 255, 0.21);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
                 border-radius: 8px;
                 margin-left: 50%;
                 margin-top: 50px;
                 transform: translate(-50%);
             }
             #errors {
-                position: absolute;
-                top: 90px;
-                left: 50%;
-                transform: translate(-50%);
+                text-align: center;
                 font-size: 14pt;
                 color: #a8514b;
             }
             .textInput {
                 display: inline;
                 color: #d9dedd;
-                border: 2px solid #d9dedd;
+                border: 1px solid #d9dedd;
                 border-radius: 8px;
                 padding: 10px;
                 margin: 10px 10px 10px 10px;
@@ -57,9 +52,6 @@
             }
             .textInput::placeholder {
                 color: #d9dedd;
-            }
-            .textInput:hover, .textInput:focus {
-                background-color: #ECA400;
             }
             hr {
                 border: 1px solid #d9dedd;
@@ -85,13 +77,11 @@
                 border: 1px solid #d9dedd;
                 overflow: hidden;
                 overflow: -moz-hidden-unscrollable;
-                background: no-repeat #0f7e94;
+                background: transparent;
                 padding: 5px;
+                cursor: pointer;
                 -webkit-appearance: none;
                 -moz-appearance: none;
-            }
-            .select:hover, .select:focus {
-                background-color: #ECA400;
             }
             .input {
                 border-radius: 8px;
@@ -100,13 +90,11 @@
                 overflow: hidden;
                 color: #d9dedd;
                 overflow: -moz-hidden-unscrollable;
-                background: no-repeat #0f7e94;
+                background: transparent;
+                cursor: pointer;
                 padding: 5px;
                 -webkit-appearance: none;
                 -moz-appearance: none;
-            }
-            .input:hover, .input:focus {
-                background-color: #ECA400;
             }
             #fontSize {
                 padding: 5px 10px 5px 12px;
@@ -115,6 +103,10 @@
                 min-height: 300px;
                 outline: none;
                 padding: 5px;
+            }
+            #profile {
+                float: right;
+                margin-top: -50px;
             }
         </style>
     </head>
