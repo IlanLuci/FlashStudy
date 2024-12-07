@@ -197,7 +197,7 @@
                     //add display of json.creator
 
                     // update ui elements with data retrieved
-                    document.getElementById('description').innerText = json.description || '&nbsp;';
+                    document.getElementById('description').textContent = json.description || '\u00A0\u00A0';
                     document.getElementById('swap').innerText = `Swap ${json.q} and ${json.a}`;
                     document.getElementById('title').innerText = json.name;
                     document.title = json.name;
