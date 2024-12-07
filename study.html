@@ -53,7 +53,7 @@
                 backdrop-filter: blur(3px);
                 border-radius: 8px;
                 margin-left: 50%;
-                top: 50%;
+                top: 350px;
                 transform: translate(-50%, -50%);
             }
             #corrections {
@@ -80,7 +80,12 @@
             }
             .char {
                 font-size: 20pt;
+                background-color: rgba(255, 255, 255, 0.21);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
                 width: 40px;
+                margin: 3px;
                 position: relative;
             }
 
@@ -95,6 +100,18 @@
                 cursor: pointer;
             }
             #swap:hover {
+                text-decoration: underline;
+            }
+            #reset {
+                margin: 0;
+                position: absolute;
+                font-size: 12pt;
+                left: 50%;
+                transform: translate(-50%);
+                bottom: 80px;
+                cursor: pointer;
+            }
+            #reset:hover {
                 text-decoration: underline;
             }
             #new {
@@ -151,8 +168,10 @@
         </div>
         
         <p id="swap" onclick="swap();"></p>
+        <p id="reset" onclick="restart();">Reset Progress</p>
 
         <p id="corrections"></p>
+
 
         <p class="progress" id="mastered"></p>
         <p class="progress" id="stillWorking"></p>
