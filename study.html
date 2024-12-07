@@ -179,7 +179,7 @@
 
             if (!id) {
                 alert('invalid set id');
-                // location.href = 'index.html';
+                location.href = 'index.html';
             }
 
             let questions;
@@ -197,7 +197,7 @@
                     //add display of json.creator
 
                     // update ui elements with data retrieved
-                    document.getElementById('description').innerText = json.description;
+                    document.getElementById('description').innerText = json.description || '&nbsp;';
                     document.getElementById('swap').innerText = `Swap ${json.q} and ${json.a}`;
                     document.getElementById('title').innerText = json.name;
                     document.title = json.name;
