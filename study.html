@@ -295,6 +295,7 @@
             
             function submitQuestion() {
                 if (questions.length == 1  && questions[0] == '') return;
+                if (questions.length == 0) return;
 
                 let input = question.children[1].value;
 
