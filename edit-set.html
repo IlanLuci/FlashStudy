@@ -145,7 +145,26 @@
                                 `;
                             }
 
-                            main.innerHTML += `<p id="new-question" onclick="addQuestion();">add another question</p><button onclick="submit();">Submit</button>`;
+                            // handle posibility of null values (fields added after set was created)
+                            if (setJson.caseSensitive == null) setJson.caseSensitive = true;
+                            if (setJson.accentSensitive == null) setJson.accentSensitive = false;
+                            if (setJson.spanish == null) setJson.spanish = false;
+
+                            main.innerHTML += `<p id="new-question" onclick="addQuestion();">add another question</p>`;
+                            main.innerHTML += `
+                                <span style=" width: 180px; text-align: left; display: block; margin-left: 50%; transform: translate(-50%);">
+                                    <input ${setJson.caseSensitive ? 'checked' : ''} type="checkbox" id="case_sensitive" style="width: 20px;">
+                                    <label for="case_sensitive">Case Sensitive</label>
+                                    <br>
+                                    <input ${setJson.accentSensitive ? 'checked' : ''} type="checkbox" id="accent_sensitive" style="width: 20px;">
+                                    <label for="accent_sensitive">Accent Sensitive</label>
+                                    <br>
+                                    <input ${setJson.spanish ? 'checked' : ''} type="checkbox" id="spanish" style="width: 20px;">
+                                    <label for="spanish">Show Spanish Accents</label>
+                                    <br><br>
+                                </span>
+                            `;
+                            main.innerHTML += `<button onclick="submit();">Submit</button>`;
                         } else {
                             // id given in urlparams is either invalid or server bug has occured 
                             alert('invalid set id');
@@ -187,6 +206,9 @@
                 const description = main.children[1].value;
                 const q = main.children[4].value;
                 const a = main.children[5].value;
+                const caseSensitive = document.getElementById('case_sensitive').checked;
+                const accentSensitive = document.getElementById('accent_sensitive').checked;
+                const spanish = document.getElementById('spanish').checked;
 
                 let questions = [];
                 let answers = [];
@@ -200,7 +222,7 @@
                     answers.push(question.children[1].value);
                 });
 
-                const data = { "name": name, "description": description, "q": q, "a": a, "questions": questions, "answers": answers, "id": id };
+                const data = { "name": name, "description": description, "q": q, "a": a, "questions": questions, "answers": answers, "id": id, caseSensitive: caseSensitive, accentSensitive: accentSensitive, spanish: spanish };
 
                 let res = await fetcher(`/sets/edit`, { method: 'post', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' }});
                 let text = await res.text();
