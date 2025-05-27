@@ -206,6 +206,7 @@
             let answers;
             let count;
             let lastQuestion;
+            let caseSensitive;
             let restarting = false;
 
             window.addEventListener('load', async () => {
@@ -226,6 +227,7 @@
                     questions = json.questions;
                     answers = json.answers;
                     count = questions.length;
+                    caseSensitive = json.caseSensitive;
 
                     // check if the user has previously answered questions saved
                     let saved = JSON.parse(localStorage.getItem(id));
@@ -300,8 +302,10 @@
 
                 let input = question.children[1].value;
 
+                let inputCorrect = caseSensitive ? input.trim() == answers[lastQuestion].trim() : input.trim().toLowerCase() == answers[lastQuestion].trim().toLowerCase();
+
                 // continue if input answer (with space trimmed) is correct
-                if (input != '' && input.trim().toLowerCase() == answers[lastQuestion].trim().toLowerCase()) {
+                if (input != '' && inputCorrect) {
                     questions.splice(lastQuestion, 1);
                     answers.splice(lastQuestion, 1);
 
