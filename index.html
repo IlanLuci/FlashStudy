@@ -210,6 +210,15 @@
                 margin-top: 0;
                 transform: translate(0, 5px);
             }
+            .description {
+                text-align: center;
+            }
+            .description p {
+                margin: 10px 20px;
+            }
+            .description p:first-child {
+                margin-top: 20px;
+            }
         </style>
     </head>
 
@@ -228,7 +237,13 @@
 
         <h1 id="logo">Flash Study</h1>
 
-        <div class="set-heading">
+        <span class="description">
+            <p>Flash Study is your go-to platform for fast, effective study prep. Whether you're gearing up for a quiz, exam, or final, our free tools help you memorize and master material with ease. Use customizable flashcards to drill key concepts and boost recall, or test your knowledge with our interactive practice questions, designed to reinforce learning—similar to Quizlet Learn, but completely free.</p>
+            <p>Need more than just review? Try our experimental note creation and sharing feature, perfect for organizing your study materials and collaborating with classmates.</p>
+            <p>Simple, smart, and focused—Flash Study helps you study better, not longer.</p>
+        </span>
+        
+        <div class="set-heading" style="margin-top: 20px;">
             <p id="set-label">Popular Flash Sets</p>
 
             <input id="search" type="text" placeholder="Search">
@@ -320,7 +335,7 @@
         <div id="notes"></div>
         
         <p id="footer">
-            Created by Ilan Luciano. Please reach out with any suggestions.
+            Created by Ilan Luciano. Please <a href="mailto:ilan@ilan-not-elon.com">reach out</a> with any suggestions.
             
             click <a href="tools.html">here</a> for other tools.
         </p>
