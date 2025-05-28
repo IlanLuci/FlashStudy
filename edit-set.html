@@ -193,6 +193,13 @@
                                     <br><br>
                                 </span>
                             `;
+
+                            if (setJson.spanish) {
+                                document.getElementById('spanishChars').style.display = 'block';
+                            } else {
+                                document.getElementById('spanishChars').style.display = 'none';
+                            }
+
                             main.innerHTML += `<button onclick="submit();">Submit</button>`;
                         } else {
                             // id given in urlparams is either invalid or server bug has occured 
