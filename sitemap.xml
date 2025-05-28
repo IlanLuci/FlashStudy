@@ -5,23 +5,23 @@
 	<loc>https://flashstudy.org</loc>
 </url>
 <url>
-	<loc>https://flashstudy.org/index.html</loc>
+	<loc>https://flashstudy.org/index</loc>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>https://flashstudy.org/profile.html</loc>
+	<loc>https://flashstudy.org/profile</loc>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>https://flashstudy.org/login.html</loc>
+	<loc>https://flashstudy.org/login</loc>
 	<priority>0.6</priority>
 </url>
 <url>
-	<loc>https://flashstudy.org/create-set.html</loc>
+	<loc>https://flashstudy.org/create-set</loc>
 	<priority>0.4</priority>
 </url>
 <url>
-	<loc>https://flashstudy.org/create-note.html</loc>
+	<loc>https://flashstudy.org/create-note</loc>
 	<priority>0.4</priority>
 </url>
 </urlset>
