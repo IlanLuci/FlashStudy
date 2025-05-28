@@ -210,6 +210,7 @@
             let count;
             let lastQuestion;
             let caseSensitive;
+            let accentSensitive;
             let restarting = false;
 
             window.addEventListener('load', async () => {
@@ -231,6 +232,7 @@
                     answers = json.answers;
                     count = questions.length;
                     caseSensitive = json.case_sensitive;
+                    accentSensitive = json.accent_sensitive;
                     document.getElementById('spanishChars').style.display = json.spanish ? 'block' : 'none';
 
                     // check if the user has previously answered questions saved
@@ -307,6 +309,13 @@
                 let input = question.children[1].value;
 
                 let inputCorrect = caseSensitive ? input.trim() == answers[lastQuestion].trim() : input.trim().toLowerCase() == answers[lastQuestion].trim().toLowerCase();
+
+                if (!accentSensitive) {
+                    // if accent sensitive is false, remove accents from both input and answer
+                    input = input.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                    let answer = answers[lastQuestion].trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                    inputCorrect = caseSensitive ? input == answer : input.toLowerCase() == answer.toLowerCase();
+                }
 
                 // continue if input answer (with space trimmed) is correct
                 if (input != '' && inputCorrect) {
