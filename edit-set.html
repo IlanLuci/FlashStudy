@@ -45,7 +45,7 @@
                 backdrop-filter: blur(3px);
                 border-radius: 8px;
                 margin-left: 50%;
-                margin-top: 50px;
+                margin-top: 75px;
                 transform: translate(-50%);
             }
 
@@ -73,6 +73,23 @@
                 float: right;
                 margin-top: -43px;
             }
+            .chars {
+                position: absolute;
+                top: 100px;
+                text-align: center;
+                width: 100%;
+                display: none;
+            }
+            .char {
+                font-size: 20pt;
+                background-color: rgba(255, 255, 255, 0.21);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
+                width: 40px;
+                margin: 3px;
+                position: relative;
+            }
         </style>
     </head>
 
@@ -88,6 +105,18 @@
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
             </svg>
         </header>
+
+        <div class="chars" id="spanishChars">
+            <button class="char" onclick="addChar(event, 'á');">á</button>
+            <button class="char" onclick="addChar(event, 'é');">é</button>
+            <button class="char" onclick="addChar(event, 'í');">í</button>
+            <button class="char" onclick="addChar(event, 'ó');">ó</button>
+            <button class="char" onclick="addChar(event, 'ú');">ú</button>
+            <button class="char" onclick="addChar(event, 'ü');">ü</button>
+            <button class="char" onclick="addChar(event, 'ñ');">ñ</button>
+            <button class="char" onclick="addChar(event, '¡');">¡</button>
+            <button class="char" onclick="addChar(event, '¿');">¿</button>
+        </div>
         
         <div id="main">
             <input id="name" type="text" placeholder="flash set name">
@@ -159,7 +188,7 @@
                                     <input ${setJson.accentSensitive ? 'checked' : ''} type="checkbox" id="accent_sensitive" style="width: 20px;">
                                     <label for="accent_sensitive">Accent Sensitive</label>
                                     <br>
-                                    <input ${setJson.spanish ? 'checked' : ''} type="checkbox" id="spanish" style="width: 20px;">
+                                    <input ${setJson.spanish ? 'checked' : ''} type="checkbox" id="spanish" style="width: 20px;" onclick="toggleSpanishAccents(event);">
                                     <label for="spanish">Show Spanish Accents</label>
                                     <br><br>
                                 </span>
@@ -195,6 +224,28 @@
                 ele.innerHTML = `<input type="text" placeholder="question"> <input type="text" placeholder="answer">`;
 
                 main.insertBefore(ele, main.children[main.children.length - 2])
+            }
+
+            let activeInput = null;
+            window.addEventListener('mousedown', (e) => {
+                if (e.target.tagName == 'INPUT' && e.target.type == 'text') {
+                    activeInput = e.target;
+                }
+            });
+
+            function toggleSpanishAccents(e) {
+                if (e.target.checked) {
+                    document.getElementById('spanishChars').style.display = 'block';
+                } else {
+                    document.getElementById('spanishChars').style.display = 'none';
+                }
+            }
+
+            function addChar(e, char) {
+                if (activeInput.type != 'text') return;
+
+                activeInput.value += char;
+                activeInput.focus();
             }
 
             async function submit() {
