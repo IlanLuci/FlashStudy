@@ -73,11 +73,13 @@
                 color: #2eb351;
             }
 
-            #chars {
+            .chars {
                 position: absolute;
                 bottom: 0;
-                left: calc(50% + 20px);
-                transform: translate(-50%);
+                text-align: center;
+                transform: translate(20px);
+                width: 100%;
+                display: none;
             }
             .char {
                 font-size: 20pt;
@@ -177,7 +179,7 @@
         <p class="progress" id="mastered"></p>
         <p class="progress" id="stillWorking"></p>
 
-        <div id="chars">
+        <div class="chars" id="spanishChars">
             <button class="char" onclick="addChar(event, 'á');">á</button>
             <button class="char" onclick="addChar(event, 'é');">é</button>
             <button class="char" onclick="addChar(event, 'í');">í</button>
@@ -229,6 +231,7 @@
                     answers = json.answers;
                     count = questions.length;
                     caseSensitive = json.case_sensitive;
+                    document.getElementById('spanishChars').style.display = json.spanish ? 'block' : 'none';
 
                     // check if the user has previously answered questions saved
                     let saved = JSON.parse(localStorage.getItem(id));
