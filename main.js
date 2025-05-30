@@ -47,8 +47,17 @@ if (navigator.userAgent.match(/Android/i)
 || navigator.userAgent.match(/iPad/i)
 || navigator.userAgent.match(/iPod/i)
 || navigator.userAgent.match(/BlackBerry/i)
-|| navigator.userAgent.match(/Windows Phone/i)) {
+|| navigator.userAgent.match(/Windows Phone/i)
+|| window.innerWidth <= 650) {
     if (!location.pathname.startsWith('/mobile')) {
-        window.open('/mobile', '_self');
+        if (window.location.toString().includes('tools'))
+            window.open('/', '_self');
+        else
+            window.open('/mobile' + window.location.pathname + window.location.search, '_self');
+    }
+}
+else {
+    if (location.pathname.startsWith('/mobile')) {
+        window.open(window.location.pathname.replace('mobile/', '') + window.location.search, '_self');
     }
 }
