@@ -6,24 +6,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>loading...</title>
-
-        <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4216468674789814" crossorigin="anonymous"></script> -->
-
-        <link rel="stylesheet" href="main.css?2">
+        
+        <link rel="icon" type="image/x-icon" href="favicon.png">
+        <link rel="stylesheet" href="main.css?4">
         <style>
             input {
-                border: 2px solid #d9dedd;
+                border: 1px solid #d9dedd;
                 border-radius: 8px;
                 padding: 10px;
-                background-color:#0f7e94;
+                color: #d9dedd;
+                background-color:transparent;
                 position: absolute;
                 outline: none;
-                color: #d9dedd;
                 bottom: 60px;
                 transform: translate(-50%);
             }
-            input:hover, input:focus {
-                background-color: #ECA400;
+            input::placeholder {
+                color: #d9dedd;
             }
 
             button {
@@ -31,10 +30,6 @@
                 position: absolute;
                 bottom: 10px;
             }
-            button:hover {
-                background-color: #ECA400;
-            }
-
             p {
                 font-size: 18pt;
                 font-weight: 700;
@@ -42,7 +37,7 @@
 
             .progress {
                 position: absolute;
-                top: calc(50% - 80px);
+                top: 200px;
                 transform: translate(-50%);
                 margin-left: 50%;
             }
@@ -50,32 +45,27 @@
             #question {
                 position: absolute;
                 text-align: center;
-                width: calc(100% - 20px);
+                max-width: 350px;
+                width: calc(100% - 37px);
                 transition: 0.3s;
-                height: 400px;
-                border: 3px solid #d9dedd;
+                height: 50vh;
+                min-height: 300px;
+                background-color: rgba(255, 255, 255, 0.21);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
                 border-radius: 8px;
-                margin: 10px;
-                top: 50%;
-                transform: translate(0, -50%);
+                margin-left: 50%;
+                top: 120px;
+                transform: translate(-50%);
             }
             #corrections {
                 position: absolute;
-                top: calc(50% + 240px);
-                width: calc(100% - 20px);
-                text-align: center;
-                margin: 10px;
+                bottom: -55px;
+                left: 50%;
+                transform: translate(-50%);
                 font-size: 14pt;
                 color: #a8514b;
-            }
-            #description {
-                position: absolute;
-                top: 80px;
-                width: calc(100% - 20px);
-                margin: 10px;
-                text-align: center;
-                font-size: 14pt;
-                color: #d9dedd;
             }
             #stillWorking {
                 margin-top: 50px;
@@ -85,52 +75,134 @@
                 color: #2eb351;
             }
 
+            .chars {
+                position: absolute;
+                bottom: 0;
+                text-align: center;
+                transform: translate(20px);
+                width: 100%;
+                display: none;
+            }
+            .char {
+                font-size: 20pt;
+                background-color: rgba(255, 255, 255, 0.21);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
+                width: 40px;
+                margin: 3px;
+                position: relative;
+            }
+
+
             #swap {
                 margin: 0;
                 position: absolute;
                 font-size: 12pt;
                 left: 50%;
                 transform: translate(-50%);
-                top: calc(50% + 220px);
+                bottom: 50px;
                 cursor: pointer;
             }
             #swap:hover {
                 text-decoration: underline;
             }
+            #reset {
+                margin: 0;
+                position: absolute;
+                font-size: 12pt;
+                left: 50%;
+                transform: translate(-50%);
+                bottom: 20px;
+                cursor: pointer;
+            }
+            #reset:hover {
+                text-decoration: underline;
+            }
+            #new {
+                margin-left: calc(100% - 160px);
+                margin-top: -70px;
+            }
+            #profile {
+                margin-left: calc(100% - 50px);
+                transform: translate(0, -70px);
+            }
+            header {
+                max-height: 42.5px;
+            }
+            #title {
+                margin-top: -60px;
+                overflow: hidden;
+                max-width: calc(100vw - 270px);
+                margin-left: 60px;
+                white-space: nowrap;
+            }
+            #description {
+                margin-top: 0px;
+                font-size: 14pt;
+                color: #d9dedd;
+                text-align: center;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: calc(100vw - 270px);
+                margin-left: 60px;
+            }
         </style>
     </head>
 
     <body>
-        <svg onclick="location.href = 'index.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-        </svg>
+        <header>
+            <svg onclick="location.href = 'index.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+            </svg>
 
-        <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-        </svg>
-        
-        <h1 id="title"></h1>
+            <h1 id="title">...</h1>
+            <p id="description">...</p>
+            
+            <button onclick="dropdown();" id="new">Create</button>
+            <div id="dropdown" class="dropdown-content">
+                <a style="border-top-left-radius:6px;border-top-right-radius:6px;" href="create-set.html">Create New Set</a>
+                <a style="border-bottom-left-radius:6px;border-bottom-right-radius:6px;" href="create-note.html">Create New Note</a>
+            </div>
 
-        <p id="description"></p>
+            <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+            </svg>
+        </header>
 
         <div id="question">
-            <p></p>
+            <p>test</p>
 
-            <input type="text">
+            <input type="text" placeholder="answer">
 
             <br>
 
             <button onclick="submitQuestion();">Submit</button>
+
+            <p id="corrections">test</p>
         </div>
         
-        <p id="swap" onclick="swap();"></p>
+        <p id="swap" onclick="swap();">test</p>
+        <p id="reset" onclick="restart();">Reset Progress</p>
 
-        <p id="corrections"></p>
 
-        <p class="progress" id="mastered"></p>
-        <p class="progress" id="stillWorking"></p>
 
-        <script src="../main.js?v1"></script>
+        <p class="progress" id="mastered">test</p>
+        <p class="progress" id="stillWorking">test</p>
+
+        <div class="chars" id="spanishChars">
+            <button class="char" onclick="addChar(event, 'á');">á</button>
+            <button class="char" onclick="addChar(event, 'é');">é</button>
+            <button class="char" onclick="addChar(event, 'í');">í</button>
+            <button class="char" onclick="addChar(event, 'ó');">ó</button>
+            <button class="char" onclick="addChar(event, 'ú');">ú</button>
+            <button class="char" onclick="addChar(event, 'ü');">ü</button>
+            <button class="char" onclick="addChar(event, 'ñ');">ñ</button>
+            <button class="char" onclick="addChar(event, '¡');">¡</button>
+            <button class="char" onclick="addChar(event, '¿');">¿</button>
+        </div>
+
+        <script src="main.js?v1"></script>
         <script>
             const question = document.getElementById('question');
             const corrections = document.getElementById('corrections');
@@ -148,6 +220,8 @@
             let answers;
             let count;
             let lastQuestion;
+            let caseSensitive;
+            let accentSensitive;
             let restarting = false;
 
             window.addEventListener('load', async () => {
@@ -159,7 +233,7 @@
                     //add display of json.creator
 
                     // update ui elements with data retrieved
-                    document.getElementById('description').innerText = json.description;
+                    document.getElementById('description').textContent = json.description || '\u00A0\u00A0';
                     document.getElementById('swap').innerText = `Swap ${json.q} and ${json.a}`;
                     document.getElementById('title').innerText = json.name;
                     document.title = json.name;
@@ -168,6 +242,9 @@
                     questions = json.questions;
                     answers = json.answers;
                     count = questions.length;
+                    caseSensitive = json.case_sensitive;
+                    accentSensitive = json.accent_sensitive;
+                    document.getElementById('spanishChars').style.display = json.spanish ? 'block' : 'none';
 
                     // check if the user has previously answered questions saved
                     let saved = JSON.parse(localStorage.getItem(id));
@@ -238,11 +315,21 @@
             
             function submitQuestion() {
                 if (questions.length == 1  && questions[0] == '') return;
+                if (questions.length == 0) return;
 
                 let input = question.children[1].value;
 
+                let inputCorrect = caseSensitive ? input.trim() == answers[lastQuestion].trim() : input.trim().toLowerCase() == answers[lastQuestion].trim().toLowerCase();
+
+                if (!accentSensitive) {
+                    // if accent sensitive is false, remove accents from both input and answer
+                    input = input.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                    let answer = answers[lastQuestion].trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                    inputCorrect = caseSensitive ? input == answer : input.toLowerCase() == answer.toLowerCase();
+                }
+
                 // continue if input answer (with space trimmed) is correct
-                if (input != '' && input.trim().toLowerCase() == answers[lastQuestion].trim().toLowerCase()) {
+                if (input != '' && inputCorrect) {
                     questions.splice(lastQuestion, 1);
                     answers.splice(lastQuestion, 1);
 
@@ -308,6 +395,7 @@
                 let input = question.children[1];
 
                 input.value += char;
+                input.focus();
             }
         </script>
     </body>

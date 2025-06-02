@@ -37,7 +37,7 @@
 
             .progress {
                 position: absolute;
-                top: calc(50% - 80px);
+                top: 200px;
                 transform: translate(-50%);
                 margin-left: 50%;
             }
@@ -45,21 +45,23 @@
             #question {
                 position: absolute;
                 text-align: center;
-                width: 400px;
+                max-width: 350px;
+                width: calc(100% - 37px);
                 transition: 0.3s;
-                height: 400px;
+                height: 50vh;
+                min-height: 300px;
                 background-color: rgba(255, 255, 255, 0.21);
                 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
                 border: 1px solid rgba(255, 255, 255, 0.24);
                 backdrop-filter: blur(3px);
                 border-radius: 8px;
                 margin-left: 50%;
-                top: 350px;
-                transform: translate(-50%, -50%);
+                top: 120px;
+                transform: translate(-50%);
             }
             #corrections {
                 position: absolute;
-                top: calc(50% + 220px);
+                bottom: -55px;
                 left: 50%;
                 transform: translate(-50%);
                 font-size: 14pt;
@@ -99,7 +101,7 @@
                 font-size: 12pt;
                 left: 50%;
                 transform: translate(-50%);
-                top: calc(50% + 210px);
+                bottom: 50px;
                 cursor: pointer;
             }
             #swap:hover {
@@ -111,7 +113,7 @@
                 font-size: 12pt;
                 left: 50%;
                 transform: translate(-50%);
-                bottom: 80px;
+                bottom: 20px;
                 cursor: pointer;
             }
             #reset:hover {
@@ -130,12 +132,20 @@
             }
             #title {
                 margin-top: -60px;
+                overflow: hidden;
+                max-width: calc(100vw - 270px);
+                margin-left: 60px;
+                white-space: nowrap;
             }
             #description {
                 margin-top: 0px;
                 font-size: 14pt;
                 color: #d9dedd;
                 text-align: center;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: calc(100vw - 270px);
+                margin-left: 60px;
             }
         </style>
     </head>
@@ -161,23 +171,24 @@
         </header>
 
         <div id="question">
-            <p></p>
+            <p>test</p>
 
             <input type="text" placeholder="answer">
 
             <br>
 
             <button onclick="submitQuestion();">Submit</button>
+
+            <p id="corrections">test</p>
         </div>
         
-        <p id="swap" onclick="swap();"></p>
+        <p id="swap" onclick="swap();">test</p>
         <p id="reset" onclick="restart();">Reset Progress</p>
 
-        <p id="corrections"></p>
 
 
-        <p class="progress" id="mastered"></p>
-        <p class="progress" id="stillWorking"></p>
+        <p class="progress" id="mastered">test</p>
+        <p class="progress" id="stillWorking">test</p>
 
         <div class="chars" id="spanishChars">
             <button class="char" onclick="addChar(event, 'á');">á</button>
