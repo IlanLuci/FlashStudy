@@ -17,7 +17,7 @@
                 color: #d9dedd;
                 outline: none;
                 background-color:transparent;
-                width: 160px;
+                max-width: 162px;
                 margin-top: 10px;
             }
             input::placeholder {
@@ -31,11 +31,13 @@
 
             .questions {
                 display: inline-block;
+                width: 100%;
             }
             
             #main {
                 text-align: center;
-                width: 400px;
+                max-width: 400px;
+                width: calc(100% - 37px);
                 transition: 0.3s;
                 background-color: rgba(255, 255, 255, 0.21);
                 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -43,7 +45,7 @@
                 backdrop-filter: blur(3px);
                 border-radius: 8px;
                 margin-left: 50%;
-                margin-top: 75px;
+                margin-top: 25px;
                 transform: translate(-50%);
             }
             #errors {
@@ -52,10 +54,12 @@
                 color: #a8514b;
             }
             #name {
-                width: 350px;
+                max-width: 350px;
+                width: calc(100% - 40px);
             }
             #description {
-                width: 350px;
+                max-width: 350px;
+                width: calc(100% - 40px);
             }
             #new-question {
                 cursor: pointer;
@@ -86,6 +90,13 @@
                 width: 40px;
                 margin: 3px;
                 position: relative;
+            }
+
+            #title {
+                margin-left: 45px;
+                white-space: nowrap;
+                overflow: hidden;
+                max-width: calc(100% - 90px);
             }
         </style>
     </head>
