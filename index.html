@@ -35,16 +35,6 @@
             .create {
                 margin-top: 10px;
             }
-            #footer {
-                position: fixed;
-                padding: 5px;
-                bottom: -20px;
-                left: 0;
-                width: 100%;
-                text-align: center;
-                height: 30px;
-                font-size: 14pt;
-            }
             .set {
                 width: calc(25% - 41px);
                 margin-bottom: 20px;
@@ -87,12 +77,12 @@
                 position: absolute;
                 text-align: center;
                 margin-top: 12px;
-                left: calc(50%);
+                left: calc(50% - 20px);
                 transform: translate(-50%);
             }
             #search-icon {
                 position: absolute;
-                left: calc(50% + 140px);
+                left: calc(50% + 120px);
                 transform: translate(-50%);
                 margin-top: 12px;
                 max-height: 24px;
@@ -219,6 +209,43 @@
             .description p:first-child {
                 margin-top: 20px;
             }
+            @media (max-width: 1000px) {
+                /* 9 sets per page */
+                .set {
+                    width: calc(33% - 38px);
+                }
+            }
+            @media (max-width: 750px) {
+                /* 6 sets per page */
+                .set {
+                    width: calc(50% - 41px);
+                }
+            }
+            @media (max-width: 500px) {
+                /* 4 sets per page */
+                .set {
+                    width: calc(100% - 41px);
+                }
+            }
+            @media (max-width: 650px) {
+                .set-heading {
+                    height: 160px;
+                    text-align: center;
+                }
+                .set-heading p {
+                    float: none;
+                }
+                #search {
+                    margin-top: -5px;
+                }
+                #search-icon {
+                    margin-top: -5px;
+                }
+                #load {
+                    margin-top: 50px;
+                    float: none;
+                }
+            }
         </style>
     </head>
 
@@ -241,6 +268,7 @@
             <p>Flash Study is your go-to platform for fast, effective study prep. Whether you're gearing up for a quiz, exam, or final, our free tools help you memorize and master material with ease. Use customizable flashcards to drill key concepts and boost recall, or test your knowledge with our interactive practice questions, designed to reinforce learning—similar to Quizlet Learn, but completely free.</p>
             <p>Need more than just review? Try our experimental note creation and sharing feature, perfect for organizing your study materials and collaborating with classmates.</p>
             <p>Simple, smart, and focused—Flash Study helps you study better, not longer.</p>
+            <p>Flash Study is developed by Ilan Luciano. Please <a href="mailto:ilan@ilan-not-elon.com">reach out</a> with any suggestions. <a href="../tools.html">Click here for other study tools.</a></p>
         </span>
         
         <div class="set-heading" style="margin-top: 20px;">
@@ -255,94 +283,45 @@
             <button id="load" onclick="loadMore();">Load More</button>
         </div>
 
-        <div id="sets">
-            <div class="set" id="1">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
-    
-            <div class="set" id="2">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
-    
-            <div class="set" id="3">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
-    
-            <div class="set" id="4">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
-    
-            <div class="set" id="5">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
-    
-            <div class="set" id="6">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick=""> Questions</button>
-            </div>
-    
-            <div class="set" id="7">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
-    
-            <div class="set" id="8">
-                <p class="name">......</p>
-    
-                <p>...</p>
-    
-                <button onclick="">Flashcards</button>
-                <button onclick="">Questions</button>
-            </div>
-        </div>
+        <div id="sets"></div>
 
         <div style="display: none;" class="note-heading">
             <p id="note-label">Popular Flash Notes</p>
         </div>
         <div id="notes"></div>
-        
-        <p id="footer">
-            Created by Ilan Luciano. Please <a href="mailto:ilan@ilan-not-elon.com">reach out</a> with any suggestions.
-            
-            <a href="tools.html">Click here for other tools.</a>
-        </p>
 
         <script src="main.js?v1"></script>
         <script>
-            const setsPerPage = 8;
+            // TODO: consider adding event listener for page resize and reload when page resizes past
+            // its initial width to an extent to change the sets per page
+            // therefore we wont get uneven numbers displayed
+            let setsPerPage = 8;
+
+            if (window.innerWidth <= 1000) {
+                // 9 sets per page
+                setsPerPage = 9;
+            }
+            if (window.innerWidth <= 750) {
+                // 6 sets per page
+                setsPerPage = 6;
+            }
+            if (window.innerWidth <= 500) {
+                // 4 sets per page
+                setsPerPage = 4;
+            }
+
+            for (let i = 0; i < setsPerPage; i++) {
+                document.getElementById('sets').innerHTML += `
+                    <div class="set" id="${i + 1}">
+                        <p class="name">......</p>
+            
+                        <p>...</p>
+            
+                        <button onclick="">Flashcards</button>
+                        <button onclick="">Questions</button>
+                    </div>
+                `;
+            }
 
             let setsLoaded = 0;
             let notesLoaded = 0;
