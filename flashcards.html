@@ -43,18 +43,19 @@
             #question {
                 position: absolute;
                 text-align: center;
-                width: 400px;
+                max-width: 350px;
+                width: calc(100% - 37px);
                 transition: 0.3s;
-                height: 400px;
+                height: 50vh;
+                min-height: 300px;
                 background-color: rgba(255, 255, 255, 0.21);
                 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
                 border: 1px solid rgba(255, 255, 255, 0.24);
                 backdrop-filter: blur(3px);
-                cursor: pointer;
                 border-radius: 8px;
                 margin-left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
+                top: 120px;
+                transform: translate(-50%);
             }
 
             #num-cards {
@@ -67,15 +68,15 @@
                 border: 1px solid #d9dedd;
                 border-radius: 8px;
                 position: absolute;
-                left: calc(50% - 270px);
-                top: calc(50% - 20px);
+                left: calc(50% - 230px);
+                top: calc(120px + 25vh);
             }
             #next {
                 border: 1px solid #d9dedd;
                 position: absolute;
                 border-radius: 8px;
-                left: calc(50% + 220px);
-                top: calc(50% - 20px);
+                left: calc(50% + 190px);
+                top: calc(120px + 25vh);
                 transform: rotate(180deg);
             }
             svg {
@@ -91,7 +92,7 @@
                 font-size: 12pt;
                 left: 50%;
                 transform: translate(-50%);
-                top: calc(50% + 220px);
+                bottom: 20px;
                 cursor: pointer;
             }
             #switch:hover {
@@ -114,6 +115,12 @@
             }
             header {
                 max-height: 42.5px;
+            }
+            #title {
+                overflow: hidden;
+                max-width: calc(100vw - 270px);
+                margin-left: 60px;
+                white-space: nowrap;
             }
         </style>
     </head>

@@ -7,35 +7,25 @@
 
         <title>loading...</title>
 
-        <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4216468674789814" crossorigin="anonymous"></script> -->
-
-        <link rel="stylesheet" href="main.css?2">
+        <link rel="icon" type="image/x-icon" href="favicon.png">
+        <link rel="stylesheet" href="main.css?4">
         <style>
             .fold-corner-card {
-                margin: 2em;
-                padding: 2em;
-            }
-
-            .fold-corner-card {
-                background: -webkit-linear-gradient(225deg, transparent 50%, #C9CCD4 50%), -webkit-linear-gradient(45deg,#0f7e94,#0f7e94), -webkit-linear-gradient(135deg,#0f7e94,#0f7e94), -webkit-linear-gradient(225deg, transparent 25px,#0f7e94 10px);
+                background: -webkit-linear-gradient(225deg, transparent 50%, #C9CCD4 50%), -webkit-linear-gradient(225deg, transparent 25px,#0f7e94 10px);
                 -webkit-background-size: 40px 40px, 0 0, 0 0, 100% 100%;
                 -moz-background-size: 40px 40px, 0 0, 0 0, 100% 100%;
                 background-size: 40px 40px, 0 0, 0 0, 100% 100%;
                 background-position: 100% 0, 0 0, 100% 100%, 100% 0;
                 background-repeat: no-repeat;
                 position: absolute;
-                top: -32;
-                right: -32;
+                padding: 2em;
+                bottom: 0;
             }
 
             button {
                 transform: translate(-50%);
                 position: absolute;
                 bottom: 10px;
-            }
-
-            button:hover {
-                background-color: #ECA400;
             }
 
             p {
@@ -53,14 +43,18 @@
             #question {
                 position: absolute;
                 text-align: center;
-                width: calc(100% - 20px);
+                max-width: 350px;
+                width: calc(100% - 37px);
                 transition: 0.3s;
-                height: 400px;
-                border: 3px solid #d9dedd;
-                cursor: pointer;
+                height: 50vh;
+                min-height: 300px;
+                background-color: rgba(255, 255, 255, 0.21);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
                 border-radius: 8px;
                 margin-left: 50%;
-                top: 150px;
+                top: 120px;
                 transform: translate(-50%);
             }
 
@@ -71,14 +65,18 @@
                 color: #2eb351;
             }
             #previous {
+                border: 1px solid #d9dedd;
+                border-radius: 8px;
                 position: absolute;
-                left: 10px;
-                top: 570px;
+                left: calc(50% - 230px);
+                top: calc(120px + 25vh);
             }
             #next {
+                border: 1px solid #d9dedd;
                 position: absolute;
-                right: 10px;
-                top: 570px;
+                border-radius: 8px;
+                left: calc(50% + 190px);
+                top: calc(120px + 25vh);
                 transform: rotate(180deg);
             }
             svg {
@@ -91,12 +89,10 @@
             #switch {
                 margin: 0;
                 position: absolute;
-                font-size: 14pt;
-                width: calc(100% - 150px);
-                text-align: center;
+                font-size: 12pt;
                 left: 50%;
                 transform: translate(-50%);
-                top: calc(50% + 160px);
+                bottom: 20px;
                 cursor: pointer;
             }
             #switch:hover {
@@ -108,22 +104,49 @@
                     top: calc(50% + 220px);
                 }
             }
+            #new {
+                margin-left: calc(100% - 170px);
+                margin-top: -43px;
+            }
+            #profile {
+                margin-left: calc(100% - 50px);
+                margin-top: -50px;
+                transform: translate(0, -13px);
+            }
+            header {
+                max-height: 42.5px;
+            }
+            #title {
+                overflow: hidden;
+                max-width: calc(100vw - 270px);
+                margin-left: 60px;
+                white-space: nowrap;
+            }
         </style>
     </head>
 
     <body>
-        <svg onclick="location.href = 'index.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-        </svg>
+        <header>
+            <svg onclick="location.href = 'index.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+            </svg>
 
-        <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-        </svg>
+            <h1 id="title">...</h1>
 
-        <h1 id="title"></h1>
+            <button onclick="dropdown();" id="new">Create</button>
+            <div id="dropdown" class="dropdown-content">
+                <a style="border-top-left-radius:6px;border-top-right-radius:6px;" href="create-set.html">Create New Set</a>
+                <a style="border-bottom-left-radius:6px;border-bottom-right-radius:6px;" href="create-note.html">Create New Note</a>
+            </div>
+    
+            <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+            </svg>
+        </header>
 
-        <svg onclick="previous()" id="previous" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+
+        <svg onclick="previous()" id="previous" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
         </svg>
 
         <div id="question" onclick="flip()">
@@ -134,13 +157,13 @@
             <div class="fold-corner-card"></div>
         </div>
 
-        <svg onclick="next()" id="next" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        <svg onclick="next()" id="next" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
         </svg>
         
         <p id="switch" onclick="swap();"></p>
 
-        <script src="../main.js?v1"></script>
+        <script src="main.js?v1"></script>
         <script>
             const question = document.getElementById('question');
 
