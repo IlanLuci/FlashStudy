@@ -44,7 +44,7 @@
                 position: absolute;
                 text-align: center;
                 max-width: 350px;
-                width: calc(100% - 37px);
+                width: calc(100% - 117px);
                 transition: 0.3s;
                 height: 50vh;
                 min-height: 300px;
@@ -121,6 +121,16 @@
                 max-width: calc(100vw - 270px);
                 margin-left: 60px;
                 white-space: nowrap;
+            }
+
+            @media screen and (max-width: 500px) {
+                #previous {
+                    left: 10px;
+                }
+                #next {
+                    right: 10px;
+                    left: auto;
+                }
             }
         </style>
     </head>
