@@ -210,19 +210,11 @@
                 margin-top: 20px;
             }
             @media (max-width: 1000px) {
-                /* 9 sets per page */
-                .set {
-                    width: calc(33% - 38px);
-                }
-            }
-            @media (max-width: 750px) {
-                /* 6 sets per page */
                 .set {
                     width: calc(50% - 41px);
                 }
             }
             @media (max-width: 500px) {
-                /* 4 sets per page */
                 .set {
                     width: calc(100% - 41px);
                 }
@@ -292,23 +284,7 @@
 
         <script src="main.js?v1"></script>
         <script>
-            // TODO: consider adding event listener for page resize and reload when page resizes past
-            // its initial width to an extent to change the sets per page
-            // therefore we wont get uneven numbers displayed
             let setsPerPage = 8;
-
-            if (window.innerWidth <= 1000) {
-                // 9 sets per page
-                setsPerPage = 9;
-            }
-            if (window.innerWidth <= 750) {
-                // 6 sets per page
-                setsPerPage = 6;
-            }
-            if (window.innerWidth <= 500) {
-                // 4 sets per page
-                setsPerPage = 4;
-            }
 
             for (let i = 0; i < setsPerPage; i++) {
                 document.getElementById('sets').innerHTML += `
