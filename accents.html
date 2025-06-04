@@ -24,7 +24,8 @@
                 backdrop-filter: blur(3px);
                 text-align: center;
                 font-size: 60pt;
-                width: 100px;
+                width: calc(33% - 35px);
+                max-width: 100px;
                 outline: none;
                 transition: 0.09s;
             }
@@ -36,7 +37,7 @@
             #main {
                 position: absolute;
                 text-align: center;
-                width: 420px;
+                width: 50vw;
                 transition: 0.3s;
                 height: 410px;
                 margin-top: 50px;
@@ -45,11 +46,27 @@
             }
             #success {
                 position: absolute;
-                top: calc(50% + 200px);
+                top: 80px;
                 left: 50%;
                 transform: translate(-50%);
                 font-size: 14pt;
                 color: #2eb351;
+            }
+
+            @media (max-width: 600px) {
+                #main {
+                    width: 90vw;
+                }
+                input {
+                    width: calc(50% - 35px);
+                    font-size: 40pt;
+                }
+            }
+            #title {
+                overflow: hidden;
+                max-width: calc(100vw - 70px);
+                margin-left: 60px;
+                white-space: nowrap;
             }
         </style>
     </head>
@@ -63,6 +80,8 @@
             <h1 id="title">Spanish Accent Copy-Paste</h1>
         </header>
 
+        <p id="success"></p>
+
         <div id="main">
             <input onclick="copy(event, 'á');" value="á" readonly></input>
             <input onclick="copy(event, 'é');" value="é" readonly></input>
@@ -74,8 +93,6 @@
             <input onclick="copy(event, '¡');" value="¡" readonly></input>
             <input onclick="copy(event, '¿');" value="¿" readonly></input>
         </div>
-
-        <p id="success"></p>
     
         <script>
             function copy(event, accent) {
