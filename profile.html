@@ -128,6 +128,28 @@
                 top: 80px;
                 font-size: 15pt;
             }
+            @media (max-width: 1000px) {
+                .set {
+                    width: calc(50% - 41px);
+                }
+                .note {
+                    width: calc(50% - 41px);
+                }
+            }
+            @media (max-width: 500px) {
+                .set {
+                    width: calc(100% - 41px);
+                }
+                .note {
+                    width: calc(100% - 41px);
+                }
+            }
+            #title {
+                overflow: hidden;
+                max-width: calc(100vw - 190px);
+                margin-left: 50px;
+                white-space: nowrap;
+            }
         </style>
     </head>
 
