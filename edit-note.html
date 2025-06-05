@@ -24,7 +24,7 @@
             }
             
             #main {
-                width: 90vw;
+                width: calc(100% - 37px);
                 transition: 0.3s;
                 background-color: rgba(255, 255, 255, 0.21);
                 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -46,16 +46,16 @@
                 border: 1px solid #d9dedd;
                 border-radius: 8px;
                 padding: 10px;
-                margin: 10px 10px 10px 10px;
+                margin: 10px 8px 5px 8px;
                 outline: none;
                 background-color:transparent;
-                width: calc(50% - 46px);
+                width: calc(50% - 40px);
             }
             .textInput::placeholder {
                 color: #d9dedd;
             }
             hr {
-                border: 1px solid #d9dedd;
+                border: 0.5px solid #d9dedd;
             }
             a {
                 color: #0f7e94;
@@ -69,6 +69,8 @@
             }
 
             .select {
+                margin-left: 5px;
+                margin-top: 5px;
                 outline: none;
                 position: relative;
                 top: -10px;
@@ -97,6 +99,10 @@
                 -webkit-appearance: none;
                 -moz-appearance: none;
             }
+            #colorSelect {
+                margin-left: 5px;
+                margin-top: 8px;
+            }
             #fontSize {
                 padding: 5px 10px 5px 12px;
             }
@@ -104,10 +110,23 @@
                 min-height: 300px;
                 outline: none;
                 padding: 5px;
+                border-top: 1px solid #d9dedd;
             }
             #profile {
                 float: right;
                 margin-top: -43px;
+            }
+            #title {
+                overflow: hidden;
+                max-width: calc(100vw - 170px);
+                margin-left: 50px;
+                white-space: nowrap;
+            }
+
+            @media (max-width: 500px) {
+                .textInput {
+                    width: calc(100% - 40px);
+                }
             }
         </style>
     </head>
