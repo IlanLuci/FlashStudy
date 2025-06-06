@@ -19,7 +19,7 @@
             #note {
                 padding: 5px;
                 position: absolute;
-                width: calc(100% - 100px);
+                width: calc(100% - 44px);
                 transition: 0.3s;
                 height: 400px;
                 background-color: rgba(255, 255, 255, 0.21);
@@ -28,8 +28,8 @@
                 backdrop-filter: blur(3px);
                 border-radius: 8px;
                 margin-left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
+                top: 100px;
+                transform: translate(-50%);
             }
             svg {
                 cursor: pointer;
@@ -55,6 +55,13 @@
             }
             header {
                 max-height: 42.5px;
+            }
+
+            #title {
+                margin-left: 50px;
+                white-space: nowrap;
+                overflow: hidden;
+                max-width: calc(100% - 200px);
             }
         </style>
     </head>
