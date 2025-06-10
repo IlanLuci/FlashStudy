@@ -90,6 +90,9 @@
                     left: auto;
                 }
             }
+            #edit {
+                display: none;
+            }
         </style>
     </head>
 
@@ -119,6 +122,7 @@
 
             <button onclick="">Flashcards</button>
             <button onclick="">Questions</button>
+            <button id="edit" onclick="">Edit</button>
             
             <p>...</p>
 
@@ -127,11 +131,6 @@
 
         <script src="main.js?v1"></script>
         <script>
-            // TODO:
-            // add editing set button for owners and remove edit button from profile
-            // and update back buttons on edit-set, questions, and flashcards pages to return to this
-
-
             const question = document.getElementById('main');
 
             const queryString = window.location.search;
@@ -180,6 +179,26 @@
                                 <td>${json.answers[i]}</td>
                             </tr>
                         `;
+                    }
+
+                    // check auth and allow editing if user is owner
+                    let authResponse = await fetcher(`/auth/check`);
+                    let result = await response.text();
+
+                    if (result == 'A token is required for authentication' || result == 'Invalid Token') {
+                        alert('You must be logged in to access this.');
+                        location.assign('/login.html');
+                    } else {
+                        let json = JSON.parse(result);
+
+                        if (json.username == json.creator) {
+                            // user is owner of set, allow editing
+                            let editButton = document.getElementById('edit');
+                            editButton.style.display = 'block';
+                            editButton.onclick = () => {
+                                location.href = `edit-set.html?id=${id}`;
+                            };
+                        }
                     }
                 } else {
                     // id given in urlparams is either invalid or server bug has occured 
