@@ -162,9 +162,8 @@
                         location.href = `study.html?id=${id}`;
                     };
 
-                    main.children[6].innerText = `${json.questions.length} questions`;
+                    main.children[8].innerText = `${json.questions.length} questions`;
 
-                    let table = main.children[7];
                     table.innerHTML += `
                         <tr>
                             <th>${json.q}</th>
@@ -206,6 +205,21 @@
                     location.href = 'index.html';
                 }
             });
+
+            function copy() {
+                let text = document.getElementById('copy');
+
+                text.select();
+                text.setSelectionRange(0, 99999);
+
+                navigator.clipboard.writeText(text.value);
+
+                document.getElementById('messages').innerText = 'copied.';
+
+                setTimeout(() => {
+                    document.getElementById('messages').innerText = '';
+                }, 1000);
+            }
         </script>
     </body>
 </html>
