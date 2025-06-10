@@ -122,6 +122,8 @@
 
             <button onclick="">Flashcards</button>
             <button onclick="">Questions</button>
+            <input id="copy" type="text" value="https://flashstudy.org/view-set.html?id=${json.sets[set]}" style="display: none;">
+            <button onclick="copy()">Copy Share Link</button>
             <button id="edit" onclick="">Edit</button>
             
             <p>...</p>
@@ -164,6 +166,7 @@
 
                     main.children[8].innerText = `${json.questions.length} questions`;
 
+                    let table = main.children[9];
                     table.innerHTML += `
                         <tr>
                             <th>${json.q}</th>
