@@ -194,7 +194,7 @@
                         if (authJson.username == json.creator) {
                             // user is owner of set, allow editing
                             let editButton = document.getElementById('edit');
-                            editButton.style.display = 'block';
+                            editButton.style.display = 'inline-block';
                             editButton.onclick = () => {
                                 location.href = `edit-set.html?id=${id}`;
                             };
