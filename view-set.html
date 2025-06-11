@@ -183,9 +183,9 @@
                         headingA = document.createElement('td');
                         headingQ.innerText = json.questions[i];
                         headingA.innerText = json.answers[i];
-                        heading.appendChild(headingQ);
-                        heading.appendChild(headingA);
-                        table.appendChild(heading);
+                        row.appendChild(headingQ);
+                        row.appendChild(headingA);
+                        table.appendChild(row);
                     }
 
                     // check auth and allow editing if user is owner
