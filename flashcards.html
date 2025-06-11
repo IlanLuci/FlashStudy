@@ -213,7 +213,7 @@
 
                     // update ui elements with data retrieved
                     document.getElementById('switch').innerText = `Swap ${q} and ${a}`;
-                    document.getElementById('num-cards').innerHTML = `Card ${(curQuestion + 1)}/${questions.length}`;
+                    document.getElementById('num-cards').innerText = `Card ${(curQuestion + 1)}/${questions.length}`;
                     document.getElementById('title').innerText = json.name;
                     document.title = json.name;
 
@@ -238,7 +238,7 @@
                 curQuestion -= 1;
 
                 question.children[0].innerText = swapped ? answers[curQuestion] : questions[curQuestion];
-                document.getElementById('num-cards').innerHTML = `Card ${(curQuestion + 1)}/${questions.length}`;
+                document.getElementById('num-cards').innerText = `Card ${(curQuestion + 1)}/${questions.length}`;
             }
             function next() {
                 if (curQuestion == questions.length - 1) return;
@@ -246,14 +246,14 @@
                 curQuestion += 1;
 
                 question.children[0].innerText = swapped ? answers[curQuestion] : questions[curQuestion];
-                document.getElementById('num-cards').innerHTML = `Card ${(curQuestion + 1)}/${questions.length}`;
+                document.getElementById('num-cards').innerText = `Card ${(curQuestion + 1)}/${questions.length}`;
             }
 
             function swap() {
                 swapped = !swapped;
 
                 question.children[0].innerText = swapped ? answers[curQuestion] : questions[curQuestion];
-                document.getElementById('num-cards').innerHTML = `Card ${(curQuestion + 1)}/${questions.length}`;
+                document.getElementById('num-cards').innerText = `Card ${(curQuestion + 1)}/${questions.length}`;
 
                 localStorage.setItem(`swapped_${id}`, swapped);
             }

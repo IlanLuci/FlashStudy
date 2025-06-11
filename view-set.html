@@ -167,20 +167,25 @@
                     main.children[8].innerText = `${json.questions.length} questions`;
 
                     let table = main.children[9];
-                    table.innerHTML += `
-                        <tr>
-                            <th>${json.q}</th>
-                            <th>${json.a}</th>
-                        </tr>
-                    `;
+
+                    let row = document.createElement('tr');
+                    let headingQ = document.createElement('th');
+                    let headingA = document.createElement('th');
+                    headingQ.innerText = json.q;
+                    headingA.innerText = json.a;
+                    row.appendChild(headingQ);
+                    row.appendChild(headingA);
+                    table.appendChild(row);
                     
                     for (let i = 0; i < json.questions.length; i++) {
-                        table.innerHTML += `
-                            <tr>
-                                <td>${json.questions[i]}</td>
-                                <td>${json.answers[i]}</td>
-                            </tr>
-                        `;
+                        row = document.createElement('tr');
+                        headingQ = document.createElement('td');
+                        headingA = document.createElement('td');
+                        headingQ.innerText = json.questions[i];
+                        headingA.innerText = json.answers[i];
+                        heading.appendChild(headingQ);
+                        heading.appendChild(headingA);
+                        table.appendChild(heading);
                     }
 
                     // check auth and allow editing if user is owner

@@ -178,12 +178,19 @@
                             document.getElementById('a').setAttribute('value', setJson.a);
 
                             for (question in setJson.questions) {
-                                main.innerHTML += `
-                                    <span class="questions">
-                                        <input type="text" placeholder="question" value="${setJson.questions[question]}">
-                                        <input type="text" placeholder="answer" value="${setJson.answers[question]}">
-                                    </span>
-                                `;
+                                let span = document.createElement('span');
+                                span.className = 'questions';
+                                let qInput = document.createElement('input');
+                                qInput.type = 'text';
+                                qInput.placeholder = 'question';
+                                qInput.setAttribute('value', setJson.questions[question]);
+                                let aInput = document.createElement('input');
+                                aInput.type = 'text';
+                                aInput.placeholder = 'answer';
+                                aInput.setAttribute('value', setJson.answers[question]);
+                                span.appendChild(qInput);
+                                span.appendChild(aInput);
+                                main.appendChild(span);
                             }
 
                             // handle posibility of null values (fields added after set was created)
@@ -212,7 +219,9 @@
                                 document.getElementById('spanishChars').style.display = 'none';
                             }
 
-                            main.innerHTML += `<button onclick="submit();">Submit</button>`;
+                            let submitBtn = document.createElement('button');
+                            submitBtn.addEventListener('click', submit);
+                            main.appendChild(submitBtn);
                         } else {
                             // id given in urlparams is either invalid or server bug has occured 
                             alert('invalid set id');
@@ -238,11 +247,18 @@
 
                 const main = document.getElementById('main');
 
-                let ele = document.createElement('span');
-                ele.className = 'questions';
-                ele.innerHTML = `<input type="text" placeholder="question"> <input type="text" placeholder="answer">`;
+                let span = document.createElement('span');
+                span.className = 'questions';
+                let qInput = document.createElement('input');
+                qInput.type = 'text';
+                qInput.placeholder = 'question';
+                let aInput = document.createElement('input');
+                aInput.type = 'text';
+                aInput.placeholder = 'answer';
+                span.appendChild(qInput);
+                span.appendChild(aInput);
 
-                main.insertBefore(ele, main.children[main.children.length - 2])
+                main.insertBefore(span, main.children[main.children.length - 2])
             }
 
             let activeInput = null;

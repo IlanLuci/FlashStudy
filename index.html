@@ -448,16 +448,21 @@
             function addSet(name, creator, id) {
                 let sets = document.getElementById('sets');
 
-                // TODO: this may allow html injection
-                sets.innerHTML += `
-                    <div class="set" id="${setsLoaded}">
-                        <p class="name">${name}</p>
-            
-                        <p>${creator}</p>
-            
-                        <button onclick="location.assign('view-set.html?id=${id}');">View</button>
-                    </div>
-                `;
+                let setEle = document.createElement('div');
+                setEle.className = 'set';
+                setEle.id = setsLoaded;
+                let nameEle = document.createElement('p');
+                nameEle.className = 'name';
+                nameEle.innerText = name;
+                let creatorEle = document.createElement('p');
+                creatorEle.innerText = `Created By ${creator}`;
+                let viewButton = document.createElement('button');
+                viewButton.innerText = 'View';
+                viewButton.setAttribute('onclick', `location.assign('view-set.html?id=${id}');`);
+                setEle.appendChild(nameEle);
+                setEle.appendChild(creatorEle);
+                setEle.appendChild(viewButton);
+                sets.appendChild(setEle);
             }
             function resetSets() {
                 let sets = document.getElementById('sets');
@@ -467,16 +472,20 @@
             function addNote(name, creator, id) {
                 let notes = document.getElementById('notes');
 
-                // TODO: this may allow html injection
-                notes.innerHTML += `
-                    <div class="set">
-                        <p class="name">${name}</p>
-
-                        <p>Created By ${creator}</p>
-
-                        <button onclick="location.assign('note.html?id=${id}');">View Note</button>
-                    </div>
-                `;
+                let noteEle = document.createElement('div');
+                noteEle.className = 'set';
+                let nameEle = document.createElement('p');
+                nameEle.className = 'name';
+                nameEle.innerText = name;
+                let creatorEle = document.createElement('p');
+                creatorEle.innerText = `Created By ${creator}`;
+                let viewButton = document.createElement('button');
+                viewButton.innerText = 'View Note';
+                viewButton.setAttribute('onclick', `location.assign('note.html?id=${id}');`);
+                noteEle.appendChild(nameEle);
+                noteEle.appendChild(creatorEle);
+                noteEle.appendChild(viewButton);
+                notes.appendChild(noteEle);
             }
 
             async function loadPopular() {

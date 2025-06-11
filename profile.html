@@ -233,20 +233,38 @@
                         if (noteResponse.status == 201) {
                             let noteJson = await noteResponse.json();
                             
-                            noteContainer.innerHTML += `
-                            <div class="note">
-                                <p class="note-heading">${noteJson.title}</p>
-                                
-                                <input type="text" value="https://flashstudy.org/note.html?id=${json.notes[note]}" style="display: none;">
-                                <button onclick="copy(event)">Copy Share Link</button>
-                                <button onclick="deleteNote(${json.notes[note]});" class="delete">Delete</button>
-                                <button onclick="location.assign('edit-note.html?id=${json.notes[note]}');">Edit</button>
-                                
-                                <br>
-
-                                <button style="margin-top: 12px;" onclick="location.assign('note.html?id=${json.notes[note]}');">View</button>
-                            </div>
-                        `;
+                            let noteEle = document.createElement('div');
+                            noteEle.className = 'note';
+                            let noteHeading = document.createElement('p');
+                            noteHeading.className = 'note-heading';
+                            noteHeading.innerText = noteJson.title;
+                            let noteLink = document.createElement('input');
+                            noteLink.type = 'text';
+                            noteLink.value = `https://flashstudy.org/note.html?id=${json.notes[note]}`;
+                            noteLink.style.display = 'none';
+                            let copyButton = document.createElement('button');
+                            copyButton.innerText = 'Copy Share Link';
+                            copyButton.onclick = copy;
+                            let deleteButton = document.createElement('button');
+                            deleteButton.innerText = 'Delete';
+                            deleteButton.className = 'delete';
+                            deleteButton.onclick = () => deleteNote(json.notes[note]);
+                            let editButton = document.createElement('button');
+                            editButton.innerText = 'Edit';
+                            editButton.onclick = () => location.assign(`edit-note.html?id=${json.notes[note]}`);
+                            let lineBreak = document.createElement('br');
+                            let viewButton = document.createElement('button');
+                            viewButton.innerText = 'View';
+                            viewButton.style.marginTop = '12px';
+                            viewButton.onclick = () => location.assign(`note.html?id=${json.notes[note]}`);
+                            noteEle.appendChild(noteHeading);
+                            noteEle.appendChild(noteLink);
+                            noteEle.appendChild(copyButton);
+                            noteEle.appendChild(deleteButton);
+                            noteEle.appendChild(editButton);
+                            noteEle.appendChild(lineBreak);
+                            noteEle.appendChild(viewButton);
+                            noteContainer.appendChild(noteEle);
                         }
                     }
 
