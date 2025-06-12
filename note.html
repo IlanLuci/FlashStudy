@@ -8,7 +8,7 @@
         <title>loading...</title>
 
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?4">
+        <link rel="stylesheet" href="main.css?5">
         <style>
             button {
                 transform: translate(-50%);
@@ -28,7 +28,7 @@
                 backdrop-filter: blur(3px);
                 border-radius: 8px;
                 margin-left: 50%;
-                top: 100px;
+                top: 175px;
                 transform: translate(-50%);
             }
             svg {
@@ -63,6 +63,34 @@
                 overflow: hidden;
                 max-width: calc(100% - 200px);
             }
+            #edit {
+                display: none;
+            }
+            #menubar {
+                padding: 5px;
+                position: absolute;
+                width: calc(100% - 44px);
+                transition: 0.3s;
+                height: 50px;
+                background-color: rgba(255, 255, 255, 0.21);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                backdrop-filter: blur(3px);
+                border-radius: 8px;
+                margin-left: 50%;
+                top: 100px;
+                transform: translate(-50%);
+            }
+            #copyBtn {
+                transform: none;
+                top: 12px;
+                left: 12px;
+                bottom: auto;
+            }
+            #edit {
+                transform: none;
+                left: 145px;
+            }
         </style>
     </head>
 
@@ -85,6 +113,12 @@
             </svg>
         </header>
 
+        <div id="menubar">
+            <input id="copy" type="text" value="" style="display: none;">
+            <button id="copyBtn" onclick="copy()">Copy Share Link</button>
+            <button id="edit" onclick="">Edit</button>
+        </div>
+
         <div id="note">
             <p></p>
         </div>
@@ -103,38 +137,60 @@
                 location.href = 'index.html';
             }
 
-            let title;
-            let subject;
-            let note;
-            let creator;
-
             window.addEventListener('load', async () => {
                 let response = await fetcher(`/notes/get/${id}`);
 
                 if (response.status == 201) {
                     let json = await response.json();
 
-                    // update local variables with data retrieved from server
-                    title = json.title;
-                    subject = json.subject;
-                    note = json.note;
-                    creator = json.creator;
-
-                    //add display of json.creator
+                    // TODO:--------add display of json.creator
 
                     // update ui elements with data retrieved
-                    document.getElementById('title').innerText = title;
-                    document.title = title;
+                    document.getElementById('title').innerText = json.title;
+                    document.title = json.title;
+                    document.getElementById('copy').value = `https://flashstudy.org/view-set.html?id=${id}`;
 
-                    let cleanNote = DOMPurify.sanitize(note);
+                    let cleanNote = DOMPurify.sanitize(json.note);
 
                     noteDiv.innerHTML += cleanNote;
+
+                    // check auth and allow editing if user is owner
+                    let authResponse = await fetcher(`/auth/check`);
+                    let result = await authResponse.text();
+
+                    if (result != 'A token is required for authentication' && result != 'Invalid Token') {
+                        let authJson = JSON.parse(result);
+
+                        if (authJson.username == json.creator) {
+                            // user is owner of set, allow editing
+                            let editButton = document.getElementById('edit');
+                            editButton.style.display = 'inline-block';
+                            editButton.onclick = () => {
+                                location.href = `edit-note.html?id=${id}`;
+                            };
+                        }
+                    }
                 } else {
                     // id given in urlparams is either invalid or server bug has occured 
                     alert('invalid note id');
                     location.href = 'index.html';
                 }
             });
+
+            function copy() {
+                let text = document.getElementById('copy');
+
+                text.select();
+                text.setSelectionRange(0, 99999);
+
+                navigator.clipboard.writeText(text.value);
+
+                document.getElementById('copy').innerText = 'copied.';
+
+                setTimeout(() => {
+                    document.getElementById('copy').innerText = 'Copy Share Link';
+                }, 1000);
+            }
         </script>
     </body>
 </html>

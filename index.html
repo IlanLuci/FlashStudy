@@ -30,7 +30,7 @@
         <title>Flash Study</title>
         
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?4">
+        <link rel="stylesheet" href="main.css?5">
         <style>
             .create {
                 margin-top: 10px;
@@ -57,7 +57,6 @@
                 overflow: hidden;
                 white-space: nowrap;
             }
-
             input {
                 border: 1px solid #d9dedd;
                 border-radius: 8px;
@@ -72,7 +71,6 @@
             input::placeholder {
                 color: #d9dedd;
             }
-
             #search {
                 position: absolute;
                 text-align: center;
@@ -91,7 +89,6 @@
                 border: 1px solid #d9dedd;
                 cursor: pointer;
             }
-
             #notes {
                 white-space: nowrap;
                 width: calc(100% - 20px);
@@ -99,11 +96,9 @@
                 margin-bottom: 50px;
                 overflow-x: scroll;
             }
-
             #sets {
                 padding: 10px;
             }
-
             .set-heading {
                 font-size: 14pt;
                 margin-top: 85px;
@@ -120,7 +115,6 @@
             .set-heading p {
                 float: left;
             }
-
             .note-heading {
                 font-size: 14pt;
                 margin-top: 10px;
@@ -137,21 +131,18 @@
             .note-heading p {
                 float: left;
             }
-
             #errors {
                 position: relative;
                 display: none;
                 left: calc(100% - 320px);
                 transform: translate(-50%);
             }
-
             #load {
                 float: right;
                 margin-top: 12px;
                 transform: translate(5px);
                 position: relative;
             }
-            
             #logo {
                 top: 15px;
                 left: 20px;
@@ -383,10 +374,6 @@
             }
 
             async function loadMore() {
-                /*
-                    consider loading more as a new row in the future
-                */
-
                 let searched = document.getElementById('searched');
 
                 // load next setsPerPage popular flash sets

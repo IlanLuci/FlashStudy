@@ -8,7 +8,7 @@
         <title>loading...</title>
 
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?4">
+        <link rel="stylesheet" href="main.css?5">
         <style>
             button {
                 margin: 5px;
@@ -122,7 +122,7 @@
 
             <button onclick="">Flashcards</button>
             <button onclick="">Questions</button>
-            <input id="copy" type="text" value="https://flashstudy.org/view-set.html?id=${json.sets[set]}" style="display: none;">
+            <input id="copy" type="text" value="" style="display: none;">
             <button onclick="copy()">Copy Share Link</button>
             <button id="edit" onclick="">Edit</button>
             
@@ -164,6 +164,8 @@
                         location.href = `study.html?id=${id}`;
                     };
 
+                    document.getElementById('copy').value = `https://flashstudy.org/view-set.html?id=${id}`;
+                    
                     main.children[8].innerText = `${json.questions.length} questions`;
 
                     let table = main.children[9];
@@ -192,10 +194,7 @@
                     let authResponse = await fetcher(`/auth/check`);
                     let result = await authResponse.text();
 
-                    if (result == 'A token is required for authentication' || result == 'Invalid Token') {
-                        alert('You must be logged in to access this.');
-                        location.assign('/login.html');
-                    } else {
+                    if (result != 'A token is required for authentication' && result != 'Invalid Token') {
                         let authJson = JSON.parse(result);
 
                         if (authJson.username == json.creator) {
@@ -222,10 +221,10 @@
 
                 navigator.clipboard.writeText(text.value);
 
-                document.getElementById('messages').innerText = 'copied.';
+                document.getElementById('copy').innerText = 'copied.';
 
                 setTimeout(() => {
-                    document.getElementById('messages').innerText = '';
+                    document.getElementById('copy').innerText = 'Copy Share Link';
                 }, 1000);
             }
         </script>
