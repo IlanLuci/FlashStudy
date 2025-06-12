@@ -148,7 +148,7 @@
                     // update ui elements with data retrieved
                     document.getElementById('title').innerText = json.title;
                     document.title = json.title;
-                    document.getElementById('copy').value = `https://flashstudy.org/view-set.html?id=${id}`;
+                    document.getElementById('copy').value = `https://flashstudy.org/note.html?id=${id}`;
 
                     let cleanNote = DOMPurify.sanitize(json.note);
 
