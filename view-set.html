@@ -124,6 +124,7 @@
             <button onclick="">Questions</button>
             <input id="copy" type="text" value="" style="display: none;">
             <button onclick="copy()">Copy Share Link</button>
+            <button onclick="clone()">Clone Set</button>
             <button id="edit" onclick="">Edit</button>
             
             <p>...</p>
@@ -155,7 +156,7 @@
                     document.title = json.name;
                     main.children[0].innerText = json.description;
                     main.children[1].innerText = `Created by ${json.creator}`;
-                    main.children[2].innerText = `${json.completions} completions`;
+                    main.children[2].innerText = `${json.completions || 0} completions`;
                     
                     main.children[3].onclick = () => {
                         location.href = `flashcards.html?id=${id}`;
@@ -166,9 +167,9 @@
 
                     document.getElementById('copy').value = `https://flashstudy.org/view-set.html?id=${id}`;
                     
-                    main.children[8].innerText = `${json.questions.length} questions`;
+                    main.children[9].innerText = `${json.questions.length} questions`;
 
-                    let table = main.children[9];
+                    let table = main.children[10];
 
                     let row = document.createElement('tr');
                     let headingQ = document.createElement('th');
@@ -226,6 +227,17 @@
                 setTimeout(() => {
                     document.getElementById('copy').innerText = 'Copy Share Link';
                 }, 1000);
+            }
+
+            async function clone() {
+                let response = await fetcher(`/sets/clone`, { method: 'post', body: JSON.stringify({ setId: id }), headers: { 'Content-Type': 'application/json' }});
+
+                if (response.status == 201) {
+                    let id = await response.text();
+                    location.href = `edit-set.html?id=${id}`;
+                } else {
+                    alert('Failed to clone set. You must be logged in to clone a set.');
+                }
             }
         </script>
     </body>

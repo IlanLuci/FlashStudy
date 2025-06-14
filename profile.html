@@ -91,7 +91,7 @@
                 border: 1px solid rgba(255, 255, 255, 0.24);
                 backdrop-filter: blur(3px);
                 border-radius: 8px;
-                margin: 30px 15px 15px 15px;
+                margin: 40px 15px 15px 15px;
                 padding: 0px 0px 0px 20px;
                 font-size: 15pt;
             }
@@ -125,7 +125,7 @@
                 color: #2eb351;
                 left: 50%;
                 transform: translate(-50%);
-                top: 80px;
+                top: 70px;
                 font-size: 15pt;
             }
             @media (max-width: 1000px) {
@@ -264,7 +264,7 @@
             });
 
             async function deleteSet(id) {
-                if (confirm('Are you sure you want to delete this flash note?')) {
+                if (confirm('Are you sure you want to delete this flash set?')) {
                     let res = await fetcher(`/sets/delete`, { method: 'post', body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' }});
 
                     if (res.status == 201) {
@@ -284,7 +284,7 @@
             }
 
             async function deleteNote(id) {
-                if (confirm('Are you sure you want to delete this flash set?')) {
+                if (confirm('Are you sure you want to delete this flash note?')) {
                     let res = await fetcher(`/notes/delete`, { method: 'post', body: JSON.stringify({ id: id }), headers: { 'Content-Type': 'application/json' }});
 
                     if (res.status == 201) {
