@@ -245,10 +245,11 @@
                             let deleteButton = document.createElement('button');
                             deleteButton.innerText = 'Delete';
                             deleteButton.className = 'delete';
+                            deleteButton.setAttribute('onclick', `deleteNote(${json.notes[note]})`);
                             let viewButton = document.createElement('button');
                             viewButton.innerText = 'View';
                             viewButton.style.marginTop = '12px';
-                            viewButton.onclick = () => location.assign(`note.html?id=${json.notes[note]}`);
+                            viewButton.setAttribute('onclick', `location.assign('note.html?id=${json.notes[note]}')`);
                             noteEle.appendChild(noteHeading);
                             noteEle.appendChild(noteLink);
                             noteEle.appendChild(viewButton);
