@@ -11,17 +11,13 @@
         <link rel="stylesheet" href="main.css?6">
         <style>
             input {
-                border: 2px solid #d9dedd;
-                border-radius: 8px;
+                border: var(--content-border);
                 padding: 10px;
                 outline: none;
                 width: 150px;
                 color: #d9dedd;
                 width: 300px;
                 margin-top: 10px;
-            }
-            input:hover, input:focus {
-                background-color: #ECA400;
             }
             button {
                 position: relative;
@@ -35,8 +31,8 @@
 
             #logout {
                 float: right;
-                margin-top: -28px;
-                margin-right: 3px;
+                margin-top: -25px;
+                margin-right: 8px;
             }
             #logout:hover {
                 background-color: #a8514b;
@@ -63,13 +59,9 @@
             .set {
                 width: calc(25% - 41px);
                 margin: 10px;
-                border-radius: 8px;
                 padding: 8px;
                 display: inline-block;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
+                border: var(--content-border);
                 padding-bottom: 10px;
                 text-align: center;
             }
@@ -86,11 +78,7 @@
             }
 
             .heading {
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
-                border-radius: 8px;
+                border: var(--content-border);
                 margin: 40px 15px 15px 15px;
                 padding: 0px 0px 0px 20px;
                 font-size: 15pt;
@@ -98,11 +86,7 @@
 
             .note {
                 display: inline-block;
-                border-radius: 8px;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
+                border: var(--content-border);
                 text-align: center;
                 width: calc(25% - 41px);
                 margin-bottom: 20px;
@@ -125,8 +109,8 @@
                 color: #2eb351;
                 left: 50%;
                 transform: translate(-50%);
-                top: 70px;
-                font-size: 15pt;
+                top: 50px;
+                font-size: 13pt;
             }
             @media (max-width: 1000px) {
                 .set {
@@ -146,7 +130,7 @@
             }
             #title {
                 overflow: hidden;
-                max-width: calc(100vw - 190px);
+                max-width: calc(100vw - 120px);
                 margin-left: 50px;
                 white-space: nowrap;
             }
@@ -166,7 +150,7 @@
         
         <p id="messages"></p>
 
-        <div class="heading">
+        <div class="heading" style="margin-top: 100px;">
             <p>Flash Sets</p>
             <button id="create-set" onclick="location.href = 'create-set.html'">Create New Flash Set</button>
         </div>

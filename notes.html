@@ -175,7 +175,7 @@
             <p id="errors">all notes are displayed</p>
             <button id="load" onclick="loadMore();">Load More</button>
         </div>
-        <div id="notes"></div>
+        <div id="notes"><p style="text-align: center;">search for flash notes...</p></div>
 
         <script src="main.js?v1"></script>
         <script>
@@ -240,7 +240,7 @@
 
                 if (noteRes.status == 201) {
                     if (noteText == 'all notes are displayed') {
-                            notesDiv.innerHTML += '<p style="margin-left: 20px;">there are no notes matching your search</p>';
+                            notesDiv.innerHTML += '<p style="text-align: center;">there are no notes matching your search</p>';
                     } else {
                         let json = JSON.parse(noteText);
 
