@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="theme-color" content="#0f7e94">
+        <meta property="og:type" content="website">
+        <meta name="robots" content="index, follow">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="DC.format" content="text/html" scheme="DCTERMS.DCMIType">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta property="og:title" content="Flash Study">
+        <meta name="twitter:title" content="Flash Study">
+        <meta property="og:site_name" content="Flash Study">
+        <meta name="DC.publisher" content="Flash Study" scheme="DCTERMS.DCMIType">
+        <meta name="owner" content="Ilan Luciano">
+        <meta name="designer" content="Ilan Luciano">
+        <meta name="DC.creator" content="Ilan Luciano">
+        <meta name="url" content="https://flashstudy.org">
+        <meta property="og:url" content="https://flashstudy.org">
+        <meta name="twitter:url" content="https://flashstudy.org">
+        <meta name='description' content="An easy-to-use website for studying and note sharing">
+        <meta property="og:description" content="An easy-to-use website for studying and note sharing">
+        <meta name="twitter:description" content="An easy-to-use website for studying and note sharing">
+        <meta name="DC.description" content="An easy-to-use website for studying and note sharing" scheme="DCTERMS.DCMIType">
+        <meta name="subject" content="flash study, flashcards, studying, quizlet, notes, notes sharing, quizlet alternative">
+        <meta name="DC.subject" content="flash study, flashcards, studying, quizlet, notes, notes sharing, quizlet alternative" scheme="DCTERMS.DCMIType">
+        <meta name="keywords" content="flash study, flashcards, studying, quizlet, notes, notes sharing, quizlet alternative">
+
+        <title>Notes | Flash Study</title>
+        
+        <link rel="icon" type="image/x-icon" href="favicon.png">
+        <link rel="stylesheet" href="main.css?6">
+        <style>
+            .note {
+                width: calc(25% - 41px);
+                margin-bottom: 20px;
+                margin: 10px;
+                border: var(--content-border);
+                padding: 8px;
+                display: inline-block;
+                padding-bottom: 10px;
+                text-align: center;
+            }
+            .note button {
+                margin: 3px;
+            }
+            .name {
+                font-size: 15pt;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            input {
+                border: var(--content-border);
+                padding: 10px;
+                color: var(--dark-color);
+                font-size: 11pt;
+                outline: none;
+                width: 200px;
+                background-color:transparent;
+            }
+            #search {
+                position: absolute;
+                text-align: center;
+                margin-top: 12px;
+                left: calc(50% - 20px);
+                transform: translate(-50%);
+            }
+            #search-icon {
+                position: absolute;
+                left: calc(50% + 120px);
+                transform: translate(-50%);
+                margin-top: 12px;
+                max-height: 24px;
+                padding: 6.2px;
+                border: var(--content-border);
+                cursor: pointer;
+                background-color: var(--accent-color);
+            }
+            #notes {
+                padding: 10px;
+            }
+            .note-heading {
+                font-size: 14pt;
+                margin-top: 90px;
+                margin-left: 20px;
+                padding: 0px 20px 0px 20px;
+                width: calc(100% - 85px);
+                border: var(--content-border);
+                height: 60px;
+            }
+            .note-heading p {
+                float: left;
+            }
+            #errors {
+                position: relative;
+                display: none;
+                left: calc(100% - 320px);
+                transform: translate(-50%);
+            }
+            #load {
+                float: right;
+                margin-top: 12px;
+                transform: translate(5px);
+                position: relative;
+            }
+            #new {
+                transform: translate(0, -2px);
+            }
+            @media (max-width: 1000px) {
+                .note {
+                    width: calc(50% - 41px);
+                }
+            }
+            @media (max-width: 500px) {
+                .note {
+                    width: calc(100% - 41px);
+                }
+            }
+            @media (max-width: 650px) {
+                .note-heading {
+                    height: 160px;
+                    text-align: center;
+                }
+                .note-heading p {
+                    float: none;
+                }
+                #search {
+                    margin-top: -5px;
+                }
+                #search-icon {
+                    margin-top: -5px;
+                }
+                #load {
+                    margin-top: 50px;
+                    float: none;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <img src="logo.png" onclick="window.open('index.html', '_self');">
+
+            <div>
+                <a href="sets.html">Sets</a>
+                <div class="underline"></div>
+            </div>
+
+            <div>
+                <a href="notes.html">Notes</a>
+                <div class="underline underlined"></div>
+            </div>
+
+            <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+            </svg>
+
+            <button onclick="dropdown();" id="new">Create</button>
+            <div id="dropdown" class="dropdown-content">
+                <a href="create-set.html">Create New Set</a>
+                <a href="create-note.html">Create New Note</a>
+            </div>
+        </header>
+
+        <div class="note-heading">
+            <p id="note-label">Popular Flash Notes</p>
+
+            <input id="search" type="text" placeholder="Search">
+            <svg onclick="search();" id="search-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+
+            <p id="errors">all notes are displayed</p>
+            <button id="load" onclick="loadMore();">Load More</button>
+        </div>
+        <div id="notes"></div>
+
+        <script src="main.js?v1"></script>
+        <script>
+            let notesPerPage = 8;
+
+            for (let i = 0; i < notesPerPage; i++) {
+                document.getElementById('notes').innerHTML += `
+                    <div class="note" id="${i + 1}">
+                        <p class="name">......</p>
+            
+                        <p>...</p>
+            
+                        <button onclick="">View</button>
+                    </div>
+                `;
+            }
+
+            let notesLoaded = 0;
+            let queryLoaded;
+
+            window.addEventListener('load', async () => {
+                let profile = document.getElementById('profile');
+
+                let response = await fetcher(`/auth/check`);
+                let result = await response.text();
+
+                if (result == 'A token is required for authentication' || result == 'Invalid Token') {
+                    // not logged into any account, proceed as normal
+                } else {
+                    let json = JSON.parse(result);
+
+                    profile.setAttribute('onclick', `location.href = 'profile.html'`);
+                }
+
+                loadPopular();
+            });
+            window.addEventListener('keypress', (e) => {
+                if (e.key == 'Enter' && document.activeElement == document.getElementById('search')) search();
+            });
+
+            async function search(e) {
+                let query = document.getElementById('search').value.trim();
+                let notes = document.getElementById('notes');
+                let notesLabel = document.getElementById('note-label');
+                let load = document.getElementById('load');
+
+                if (query == '') return loadPopular();
+
+                queryLoaded = query;
+                notes.innerText = '';
+                notesLabel.innerText = query + ' Flash Notes';
+                notesLabel.parentElement.style.display = '';
+                load.onclick = loadMoreSearch;
+                load.style.display = '';
+
+                resetNotes();
+
+                let noteRes = await fetcher(`/notes/search`, { method: 'post', body: JSON.stringify({ order: 1, query: query }), headers: { 'Content-Type': 'application/json' }});
+                let noteText = await noteRes.text();
+
+                let notesDiv = document.getElementById('notes');
+
+                if (noteRes.status == 201) {
+                    if (noteText == 'all notes are displayed') {
+                            notesDiv.innerHTML += '<p style="margin-left: 20px;">there are no notes matching your search</p>';
+                    } else {
+                        let json = JSON.parse(noteText);
+
+                        for (note in json) {
+                            notesLoaded += 1;
+
+                            addNote(json[note].title, json[note].creator, json[note].id);
+                        }
+                    }
+                } else {
+                    console.log(noteText)
+                }
+            }
+
+            async function loadMore() {
+                let searched = document.getElementById('searched');
+
+                // load next notesPerPage popular flash notes
+                let res = await fetcher(`/notes/popular`, { method: 'post', body: JSON.stringify({ order: notesLoaded / notesPerPage + 1 }), headers: { 'Content-Type': 'application/json' }});
+
+                if (res.status == 201) {
+                    let json = await res.json();
+
+                    for (note in json) {
+                        notesLoaded += 1;
+
+                        addNote(json[note].name, json[note].creator, json[note].id);
+                    }
+
+                    if (json.length == 0) {
+                        document.getElementById('errors').style.display = '';
+
+                        setTimeout(() => {
+                        document.getElementById('errors').style.display = 'none';
+                        }, 1500);
+
+                        return;
+                    }
+                } else {
+                    console.log(text)
+                }
+            }
+            async function loadMoreSearch() {
+                let searched = document.getElementById('searched');
+
+                // load next notesPerPage popular flash notes
+                let res = await fetcher(`/notes/search`, { method: 'post', body: JSON.stringify({ order: notesLoaded / notesPerPage + 1, query: queryLoaded }), headers: { 'Content-Type': 'application/json' }});
+
+                let text = await res.text();
+                if (res.status == 201) {
+
+                    if (text == 'all notes are displayed') {
+                        document.getElementById('errors').style.display = '';
+
+                        setTimeout(() => {
+                        document.getElementById('errors').style.display = 'none';
+                        }, 1500);
+
+                        return;
+                    } else {
+                        let json = JSON.parse(text);
+
+                        for (note in json) {
+                            notesLoaded += 1;
+
+                            addNote(json[note].name, json[note].creator, json[note].id);
+                        }
+                    }
+                } else {
+                    console.log(text)
+                }
+            }
+
+            function resetNotes() {
+                let notes = document.getElementById('notes');
+
+                notes.innerHTML = '';
+            }
+
+            function addNote(name, creator, id) {
+                let notes = document.getElementById('notes');
+
+                let noteEle = document.createElement('div');
+                noteEle.className = 'note';
+                let nameEle = document.createElement('p');
+                nameEle.className = 'name';
+                nameEle.innerText = name;
+                let creatorEle = document.createElement('p');
+                creatorEle.innerText = `Created By ${creator}`;
+                let viewButton = document.createElement('button');
+                viewButton.innerText = 'View Note';
+                viewButton.setAttribute('onclick', `location.assign('note.html?id=${id}');`);
+                noteEle.appendChild(nameEle);
+                noteEle.appendChild(creatorEle);
+                noteEle.appendChild(viewButton);
+                notes.appendChild(noteEle);
+            }
+
+            async function loadPopular() {
+                let notesLabel = document.getElementById('note-label');
+                let load = document.getElementById('load');
+
+                // TODO: this is here until I add displaying popular flash notes
+                queryLoaded = '';
+                notes.innerText = '';
+                // notesLabel.innerText = 'Popular Flash Notes';
+                notesLabel.innerText = '';
+                // load.onclick = loadMore;
+                load.style.display = 'none';
+            }
+        </script>
+    </body>
+</html>

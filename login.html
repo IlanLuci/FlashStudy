@@ -8,54 +8,37 @@
         <title>Flash Study</title>
         
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?5">
+        <link rel="stylesheet" href="main.css?6">
         <style>
             input {
-                border: 1px solid #d9dedd;
-                border-radius: 8px;
+                border: var(--content-border);
                 padding: 10px;
-                background-color: transparent;
+                background-color: var(--light-color);
                 outline: none;
-                color: #d9dedd;
-                width: 150px;
+                color: var(--dark-color);
+                max-width: 300px;
                 width: calc(100% - 40px);
                 margin-top: 10px;
-            }
-            input::placeholder {
-                color: #d9dedd;
-            }
-            button {
-                margin-top: 25px;
-                position: relative;
-                bottom: 10px;
+                display: block;
+                margin-left: 50%;
+                transform: translate(-50%);
             }
             #main {
-                position: absolute;
                 text-align: center;
-                width: calc(100% - 57px);
-                max-width: 400px;
-                transition: 0.3s;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
-                border-radius: 8px;
-                padding: 10px;
-                margin-left: 50%;
-                margin-top: 80px;
-                transform: translate(-50%);
+                margin-top: 100px;
             }
             #errors {
                 position: absolute;
-                top: 90px;
+                top: 50px;
                 left: 50%;
                 transform: translate(-50%);
-                font-size: 14pt;
+                font-size: 13pt;
                 color: #a8514b;
             }
 
             #switch {
-                cursor: pointer;;
+                cursor: pointer;
+                margin: 20px;
             }
             #switch:hover {
                 text-decoration: underline;
@@ -65,7 +48,7 @@
 
     <body>
         <header>
-            <svg onclick="location.href = 'index.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <svg onclick="history.back()" id="back" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
             </svg>
 

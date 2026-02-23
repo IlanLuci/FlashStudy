@@ -8,30 +8,12 @@
         <title>Flash Study </title>
         
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?5">
+        <link rel="stylesheet" href="main.css?6">
         <style>
-            .create {
-                margin-top: 10px;
-            }
-            #footer {
-                position: fixed;
-                padding: 5px;
-                bottom: -20px;
-                left: 0;
-                width: 100%;
-                text-align: center;
-                height: 30px;
-                font-size: 14pt;
-            }
             .set {
                 width: calc(25% - 41px);
-                margin-bottom: 20px;
                 margin: 10px;
-                border-radius: 8px;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
+                border: var(--content-border);
                 padding: 8px;
                 display: inline-block;
                 padding-bottom: 10px;
@@ -50,134 +32,11 @@
                 white-space: nowrap;
             }
 
-            input {
-                border: 2px solid #d9dedd;
-                border-radius: 8px;
-                padding: 10px;
-                color: #d9dedd;
-                outline: none;
-                width: 250px;
-                background-color:transparent;
-            }
-            input::placeholder {
-                color: #d9dedd;
-            }
-            input:hover, input:focus {
-                background-color: #ECA400;
-            }
-
-            #search {
-                position: absolute;
-                top: 25px;
-                left: calc(50% - 19px);
-                transform: translate(-50%);
-            }
-            #search-icon {
-                position: absolute;
-                top: 25px;
-                left: calc(50% + 145px);
-                transform: translate(-50%);
-                max-height: 24px;
-                padding: 4.5px;
-                border-radius: 8px;
-                border: 2px solid #d9dedd;
-                cursor: pointer;
-            }
-
-            #notes {
-                white-space: nowrap;
-                width: calc(100% - 20px);
-                padding: 10px;
-                margin-bottom: 50px;
-                overflow-x: scroll;
-            }
-
             #tools {
-                margin-top: 20px;
+                margin-top: 80px;
                 padding: 10px;
             }
 
-            .set-heading {
-                font-size: 15pt;
-                margin-top: 120px;
-                padding: 10px;
-                width: calc(100% - 20px);
-            }
-            .set-heading p {
-                display: inline-block;
-            }
-
-            #notes-label {
-                font-size: 15pt;
-                margin-left: 10px;
-                margin-top: 10px;
-            }
-
-            #errors {
-                position: relative;
-                display: none;
-                left: calc(50% - 100px);
-                transform: translate(-50%);
-            }
-
-            #load {
-                margin-right: 10px;
-                float: right;
-                cursor: pointer;
-                -ms-user-select: none;
-                -moz-user-select: none;
-                -khtml-user-select: none;
-                -webkit-user-select: none;
-                user-select: none;
-            }
-            #load:hover {
-                text-decoration: underline;
-            }
-            #logo {
-                top: 15px;
-                left: 20px;
-                transform: none;
-                padding: 3px 10px 5px 10px;
-                position:absolute;
-                margin-top:10px;
-                color:#d9dedd;
-                -ms-user-select:none;
-                -moz-user-select:none;
-                -khtml-user-select:none;
-                -webkit-user-select:none;
-                user-select:none;
-                cursor: pointer;
-            }
-            #logo::before {
-                content: "";
-                position: absolute;
-                width: 100%;
-                height: calc(100% + 5px);
-                left: -2px;
-                top: -3px;
-                z-index: -1;
-                border-radius: 8px;
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
-                background: rgba(236, 164, 0, 0.5) 0 0;
-                transform: rotate(5deg);
-                border-top-left-radius: 80px;
-                border-top-right-radius: 40px;
-                border-bottom-left-radius: 20px;
-                border-bottom-right-radius: 70px;
-            }
-            header {
-                width:calc(100% - 257px);
-                margin-left:215px;
-            }
-            #profile {
-                float: right;
-                margin-top: -41.5px;
-            }
-            #title {
-                margin-top: 0;
-            }
             @media (max-width: 1000px) {
                 .set {
                     width: calc(50% - 41px);
@@ -188,19 +47,24 @@
                     width: calc(100% - 41px);
                 }
             }
+            #profile {
+                margin-top: -44.5px;
+            }
         </style>
     </head>
 
     <body>
         <header>
+            <svg onclick="location.href = 'index.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+            </svg>
+
             <h1 id="title">Tools</h1>
 
-            <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+            <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
             </svg>
         </header>
-
-        <h1 id="logo" onclick="location.href = '/'">Flash Study</h1>
 
         <div id="tools">
             <div class="set" id="1">
@@ -267,9 +131,6 @@
                 <button onclick="location.assign('/tools.html')">Launch</button>
             </div>
         </div>
-
-        <p id="notes-label"></p>
-        <div id="notes"></div>
 
         <script src="main.js?v1"></script>
         <script>

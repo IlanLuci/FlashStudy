@@ -8,49 +8,42 @@
         <title>Flash Study</title>
         
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?5">
+        <link rel="stylesheet" href="main.css?6">
         <style>
             input {
-                border: 1px solid #d9dedd;
-                border-radius: 8px;
+                border: var(--content-border);
                 padding: 10px;
-                background-color:transparent;
+                color: var(--dark-color);
                 outline: none;
-                color: #d9dedd;
+                background-color:transparent;
                 width: calc(50% - 34px);
                 max-width: 162px;
                 margin-top: 10px;
             }
-            input::placeholder {
-                color: #d9dedd;
-            }
-
             button {
                 margin-top: 20px;
                 position: relative;
                 bottom: 10px;
             }
-            #messages {
-                color: #2eb351;
-                font-size: 15pt;
-                text-align: center;
-            }
 
+            .questions {
+                display: inline-block;
+                width: 100%;
+            }
+            
             #main {
                 text-align: center;
                 max-width: 400px;
                 width: calc(100% - 37px);
-                transition: 0.3s;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
-                border-radius: 8px;
                 margin-left: 50%;
                 margin-top: 75px;
-                transform: translate(-50%);
+                transform: translate(-50%); 
             }
-
+            #messages {
+                text-align: center;
+                font-size: 14pt;
+                color: #a8514b;
+            }
             #name {
                 max-width: 350px;
                 width: calc(100% - 40px);
@@ -59,12 +52,6 @@
                 max-width: 350px;
                 width: calc(100% - 40px);
             }
-
-            .questions {
-                display: inline-block;
-                width: 100%;
-            }
-            
             #new-question {
                 cursor: pointer;
                 margin-left: 50%;
@@ -75,32 +62,26 @@
                 text-decoration: underline;
             }
             #profile {
-                float: right;
-                margin-top: -43px;
+                margin-top: -44.5px;
             }
             .chars {
-                position: absolute;
-                top: 100px;
+                margin-top: 80px;
+                margin-bottom: -80px;
                 text-align: center;
                 width: 100%;
                 display: none;
             }
             .char {
                 font-size: 20pt;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
+                border: var(--content-border);
                 backdrop-filter: blur(3px);
                 width: 40px;
                 margin: 3px;
                 position: relative;
             }
-            
-            #title {
-                margin-left: 45px;
-                white-space: nowrap;
-                overflow: hidden;
-                max-width: calc(100% - 90px);
+            #q, #a {
+                margin-top: 35px;
+                margin-bottom: 10px;
             }
         </style>
     </head>
@@ -133,16 +114,12 @@
         <div id="main">
             <input id="name" type="text" placeholder="flash set name">
             <input id="description" type="text" placeholder="flash set description">
-
-            <br><br>
             
             <input id="q" type="text" placeholder="list name (ex: states)">
             <input id="a" type="text" placeholder="list name (ex: capitals)">
-
-            <br><br>
         </div>
 
-        <p id="messages"></p>
+        <p id="messages">test tet</p>
 
         <script src="main.js?v1"></script>
         <script>
@@ -291,8 +268,8 @@
 
                 const name = main.children[0].value;
                 const description = main.children[1].value;
-                const q = main.children[4].value;
-                const a = main.children[5].value;
+                const q = main.children[2].value;
+                const a = main.children[3].value;
                 const caseSensitive = document.getElementById('case_sensitive').checked;
                 const accentSensitive = document.getElementById('accent_sensitive').checked;
                 const spanish = document.getElementById('spanish').checked;

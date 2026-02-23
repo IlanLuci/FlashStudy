@@ -8,9 +8,9 @@
         <title>loading...</title>
 
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?5">
+        <link rel="stylesheet" href="main.css?6">
         <style>
-            button {
+            #main button {
                 margin: 5px;
             }
 
@@ -27,68 +27,32 @@
             td {
                 padding: 8px 4px;
             }
-
             #main {
                 position: absolute;
                 text-align: center;
                 max-width: 750px;
                 width: calc(100% - 37px);
-                transition: 0.3s;
                 min-height: 300px;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
-                border-radius: 8px;
+                border: var(--content-border);
                 margin-left: 50%;
-                top: 120px;
+                top: 80px;
                 transform: translate(-50%);
             }
             #main p {
                 padding-left: 5px;
                 padding-right: 5px;
             }
-            svg {
-                cursor: pointer;
-            }
-            svg:hover {
-                border-radius: 8px;
-            }
-
-            @media (max-height: 900px) {
-                .progress {
-                    top: calc(50% + 220px);
-                }
-            }
             #new {
-                margin-left: calc(100% - 130px);
-                margin-top: -43px;
-                transform: translate(-50%);
-                position: absolute;
+                margin-top: -44.5px;
             }
             #profile {
-                margin-left: calc(100% - 50px);
-                margin-top: -50px;
-                transform: translate(0, -13px);
-            }
-            header {
-                max-height: 42.5px;
+                margin-top: -44.5px;
             }
             #title {
                 overflow: hidden;
-                max-width: calc(100vw - 270px);
-                margin-left: 60px;
+                max-width: calc(100vw - 170px);
+                margin-left: 50px;
                 white-space: nowrap;
-            }
-
-            @media screen and (max-width: 500px) {
-                #previous {
-                    left: 10px;
-                }
-                #next {
-                    right: 10px;
-                    left: auto;
-                }
             }
             #edit {
                 display: none;
@@ -104,15 +68,15 @@
 
             <h1 id="title">...</h1>
 
-            <button onclick="dropdown();" id="new">Create</button>
-            <div id="dropdown" class="dropdown-content">
-                <a style="border-top-left-radius:6px;border-top-right-radius:6px;" href="create-set.html">Create New Set</a>
-                <a style="border-bottom-left-radius:6px;border-bottom-right-radius:6px;" href="create-note.html">Create New Note</a>
-            </div>
-    
             <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
             </svg>
+
+            <button onclick="dropdown();" id="new">Create</button>
+            <div id="dropdown" class="dropdown-content">
+                <a href="create-set.html">Create New Set</a>
+                <a href="create-note.html">Create New Note</a>
+            </div>
         </header>
 
         <div id="main">

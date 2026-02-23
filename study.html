@@ -8,28 +8,19 @@
         <title>loading...</title>
         
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?5">
+        <link rel="stylesheet" href="main.css?6">
         <style>
             input {
-                border: 1px solid #d9dedd;
-                border-radius: 8px;
+                border: var(--content-border);
                 padding: 10px;
-                color: #d9dedd;
+                color: var(--dark-color);
                 background-color:transparent;
                 position: absolute;
                 outline: none;
                 bottom: 60px;
                 transform: translate(-50%);
             }
-            input::placeholder {
-                color: #d9dedd;
-            }
-
-            button {
-                transform: translate(-50%);
-                position: absolute;
-                bottom: 10px;
-            }
+            
             p {
                 font-size: 18pt;
                 font-weight: 700;
@@ -47,14 +38,8 @@
                 text-align: center;
                 max-width: 350px;
                 width: calc(100% - 37px);
-                transition: 0.3s;
-                height: 50vh;
-                min-height: 300px;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
-                border-radius: 8px;
+                height: 350px;
+                border: var(--content-border);
                 margin-left: 50%;
                 top: 120px;
                 transform: translate(-50%);
@@ -77,23 +62,18 @@
 
             .chars {
                 position: absolute;
-                bottom: 0;
+                top: 550px;
                 text-align: center;
-                transform: translate(20px);
                 width: 100%;
                 display: none;
             }
             .char {
                 font-size: 20pt;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
+                border: var(--content-border);
                 width: 40px;
                 margin: 3px;
                 position: relative;
             }
-
 
             #swap {
                 margin: 0;
@@ -114,39 +94,35 @@
                 font-size: 12pt;
                 left: 50%;
                 transform: translate(-50%);
-                bottom: 20px;
+                top: 520px;
                 cursor: pointer;
             }
             #reset:hover {
                 text-decoration: underline;
             }
             #new {
-                margin-left: calc(100% - 160px);
-                margin-top: -70px;
+                margin-top: -44.5px;
             }
             #profile {
-                margin-left: calc(100% - 50px);
-                transform: translate(0, -70px);
-            }
-            header {
-                max-height: 42.5px;
+                margin-top: -44.5px;
             }
             #title {
-                margin-top: -60px;
                 overflow: hidden;
-                max-width: calc(100vw - 270px);
-                margin-left: 60px;
+                max-width: calc(100vw - 170px);
+                margin-left: 50px;
                 white-space: nowrap;
             }
             #description {
-                margin-top: 0px;
+                margin-top: 80px;
                 font-size: 14pt;
-                color: #d9dedd;
                 text-align: center;
                 overflow: hidden;
                 white-space: nowrap;
-                max-width: calc(100vw - 270px);
-                margin-left: 60px;
+            }
+            #question button {
+                transform: translate(-50%);
+                position: absolute;
+                bottom: 10px;
             }
         </style>
     </head>
@@ -158,21 +134,22 @@
             </svg>
 
             <h1 id="title">...</h1>
-            <p id="description">...</p>
-            
-            <button onclick="dropdown();" id="new">Create</button>
-            <div id="dropdown" class="dropdown-content">
-                <a style="border-top-left-radius:6px;border-top-right-radius:6px;" href="create-set.html">Create New Set</a>
-                <a style="border-bottom-left-radius:6px;border-bottom-right-radius:6px;" href="create-note.html">Create New Note</a>
-            </div>
 
             <svg onclick="location.href = 'login.html'" id="profile" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
             </svg>
+            
+            <button onclick="dropdown();" id="new">Create</button>
+            <div id="dropdown" class="dropdown-content">
+                <a href="create-set.html">Create New Set</a>
+                <a href="create-note.html">Create New Note</a>
+            </div>
         </header>
 
+        <p id="description">...</p>
+
         <div id="question">
-            <p></p>
+            <p>...</p>
 
             <input type="text" placeholder="answer">
 
@@ -187,9 +164,8 @@
         <p id="reset" onclick="restart();">Reset Progress</p>
 
 
-
-        <p class="progress" id="mastered"></p>
-        <p class="progress" id="stillWorking"></p>
+        <p class="progress" id="mastered">...</p>
+        <p class="progress" id="stillWorking">...</p>
 
         <div class="chars" id="spanishChars">
             <button class="char" onclick="addChar(event, 'á');">á</button>

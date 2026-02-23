@@ -8,21 +8,17 @@
         <title>Flash Study</title>
         
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?5">
+        <link rel="stylesheet" href="main.css?6">
         <style>
             input {
-                border: 1px solid #d9dedd;
-                border-radius: 8px;
+                border: var(--content-border);
                 padding: 10px;
-                color: #d9dedd;
+                color: var(--dark-color);
                 outline: none;
                 background-color:transparent;
                 width: calc(50% - 34px);
                 max-width: 162px;
                 margin-top: 10px;
-            }
-            input::placeholder {
-                color: #d9dedd;
             }
             button {
                 margin-top: 20px;
@@ -39,15 +35,9 @@
                 text-align: center;
                 max-width: 400px;
                 width: calc(100% - 37px);
-                transition: 0.3s;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
-                border-radius: 8px;
                 margin-left: 50%;
                 margin-top: 75px;
-                transform: translate(-50%);
+                transform: translate(-50%); 
             }
             #errors {
                 text-align: center;
@@ -72,39 +62,33 @@
                 text-decoration: underline;
             }
             #profile {
-                float: right;
-                margin-top: -43px;
+                margin-top: -44.5px;
             }
             .chars {
-                position: absolute;
-                top: 100px;
+                margin-top: 80px;
+                margin-bottom: -80px;
                 text-align: center;
                 width: 100%;
                 display: none;
             }
             .char {
                 font-size: 20pt;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
+                border: var(--content-border);
                 backdrop-filter: blur(3px);
                 width: 40px;
                 margin: 3px;
                 position: relative;
             }
-
-            #title {
-                margin-left: 45px;
-                white-space: nowrap;
-                overflow: hidden;
-                max-width: calc(100% - 90px);
+            #q, #a {
+                margin-top: 35px;
+                margin-bottom: 10px;
             }
         </style>
     </head>
 
     <body>
         <header>
-            <svg onclick="location.href = 'index.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <svg onclick="history.back()" id="back" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
             </svg>
 
@@ -114,7 +98,6 @@
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
             </svg>
         </header>
-
 
         <div class="chars" id="spanishChars">
             <button class="char" onclick="addChar(event, 'á');">á</button>
@@ -131,13 +114,9 @@
         <div id="main">
             <input id="name" type="text" placeholder="flash set name">
             <input id="description" type="text" placeholder="flash set description">
-
-            <br><br>
             
             <input id="q" type="text" placeholder="list name (ex: states)">
             <input id="a" type="text" placeholder="list name (ex: capitals)">
-
-            <br><br>
 
             <span class="questions">
                 <input type="text" placeholder="question (ex: California)">
@@ -205,8 +184,8 @@
 
                 const name = main.children[0].value;
                 const description = main.children[1].value;
-                const q = main.children[4].value;
-                const a = main.children[5].value;
+                const q = main.children[2].value;
+                const a = main.children[3].value;
                 const caseSensitive = document.getElementById('case_sensitive').checked;
                 const accentSensitive = document.getElementById('accent_sensitive').checked;
                 const spanish = document.getElementById('spanish').checked;

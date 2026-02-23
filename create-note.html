@@ -8,31 +8,21 @@
         <title>Flash Study</title>
         
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?5">
+        <link rel="stylesheet" href="main.css?6">
         <style>
             #create {
-                border: 1px solid #d9dedd;
-                border-radius: 8px;
-                padding: 10px;
                 margin-top: 20px;
                 position: relative;
                 bottom: 10px;
-                cursor: pointer;
-                outline: none;
                 left: 50%;
                 transform: translate(-50%);
             }
             
             #main {
                 width: calc(100% - 37px);
-                transition: 0.3s;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
-                border-radius: 8px;
+                border: var(--content-border);
                 margin-left: 50%;
-                margin-top: 50px;
+                margin-top: 80px;
                 transform: translate(-50%);
             }
             #errors {
@@ -42,9 +32,8 @@
             }
             .textInput {
                 display: inline;
-                color: #d9dedd;
-                border: 1px solid #d9dedd;
-                border-radius: 8px;
+                color: var(--dark-color);
+                border: var(--content-border);
                 padding: 10px;
                 margin: 10px 8px 5px 8px;
                 outline: none;
@@ -52,10 +41,10 @@
                 width: calc(50% - 40px);
             }
             .textInput::placeholder {
-                color: #d9dedd;
+                color: var(--dark-color);
             }
             hr {
-                border: 0.5px solid #d9dedd;
+                border: 0.5px solid var(--dark-color);
             }
             a {
                 color: #0f7e94;
@@ -65,7 +54,7 @@
                 border-radius: 8px;
                 padding: 3px;
                 margin-left: 5px;
-                color: #d9dedd;
+                color: var(--dark-color);
             }
 
             .select {
@@ -74,10 +63,9 @@
                 outline: none;
                 position: relative;
                 top: -10px;
-                color: #d9dedd;
-                border-radius: 8px;
+                color: var(--dark-color);
                 height: 30px;
-                border: 1px solid #d9dedd;
+                border: var(--content-border);
                 overflow: hidden;
                 overflow: -moz-hidden-unscrollable;
                 background: transparent;
@@ -87,9 +75,8 @@
                 -moz-appearance: none;
             }
             .input {
-                border-radius: 8px;
                 height: 30px;
-                border: 1px solid #d9dedd;
+                border: var(--content-border);
                 overflow: hidden;
                 color: #d9dedd;
                 overflow: -moz-hidden-unscrollable;
@@ -110,11 +97,11 @@
                 min-height: 300px;
                 outline: none;
                 padding: 5px;
-                border-top: 1px solid #d9dedd;
+                border-top: var(--content-border);
             }
             #profile {
                 float: right;
-                margin-top: -43px;
+                margin-top: -44.5px;
             }
             #title {
                 overflow: hidden;
@@ -133,7 +120,7 @@
 
     <body>
         <header>
-            <svg onclick="location.href = 'index.html'" id="back" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <svg onclick="history.back()" id="back" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
             </svg>
     
@@ -178,12 +165,6 @@
             <a href="javascript:void(0)" onclick="format('justifyLeft')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-justify-left" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                </svg>
-            </a>
-            
-            <a href="javascript:void(0)" onclick="format('justifyFull')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
                 </svg>
             </a>
             

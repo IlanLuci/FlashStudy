@@ -8,20 +8,16 @@
         <title>Spanish Accents</title>
         
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?5">
+        <link rel="stylesheet" href="main.css?6">
         <style>
             input {
-                border: 2px solid #d9dedd;
-                border-radius: 8px;
+                border: var(--content-border);
                 padding: 10px;
                 bottom: 10px;
                 cursor: pointer;
-                color: #d9dedd;
+                color: var(--dark-color);
                 margin: 10px 5px 10px 5px;
-                background-color: rgba(255, 255, 255, 0.21);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.24);
-                backdrop-filter: blur(3px);
+                background-color: var(--accent-color);
                 text-align: center;
                 font-size: 60pt;
                 width: calc(33% - 35px);
@@ -29,24 +25,19 @@
                 outline: none;
                 transition: 0.09s;
             }
-            input:hover {
-                background-color: #d9dedd;
-                color: #0f7e94;
-            }
 
             #main {
                 position: absolute;
                 text-align: center;
                 width: 50vw;
-                transition: 0.3s;
                 height: 410px;
-                margin-top: 50px;
+                margin-top: 90px;
                 margin-left: 50%;
                 transform: translate(-50%);
             }
             #success {
                 position: absolute;
-                top: 80px;
+                top: 48px;
                 left: 50%;
                 transform: translate(-50%);
                 font-size: 14pt;
