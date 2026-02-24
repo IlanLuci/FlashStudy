@@ -175,7 +175,7 @@
             <p id="errors">all notes are displayed</p>
             <button id="load" onclick="loadMore();">Load More</button>
         </div>
-        <div id="notes"><p style="text-align: center;">search for flash notes...</p></div>
+        <div id="notes"></div>
 
         <script src="main.js?v1"></script>
         <script>
@@ -347,7 +347,7 @@
                 queryLoaded = '';
                 notes.innerText = '';
                 // notesLabel.innerText = 'Popular Flash Notes';
-                notesLabel.innerText = '';
+                notesLabel.innerHTML = '<p style="text-align: center;">search for flash notes...</p>';
                 // load.onclick = loadMore;
                 load.style.display = 'none';
             }

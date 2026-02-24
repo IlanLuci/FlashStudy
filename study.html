@@ -51,7 +51,8 @@
                 top: 100%;
                 margin-top: 6px;
                 font-size: 13pt;
-                color: #a8514b;
+                color: #c25f46;
+                width: 100%;
             }
             #stillWorking {
                 margin-top: 50px;
@@ -228,7 +229,7 @@
                     // check if the user has previously answered questions saved
                     let saved = JSON.parse(localStorage.getItem(id));
 
-                    if (saved) {
+                    if (saved && saved.questions && saved.answers) {
                         // remove already answered questions from lists according to saved data
                         questions = saved.questions;
                         answers = saved.answers;
@@ -324,7 +325,7 @@
                 } else {
                     corrections.innerText = `The correct answer for ${questions[lastQuestion]} was ${answers[lastQuestion]} `;
                     question.children[1].value = '';
-                    question.style.backgroundColor = '#a8514b';
+                    question.style.backgroundColor = '#c25f46';
 
                     newQuestion();
 
