@@ -130,6 +130,7 @@ header svg {
 }
 #back {
     border-right: solid 2px var(--dark-color);
+    float: left;
 }
 header img {
     float: left;
