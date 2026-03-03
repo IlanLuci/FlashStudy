@@ -34,7 +34,6 @@
             }
 
             #question {
-                position: absolute;
                 text-align: center;
                 max-width: 350px;
                 transition: 0.3s;
@@ -42,7 +41,7 @@
                 height: 350px;
                 border: var(--content-border);
                 margin-left: 50%;
-                top: 120px;
+                margin-top: 20px;
                 transform: translate(-50%);
             }
             #corrections {
@@ -64,8 +63,6 @@
             }
 
             .chars {
-                position: absolute;
-                top: 550px;
                 text-align: center;
                 width: 100%;
                 display: none;
@@ -79,12 +76,11 @@
             }
 
             #swap {
-                margin: 0;
-                position: absolute;
+                margin-top: 40px;
                 font-size: 12pt;
-                left: 50%;
+                text-align: center;
+                margin-left: 50%;
                 transform: translate(-50%);
-                bottom: 50px;
                 white-space: nowrap;
                 cursor: pointer;
             }
@@ -92,12 +88,10 @@
                 text-decoration: underline;
             }
             #reset {
-                margin: 0;
-                position: absolute;
+                text-align: center;
                 font-size: 12pt;
-                left: 50%;
+                margin-left: 50%;
                 transform: translate(-50%);
-                top: 520px;
                 cursor: pointer;
             }
             #reset:hover {
@@ -157,11 +151,6 @@
         </div>
         
         <p id="swap" onclick="swap();"></p>
-        <p id="reset" onclick="restart();">Reset Progress</p>
-
-
-        <p class="progress" id="mastered">...</p>
-        <p class="progress" id="stillWorking">...</p>
 
         <div class="chars" id="spanishChars">
             <button class="char" onclick="addChar(event, 'á');">á</button>
@@ -174,6 +163,12 @@
             <button class="char" onclick="addChar(event, '¡');">¡</button>
             <button class="char" onclick="addChar(event, '¿');">¿</button>
         </div>
+
+        <p id="reset" onclick="restart();">Reset Progress</p>
+
+
+        <p class="progress" id="mastered">...</p>
+        <p class="progress" id="stillWorking">...</p>
 
         <script src="main.js?v1"></script>
         <script>
