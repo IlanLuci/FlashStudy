@@ -44,6 +44,7 @@ input[type="checkbox"] {
     display: grid;
     place-content: center;
     transform: translateY(20px);
+    border-radius: 0;
 }
 input[type="checkbox"]::before {
     content: "";
