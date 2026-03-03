@@ -8,7 +8,7 @@
         <title>loading...</title>
 
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="main.css?7">
+        <link rel="stylesheet" href="main.css?8">
         <style>
             .fold-corner-card {
                 background: -webkit-linear-gradient(225deg, transparent 50%, var(--dark-color) 50%), -webkit-linear-gradient(225deg, transparent 25px, var(--dark-color) 10px);
@@ -87,8 +87,7 @@
             }
             #title {
                 overflow: hidden;
-                max-width: calc(100vw - 170px);
-                margin-left: 50px;
+                width: calc(100vw - 190px);
                 white-space: nowrap;
             }
 
@@ -150,10 +149,10 @@
             const urlParams = new URLSearchParams(queryString);
             const id = urlParams.get('id');
 
-            // if (!id) {
-            //     alert('invalid set id');
-            //     location.href = 'index.html';
-            // }
+            if (!id) {
+                alert('invalid set id');
+                location.href = 'index.html';
+            }
 
             let questions;
             let answers;

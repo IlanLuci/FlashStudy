@@ -145,7 +145,6 @@ header img {
     bottom: initial;
     height: 55px;
     color: var(--dark-color);
-    margin-top: 2px;
     font-size: 12pt;
     cursor: pointer;
     border: none;
@@ -155,7 +154,8 @@ header img {
 #title {
     color: var(--dark-color);
     text-align: center;
-    margin-top: -52px;
+    display: inline-block;
+    margin-top: 8px;
     font-size: 22pt;
     margin-bottom: 0;
     z-index:-1;
