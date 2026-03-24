@@ -177,8 +177,8 @@ header img {
 @media (max-width: 600px) {
     #title {
         font-size: 11pt;
-        margin-top: 6px;
-        white-space: normal;
+        margin-top: 8px;
+        white-space: normal !important;
     }
 }
 .show {
