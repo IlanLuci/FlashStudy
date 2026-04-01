@@ -119,8 +119,15 @@
             }
             #title {
                 overflow: hidden;
-                width: calc(100vw - 140px);
+                width: calc(100vw - 130px);
                 white-space: nowrap;
+            }
+            @media (max-width: 600px) {
+                #title {
+                    font-size: 14pt;
+                    margin-top: 15px;
+                    white-space: nowrap !important;
+                }
             }
         </style>
     </head>

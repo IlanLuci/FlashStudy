@@ -12,7 +12,7 @@ function fetcher(endpoint, options) {
     // allow set cookie headers and such
     updatedOptions.credentials = 'include';
 
-    return fetch(`${activeServer}${endpoint}`, updatedOptions)
+    return fetch(`${activeServer}${endpoint}`, updatedOptions).catch(err => { alert('Connection error') });
 }
 
 async function logout() {
