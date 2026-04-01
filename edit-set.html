@@ -233,22 +233,13 @@
             });
 
             function addQuestion(parent) {
-                const submit = document.getElementById('submit');
-
                 const main = document.getElementById('main');
 
-                let span = document.createElement('span');
-                span.className = 'questions';
-                let qInput = document.createElement('input');
-                qInput.type = 'text';
-                qInput.placeholder = 'question';
-                let aInput = document.createElement('input');
-                aInput.type = 'text';
-                aInput.placeholder = 'answer';
-                span.appendChild(qInput);
-                span.appendChild(aInput);
+                let ele = document.createElement('span');
+                ele.className = 'questions';
+                ele.innerHTML = `<input type="text" placeholder="question"> <input type="text" placeholder="answer">`;
 
-                main.insertBefore(span, main.children[main.children.length - 2])
+                main.insertBefore(ele, document.getElementById('new-question'));
             }
 
             let activeInput = null;
