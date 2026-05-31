@@ -78,7 +78,7 @@
         </div>
 
         <script defer src="purify.min.js"></script>
-        <script defer src="main.js?v1"></script>
+        <script defer src="main.js?v2"></script>
         <script>
             const noteDiv = document.getElementById('note');
 
@@ -92,42 +92,35 @@
             }
 
             window.addEventListener('load', async () => {
-                let response = await fetcher(`/notes/get/${id}`);
+                const [response, authResponse] = await Promise.all([
+                    fetcher(`/notes/get/${id}`),
+                    fetcher(`/auth/check`),
+                ]);
 
-                if (response.status == 201) {
-                    let json = await response.json();
-
-                    // TODO:--------add display of json.creator
-
-                    // update ui elements with data retrieved
-                    document.getElementById('title').innerText = json.title;
-                    document.title = json.title;
-                    document.getElementById('copy').value = `https://flashstudy.org/note.html?id=${id}`;
-
-                    let cleanNote = DOMPurify.sanitize(json.note);
-
-                    noteDiv.innerHTML += cleanNote;
-
-                    // check auth and allow editing if user is owner
-                    let authResponse = await fetcher(`/auth/check`);
-                    let result = await authResponse.text();
-
-                    if (result != 'A token is required for authentication' && result != 'Invalid Token') {
-                        let authJson = JSON.parse(result);
-
-                        if (authJson.username == json.creator) {
-                            // user is owner of set, allow editing
-                            let editButton = document.getElementById('edit');
-                            editButton.style.display = 'inline-block';
-                            editButton.onclick = () => {
-                                location.href = `edit-note.html?id=${id}`;
-                            };
-                        }
-                    }
-                } else {
-                    // id given in urlparams is either invalid or server bug has occured 
+                if (response.status != 201) {
                     alert('invalid note id');
                     location.href = 'index.html';
+                    return;
+                }
+
+                const json = await response.json();
+
+                document.getElementById('title').innerText = json.title;
+                document.title = json.title;
+                document.getElementById('copy').value = `https://flashstudy.org/note.html?id=${id}`;
+
+                noteDiv.innerHTML += DOMPurify.sanitize(json.note);
+
+                const authText = await authResponse.text();
+                if (authText != 'A token is required for authentication' && authText != 'Invalid Token') {
+                    try {
+                        const authJson = JSON.parse(authText);
+                        if (authJson.username == json.creator) {
+                            const editButton = document.getElementById('edit');
+                            editButton.style.display = 'inline-block';
+                            editButton.onclick = () => { location.href = `edit-note.html?id=${id}`; };
+                        }
+                    } catch {}
                 }
             });
 

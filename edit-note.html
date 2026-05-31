@@ -229,7 +229,7 @@
         <p id="errors"></p>
 
         <script type="text/javascript" src="purify.min.js"></script>
-        <script src="main.js?v1"></script>
+        <script src="main.js?v2"></script>
         <script>
             // get note id from query params
             const queryString = window.location.search;
@@ -237,47 +237,38 @@
             const id = urlParams.get('id');
 
             window.addEventListener('load', async () => {
-                let profile = document.getElementById('profile');
-                let response = await fetcher(`/auth/check`);
-                let result = await response.text();
+                const profile = document.getElementById('profile');
+                const [authResponse, noteResponse] = await Promise.all([
+                    fetcher(`/auth/check`),
+                    fetcher(`/notes/get/${id}`),
+                ]);
 
-                if (result == 'A token is required for authentication' || result == 'Invalid Token') {
+                const authText = await authResponse.text();
+                if (authText == 'A token is required for authentication' || authText == 'Invalid Token') {
                     alert('You must be logged in to access this.');
-
                     location.assign('/login.html');
-                } else {
-                    profile.setAttribute('onclick', `location.href = 'profile.html'`);
-
-                    let json = JSON.parse(result);
-
-                    // check if list is owned by the signed in user
-                    if (json.notes.includes(id)) {
-                        let noteResponse = await fetcher(`/notes/get/${id}`);
-                        let main = document.getElementById('main');
-
-                        if (noteResponse.status == 201) {
-                            let noteJson = await noteResponse.json();
-                            
-                            document.getElementById('name').setAttribute('value', noteJson.title);
-                            document.getElementById('subject').setAttribute('value', noteJson.subject);
-
-                            let noteDiv = document.getElementById('editor');
-                            let note = noteJson.note;
-
-                            let cleanNote = DOMPurify.sanitize(note);
-
-                            noteDiv.innerHTML += cleanNote;
-                        } else {
-                            // id given in urlparams is either invalid or server bug has occured 
-                            alert('invalid note id');
-                            location.href = 'index.html';
-                        }
-                    } else {
-                        // user does not own list
-                        alert('you cannot edit a note you do not own');
-                        location.href = 'index.html';
-                    }
+                    return;
                 }
+
+                profile.setAttribute('onclick', `location.href = 'profile.html'`);
+                const json = JSON.parse(authText);
+
+                if (!json.notes.includes(id)) {
+                    alert('you cannot edit a note you do not own');
+                    location.href = 'index.html';
+                    return;
+                }
+
+                if (noteResponse.status != 201) {
+                    alert('invalid note id');
+                    location.href = 'index.html';
+                    return;
+                }
+
+                const noteJson = await noteResponse.json();
+                document.getElementById('name').setAttribute('value', noteJson.title);
+                document.getElementById('subject').setAttribute('value', noteJson.subject);
+                document.getElementById('editor').innerHTML += DOMPurify.sanitize(noteJson.note);
             });
 
             async function saveFlashNote() {

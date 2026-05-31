@@ -135,7 +135,7 @@
 
         <p id="messages"></p>
 
-        <script src="main.js?v1"></script>
+        <script src="main.js?v2"></script>
         <script>
             // get set id from query params
             const queryString = window.location.search;
@@ -143,88 +143,85 @@
             const id = urlParams.get('id');
 
             window.addEventListener('load', async () => {
-                let profile = document.getElementById('profile');
-                let response = await fetcher(`/auth/check`);
-                let result = await response.text();
+                const profile = document.getElementById('profile');
+                const [authResponse, setResponse] = await Promise.all([
+                    fetcher(`/auth/check`),
+                    fetcher(`/sets/get/${id}`),
+                ]);
 
-                if (result == 'A token is required for authentication' || result == 'Invalid Token') {
+                const authText = await authResponse.text();
+                if (authText == 'A token is required for authentication' || authText == 'Invalid Token') {
                     alert('You must be logged in to access this.');
                     location.assign('/login.html');
-                } else {
-                    let json = JSON.parse(result);
-
-                    profile.setAttribute('onclick', `location.href = 'profile.html'`);
-
-                    // check if list is owned by the signed in user
-                    if (json.sets.includes(id)) {
-                        let setResponse = await fetcher(`/sets/get/${id}`);
-                        let main = document.getElementById('main');
-
-                        if (setResponse.status == 201) {
-                            let setJson = await setResponse.json();
-
-                            document.getElementById('description').setAttribute('value', setJson.description);
-                            document.getElementById('name').setAttribute('value', setJson.name);
-                            document.getElementById('q').setAttribute('value', setJson.q);
-                            document.getElementById('a').setAttribute('value', setJson.a);
-
-                            for (question in setJson.questions) {
-                                let span = document.createElement('span');
-                                span.className = 'questions';
-                                let qInput = document.createElement('input');
-                                qInput.type = 'text';
-                                qInput.placeholder = 'question';
-                                qInput.setAttribute('value', setJson.questions[question]);
-                                let aInput = document.createElement('input');
-                                aInput.type = 'text';
-                                aInput.placeholder = 'answer';
-                                aInput.setAttribute('value', setJson.answers[question]);
-                                span.appendChild(qInput);
-                                span.appendChild(aInput);
-                                main.appendChild(span);
-                            }
-
-                            // handle posibility of null values (fields added after set was created)
-                            if (setJson.case_sensitive == null) setJson.case_sensitive = true;
-                            if (setJson.accent_sensitive == null) setJson.accent_sensitive = false;
-                            if (setJson.spanish == null) setJson.spanish = false;
-
-                            main.innerHTML += `<p id="new-question" onclick="addQuestion();">add another question</p>`;
-                            main.innerHTML += `
-                                <span style=" width: 180px; text-align: left; display: block; margin-left: 50%; transform: translate(-50%);">
-                                    <input ${setJson.case_sensitive ? 'checked' : ''} type="checkbox" id="case_sensitive" style="width: 20px;">
-                                    <label for="case_sensitive">Case Sensitive</label>
-                                    <br>
-                                    <input ${setJson.accent_sensitive ? 'checked' : ''} type="checkbox" id="accent_sensitive" style="width: 20px;">
-                                    <label for="accent_sensitive">Accent Sensitive</label>
-                                    <br>
-                                    <input ${setJson.spanish ? 'checked' : ''} type="checkbox" id="spanish" style="width: 20px;" onclick="toggleSpanishAccents(event);">
-                                    <label for="spanish">Show Spanish Accents</label>
-                                    <br><br>
-                                </span>
-                            `;
-
-                            if (setJson.spanish) {
-                                document.getElementById('spanishChars').style.display = 'block';
-                            } else {
-                                document.getElementById('spanishChars').style.display = 'none';
-                            }
-
-                            let submitBtn = document.createElement('button');
-                            submitBtn.innerHTML = 'Submit';
-                            submitBtn.addEventListener('click', submit);
-                            main.appendChild(submitBtn);
-                        } else {
-                            // id given in urlparams is either invalid or server bug has occured 
-                            alert('invalid set id');
-                            location.href = 'index.html';
-                        }
-                    } else {
-                        // user does not own list
-                        alert('you cannot edit a set you do not own');
-                        location.href = 'index.html';
-                    }
+                    return;
                 }
+
+                const json = JSON.parse(authText);
+                profile.setAttribute('onclick', `location.href = 'profile.html'`);
+
+                if (!json.sets.includes(id)) {
+                    alert('you cannot edit a set you do not own');
+                    location.href = 'index.html';
+                    return;
+                }
+
+                if (setResponse.status != 201) {
+                    alert('invalid set id');
+                    location.href = 'index.html';
+                    return;
+                }
+
+                const setJson = await setResponse.json();
+                const main = document.getElementById('main');
+
+                document.getElementById('description').setAttribute('value', setJson.description);
+                document.getElementById('name').setAttribute('value', setJson.name);
+                document.getElementById('q').setAttribute('value', setJson.q);
+                document.getElementById('a').setAttribute('value', setJson.a);
+
+                const frag = document.createDocumentFragment();
+                for (let i = 0; i < setJson.questions.length; i++) {
+                    const span = document.createElement('span');
+                    span.className = 'questions';
+                    const qInput = document.createElement('input');
+                    qInput.type = 'text';
+                    qInput.placeholder = 'question';
+                    qInput.setAttribute('value', setJson.questions[i]);
+                    const aInput = document.createElement('input');
+                    aInput.type = 'text';
+                    aInput.placeholder = 'answer';
+                    aInput.setAttribute('value', setJson.answers[i]);
+                    span.appendChild(qInput);
+                    span.appendChild(aInput);
+                    frag.appendChild(span);
+                }
+                main.appendChild(frag);
+
+                if (setJson.case_sensitive == null) setJson.case_sensitive = true;
+                if (setJson.accent_sensitive == null) setJson.accent_sensitive = false;
+                if (setJson.spanish == null) setJson.spanish = false;
+
+                const tail = document.createElement('div');
+                tail.innerHTML = `<p id="new-question" onclick="addQuestion();">add another question</p>
+                    <span style=" width: 180px; text-align: left; display: block; margin-left: 50%; transform: translate(-50%);">
+                        <input ${setJson.case_sensitive ? 'checked' : ''} type="checkbox" id="case_sensitive" style="width: 20px;">
+                        <label for="case_sensitive">Case Sensitive</label>
+                        <br>
+                        <input ${setJson.accent_sensitive ? 'checked' : ''} type="checkbox" id="accent_sensitive" style="width: 20px;">
+                        <label for="accent_sensitive">Accent Sensitive</label>
+                        <br>
+                        <input ${setJson.spanish ? 'checked' : ''} type="checkbox" id="spanish" style="width: 20px;" onclick="toggleSpanishAccents(event);">
+                        <label for="spanish">Show Spanish Accents</label>
+                        <br><br>
+                    </span>`;
+                while (tail.firstChild) main.appendChild(tail.firstChild);
+
+                document.getElementById('spanishChars').style.display = setJson.spanish ? 'block' : 'none';
+
+                const submitBtn = document.createElement('button');
+                submitBtn.innerHTML = 'Submit';
+                submitBtn.addEventListener('click', submit);
+                main.appendChild(submitBtn);
             });
             window.addEventListener('keydown', (e) => {
                 switch (e.keyCode) { 

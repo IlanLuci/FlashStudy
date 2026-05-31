@@ -91,7 +91,7 @@
             <table></table>
         </div>
 
-        <script src="main.js?v1"></script>
+        <script src="main.js?v2"></script>
         <script>
             const question = document.getElementById('main');
 
@@ -105,71 +105,66 @@
             }
 
             window.addEventListener('load', async () => {
-                let response = await fetcher(`/sets/get/${id}`);
+                const [response, authResponse] = await Promise.all([
+                    fetcher(`/sets/get/${id}`),
+                    fetcher(`/auth/check`),
+                ]);
 
-                if (response.status == 201) {
-                    let json = await response.json();
-
-                    // update ui elements with data retrieved
-                    document.getElementById('title').innerText = json.name;
-                    document.title = json.name;
-                    main.children[0].innerText = json.description;
-                    main.children[1].innerText = `Created by ${json.creator}`;
-                    main.children[2].innerText = `${json.completions || 0} completions`;
-                    
-                    main.children[3].onclick = () => {
-                        location.href = `flashcards.html?id=${id}`;
-                    };
-                    main.children[4].onclick = () => {
-                        location.href = `study.html?id=${id}`;
-                    };
-
-                    document.getElementById('copy').value = `https://flashstudy.org/view-set.html?id=${id}`;
-                    
-                    main.children[9].innerText = `${json.questions.length} questions`;
-
-                    let table = main.children[10];
-
-                    let row = document.createElement('tr');
-                    let headingQ = document.createElement('th');
-                    let headingA = document.createElement('th');
-                    headingQ.innerText = json.q;
-                    headingA.innerText = json.a;
-                    row.appendChild(headingQ);
-                    row.appendChild(headingA);
-                    table.appendChild(row);
-                    
-                    for (let i = 0; i < json.questions.length; i++) {
-                        row = document.createElement('tr');
-                        headingQ = document.createElement('td');
-                        headingA = document.createElement('td');
-                        headingQ.innerText = json.questions[i];
-                        headingA.innerText = json.answers[i];
-                        row.appendChild(headingQ);
-                        row.appendChild(headingA);
-                        table.appendChild(row);
-                    }
-
-                    // check auth and allow editing if user is owner
-                    let authResponse = await fetcher(`/auth/check`);
-                    let result = await authResponse.text();
-
-                    if (result != 'A token is required for authentication' && result != 'Invalid Token') {
-                        let authJson = JSON.parse(result);
-
-                        if (authJson.username == json.creator) {
-                            // user is owner of set, allow editing
-                            let editButton = document.getElementById('edit');
-                            editButton.style.display = 'inline-block';
-                            editButton.onclick = () => {
-                                location.href = `edit-set.html?id=${id}`;
-                            };
-                        }
-                    }
-                } else {
-                    // id given in urlparams is either invalid or server bug has occured 
+                if (response.status != 201) {
                     alert('invalid set id');
                     location.href = 'index.html';
+                    return;
+                }
+
+                const json = await response.json();
+
+                document.getElementById('title').innerText = json.name;
+                document.title = json.name;
+                main.children[0].innerText = json.description;
+                main.children[1].innerText = `Created by ${json.creator}`;
+                main.children[2].innerText = `${json.completions || 0} completions`;
+
+                main.children[3].onclick = () => { location.href = `flashcards.html?id=${id}`; };
+                main.children[4].onclick = () => { location.href = `study.html?id=${id}`; };
+
+                document.getElementById('copy').value = `https://flashstudy.org/view-set.html?id=${id}`;
+
+                main.children[9].innerText = `${json.questions.length} questions`;
+
+                const table = main.children[10];
+                const frag = document.createDocumentFragment();
+
+                const headRow = document.createElement('tr');
+                const headQ = document.createElement('th');
+                const headA = document.createElement('th');
+                headQ.innerText = json.q;
+                headA.innerText = json.a;
+                headRow.appendChild(headQ);
+                headRow.appendChild(headA);
+                frag.appendChild(headRow);
+
+                for (let i = 0; i < json.questions.length; i++) {
+                    const row = document.createElement('tr');
+                    const td1 = document.createElement('td');
+                    const td2 = document.createElement('td');
+                    td1.innerText = json.questions[i];
+                    td2.innerText = json.answers[i];
+                    row.appendChild(td1);
+                    row.appendChild(td2);
+                    frag.appendChild(row);
+                }
+                table.appendChild(frag);
+
+                const authText = await authResponse.text();
+                if (authText != 'A token is required for authentication' && authText != 'Invalid Token') {
+                    try {
+                        const authJson = JSON.parse(authText);
+                        if (authJson.username == json.creator) {
+                            const editButton = document.getElementById('edit');
+                            editButton.style.display = 'inline-block';
+                            editButton.onclick = () => { location.href = `edit-set.html?id=${id}`; };
+                        }
+                    } catch {}
                 }
             });
 
