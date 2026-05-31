@@ -30,6 +30,8 @@
         <title>Notes | Flash Study</title>
         
         <link rel="icon" type="image/x-icon" href="favicon.png">
+        <link rel="preconnect" href="https://api.flashstudy.org" crossorigin>
+        <link rel="preload" href="6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="stylesheet" href="main.css?12">
         <style>
             .note {
@@ -178,17 +180,13 @@
         <script>
             let notesPerPage = 8;
 
-            for (let i = 0; i < notesPerPage; i++) {
-                document.getElementById('notes').innerHTML += `
-                    <div class="note" id="${i + 1}">
-                        <p class="name">......</p>
-            
-                        <p>...</p>
-            
-                        <button onclick="">View</button>
-                    </div>
-                `;
-            }
+            (function buildSkeleton() {
+                let html = '';
+                for (let i = 0; i < notesPerPage; i++) {
+                    html += `<div class="note" id="${i + 1}"><p class="name">......</p><p>...</p><button onclick="">View</button></div>`;
+                }
+                document.getElementById('notes').innerHTML = html;
+            })();
 
             let notesLoaded = 0;
             let queryLoaded;

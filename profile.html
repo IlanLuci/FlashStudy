@@ -8,6 +8,8 @@
         <title>Flash Study</title>
         
         <link rel="icon" type="image/x-icon" href="favicon.png">
+        <link rel="preconnect" href="https://api.flashstudy.org" crossorigin>
+        <link rel="preload" href="6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="stylesheet" href="main.css?12">
         <style>
             button {
@@ -159,87 +161,68 @@
 
         <script src="main.js?v1"></script>
         <script>
-            window.addEventListener('load', async () => {
-                let response = await fetcher(`/auth/check`);
-                let result = await response.text();
+            function escapeHtml(s) {
+                return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+            }
 
-                if (result == 'A token is required for authentication' || result == 'Invalid Token') {
+            window.addEventListener('load', async () => {
+                const response = await fetcher(`/auth/profile`);
+                if (!response) return;
+
+                if (response.status === 403 || response.status === 401) {
                     alert('You must be logged in to access this.');
                     location.assign('/login.html');
+                    return;
+                }
+                if (response.status !== 200) {
+                    alert('Failed to load profile.');
+                    return;
+                }
+
+                const setContainer = document.getElementById('sets-container');
+                const noteContainer = document.getElementById('notes-container');
+                const json = await response.json();
+
+                document.getElementById('title').innerText = `${json.username}'s Profile`;
+
+                const setsRev = json.sets.slice().reverse();
+                const notesRev = json.notes.slice().reverse();
+
+                const setHtml = setsRev.map(s => `<div class="set">
+                    <p class="set-heading">${escapeHtml(s.name)}</p>
+                    <p class="set-description">${s.questions_count} questions</p>
+                    <p class="set-description">${s.completions || 0} completions</p>
+                    <br>
+                    <button style="margin-top: 12px;" onclick="location.assign('view-set.html?id=${encodeURIComponent(s.id)}');">View</button>
+                    <button onclick="deleteSet('${String(s.id).replace(/'/g, "\\'")}');" class="delete">Delete</button>
+                </div>`).join('');
+
+                setContainer.innerHTML = setHtml || '<p style="text-align: center">You have not created any sets yet.</p>';
+
+                if (notesRev.length === 0) {
+                    noteContainer.innerHTML = '<p style="text-align: center">You have not created any notes yet.</p>';
                 } else {
-                    let setContainer = document.getElementById('sets-container');
-                    let noteContainer = document.getElementById('notes-container');
-                    let json = JSON.parse(result);
-                    
-                    document.getElementById('title').innerText = `${json.username}'s Profile`;
-
-                    json.sets.reverse();
-                    
-                    for (set in json.sets) {
-                        if (json.sets[set] == '') continue;
-                        
-                        let setResponse = await fetcher(`/sets/get/${json.sets[set]}`);
-
-                        if (setResponse.status == 201) {
-                            let setJson = await setResponse.json();
-
-                            setContainer.innerHTML += `
-                            <div class="set">
-                                <p class="set-heading">${setJson.name}</p>
-
-                                <p class="set-description">${setJson.questions.length} questions</p>
-                                <p class="set-description">${setJson.completions || 0} completions</p>
-                                <br>
-                                
-                                <button style="margin-top: 12px;" onclick="location.assign('view-set.html?id=${json.sets[set]}');">View</button>
-                                <button onclick="deleteSet(${json.sets[set]});" class="delete">Delete</button>
-                            </div>
-                        `;
-                        }
+                    const noteFrag = document.createDocumentFragment();
+                    for (const n of notesRev) {
+                        const noteEle = document.createElement('div');
+                        noteEle.className = 'note';
+                        const noteHeading = document.createElement('p');
+                        noteHeading.className = 'note-heading';
+                        noteHeading.innerText = n.title;
+                        const deleteButton = document.createElement('button');
+                        deleteButton.innerText = 'Delete';
+                        deleteButton.className = 'delete';
+                        deleteButton.addEventListener('click', () => deleteNote(n.id));
+                        const viewButton = document.createElement('button');
+                        viewButton.innerText = 'View';
+                        viewButton.style.marginTop = '12px';
+                        viewButton.addEventListener('click', () => location.assign(`note.html?id=${n.id}`));
+                        noteEle.appendChild(noteHeading);
+                        noteEle.appendChild(viewButton);
+                        noteEle.appendChild(deleteButton);
+                        noteFrag.appendChild(noteEle);
                     }
-
-                    if (json.sets.length <= 1) {
-                        setContainer.innerHTML += '<p style="text-align: center">You have not created any sets yet.</p>'
-                    }
-
-                    json.notes.reverse();
-
-                    for (note in json.notes) {
-                        if (json.notes[note] == '') continue;
-                        
-                        let noteResponse = await fetcher(`/notes/get/${json.notes[note]}`);
-
-                        if (noteResponse.status == 201) {
-                            let noteJson = await noteResponse.json();
-                            
-                            let noteEle = document.createElement('div');
-                            noteEle.className = 'note';
-                            let noteHeading = document.createElement('p');
-                            noteHeading.className = 'note-heading';
-                            noteHeading.innerText = noteJson.title;
-                            let noteLink = document.createElement('input');
-                            noteLink.type = 'text';
-                            noteLink.value = `https://flashstudy.org/note.html?id=${json.notes[note]}`;
-                            noteLink.style.display = 'none';
-                            let deleteButton = document.createElement('button');
-                            deleteButton.innerText = 'Delete';
-                            deleteButton.className = 'delete';
-                            deleteButton.setAttribute('onclick', `deleteNote(${json.notes[note]})`);
-                            let viewButton = document.createElement('button');
-                            viewButton.innerText = 'View';
-                            viewButton.style.marginTop = '12px';
-                            viewButton.setAttribute('onclick', `location.assign('note.html?id=${json.notes[note]}')`);
-                            noteEle.appendChild(noteHeading);
-                            noteEle.appendChild(noteLink);
-                            noteEle.appendChild(viewButton);
-                            noteEle.appendChild(deleteButton);
-                            noteContainer.appendChild(noteEle);
-                        }
-                    }
-
-                    if (json.notes.length <= 1) {
-                        noteContainer.innerHTML += '<p style="text-align: center">You have not created any notes yet.</p>'
-                    }
+                    noteContainer.appendChild(noteFrag);
                 }
             });
 
