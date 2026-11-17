@@ -2,7 +2,7 @@
     --light-color: whitesmoke;
     --dark-color: #222;
     --accent-color: #49bfab;
-    --header-border: 2px solid var(--dark-color);
+    --header-border: 1px solid var(--dark-color);
     --content-border: 1px solid var(--dark-color);
 }
 
@@ -127,18 +127,18 @@ header svg {
     background-color: var(--accent-color);
 }
 #profile {
-    border-left: solid 2px var(--dark-color);
+    border-left: var(--header-border);
     float: right;
 }
 #back {
-    border-right: solid 2px var(--dark-color);
+    border-right: var(--header-border);
     float: left;
 }
 header img {
     float: left;
     position: relative;
     height: 100%;
-    border-right: solid 2px var(--dark-color);
+    border-right: var(--header-border);
     cursor: pointer;
 }
 #new {
@@ -150,7 +150,7 @@ header img {
     font-size: 12pt;
     cursor: pointer;
     border: none;
-    border-left: solid 2px var(--dark-color);
+    border-left: var(--header-border);
     background-color: var(--accent-color);
 }
 #title {
