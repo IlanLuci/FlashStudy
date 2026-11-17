@@ -203,3 +203,106 @@ header img {
     display: block;
     color: var(--dark-color);
 }
+
+.textInput {
+    display: inline;
+    color: var(--dark-color);
+    border: var(--content-border);
+    padding: 10px;
+    margin: 10px 8px 5px 8px;
+    outline: none;
+    background-color: transparent;
+    width: calc(50% - 40px);
+}
+.textInput::placeholder {
+    color: var(--dark-color);
+}
+.select {
+    margin-left: 5px;
+    margin-top: 8px;
+    outline: none;
+    position: relative;
+    top: -10px;
+    color: var(--dark-color);
+    height: 30px;
+    border: var(--content-border);
+    overflow: hidden;
+    overflow: -moz-hidden-unscrollable;
+    background: transparent;
+    padding: 5px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.input {
+    height: 30px;
+    border: var(--content-border);
+    overflow: hidden;
+    color: #d9dedd;
+    overflow: -moz-hidden-unscrollable;
+    background: transparent;
+    cursor: pointer;
+    padding: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+#colorSelect {
+    margin-left: 5px;
+    margin-top: 8px;
+}
+#fontSize {
+    padding: 5px 10px 5px 12px;
+}
+#editor {
+    min-height: 300px;
+    outline: none;
+    padding: 5px;
+    border-top: var(--content-border);
+}
+#create {
+    margin-top: 20px;
+    position: relative;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%);
+}
+#main svg {
+    border-radius: 8px;
+    padding: 3px;
+    margin-left: 5px;
+    color: var(--dark-color);
+}
+@media (max-width: 500px) {
+    .textInput {
+        width: calc(100% - 40px);
+    }
+}
+.questions {
+    display: inline-block;
+    width: 100%;
+}
+#new-question {
+    cursor: pointer;
+    margin-left: 50%;
+    transform: translate(-50%);
+    width: 150px;
+}
+#new-question:hover {
+    text-decoration: underline;
+}
+#q, #a {
+    margin-top: 35px;
+    margin-bottom: 10px;
+}
+.chars {
+    text-align: center;
+    width: 100%;
+    display: none;
+}
+.char {
+    font-size: 20pt;
+    border: var(--content-border);
+    width: 40px;
+    margin: 3px;
+    position: relative;
+}

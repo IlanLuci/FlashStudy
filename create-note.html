@@ -12,14 +12,6 @@
         <link rel="preload" href="6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7lujVj9w.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="stylesheet" href="main.css?12">
         <style>
-            #create {
-                margin-top: 20px;
-                position: relative;
-                bottom: 10px;
-                left: 50%;
-                transform: translate(-50%);
-            }
-            
             #main {
                 width: calc(100% - 37px);
                 border: var(--content-border);
@@ -32,85 +24,16 @@
                 font-size: 14pt;
                 color: #c25f46;
             }
-            .textInput {
-                display: inline;
-                color: var(--dark-color);
-                border: var(--content-border);
-                padding: 10px;
-                margin: 10px 8px 5px 8px;
-                outline: none;
-                background-color:transparent;
-                width: calc(50% - 40px);
-            }
-            .textInput::placeholder {
-                color: var(--dark-color);
-            }
             hr {
                 border: 0.5px solid var(--dark-color);
             }
             a {
                 color: #0f7e94;
             }
-
-            #main svg {
-                border-radius: 8px;
-                padding: 3px;
-                margin-left: 5px;
-                color: var(--dark-color);
-            }
-
-            .select {
-                margin-left: 5px;
-                margin-top: 8px;
-                outline: none;
-                position: relative;
-                top: -10px;
-                color: var(--dark-color);
-                height: 30px;
-                border: var(--content-border);
-                overflow: hidden;
-                overflow: -moz-hidden-unscrollable;
-                background: transparent;
-                padding: 5px;
-                cursor: pointer;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-            }
-            .input {
-                height: 30px;
-                border: var(--content-border);
-                overflow: hidden;
-                color: #d9dedd;
-                overflow: -moz-hidden-unscrollable;
-                background: transparent;
-                cursor: pointer;
-                padding: 5px;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-            }
-            #colorSelect {
-                margin-left: 5px;
-                margin-top: 8px;
-            }
-            #fontSize {
-                padding: 5px 10px 5px 12px;
-            }
-            #editor {
-                min-height: 300px;
-                outline: none;
-                padding: 5px;
-                border-top: var(--content-border);
-            }
             #title {
                 overflow: hidden;
                 width: calc(100vw - 120px);
                 white-space: nowrap;
-            }
-
-            @media (max-width: 500px) {
-                .textInput {
-                    width: calc(100% - 40px);
-                }
             }
             @media (max-width: 600px) {
                 #title {
